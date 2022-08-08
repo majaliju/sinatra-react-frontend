@@ -13,7 +13,6 @@ function App() {
    <ChakraProvider>
     <Header />
     <SongDisplay />
-    <SongSearch />
    </ChakraProvider>
   );
 }
