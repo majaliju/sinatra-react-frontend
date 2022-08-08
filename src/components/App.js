@@ -1,6 +1,7 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import SongDisplay from './SongDisplay'
-
+import Header from './Header';
+import SongSearch from './SongSearch';
 
 
 /* idea for this App is where people post their favorite songs
@@ -11,7 +12,7 @@ function App() {
   return (
    <ChakraProvider>
     <Header />
-    <Home />
+    <SongDisplay />
     <SongSearch />
    </ChakraProvider>
   );
