@@ -26,4 +26,4 @@ function SongDisplay() {
   )
 }
 
-export default Home;
+export default SongDisplay;
