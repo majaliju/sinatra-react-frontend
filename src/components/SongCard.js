@@ -1,5 +1,7 @@
 import { Box, Image, Badge } from '@chakra-ui/react'
 
+/* NOT THE IDEAL BUT A LITTLE SKETCH OF HOW THE SONGS AND REVIEWS SHOULD THEMSELVES POP UP FOR DISPLAY */
+
 function SongCard() {
   const property = {
     imageUrl: 'https://bit.ly/2Z4KKcF',
