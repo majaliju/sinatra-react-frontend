@@ -13,24 +13,8 @@ import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 
 
 function Header() {
-
-  // borrowed this code from a chakra UI template on a dark mode header menu
-  const NavLink = ({ children }: { children: ReactNode }) => (
-    <Link
-      px={2}
-      py={1}
-      rounded={'md'}
-      _hover={{
-        textDecoration: 'none',
-        bg: useColorModeValue('gray.200', 'gray.700'),
-      }}
-      href={'#'}>
-      {children}
-    </Link>
-  );
   
   const { colorMode, toggleColorMode } = useColorMode();
-  const { isOpen, onOpen, onClose } = useDisclosure();
   
   return (
     <div>
