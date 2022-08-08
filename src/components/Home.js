@@ -1,8 +1,10 @@
 import React from "react";
 import {Box, Text, Center} from "@chakra-ui/react"
+import SongCard from './SongCard'
 
 function Home() {
   return (
+    <div>
     <Box>
       <Center>
       <Text>
@@ -10,6 +12,15 @@ function Home() {
       </Text>
       </Center>
     </Box>
+    <Box>
+      <Center>
+        <Text>
+          HERE IS THE SECOND ELEMENT
+        </Text>
+        <SongCard />
+      </Center>
+    </Box>
+    </div>
   )
 }
 
