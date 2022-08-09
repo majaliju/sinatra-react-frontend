@@ -23,10 +23,9 @@ function App() {
   useEffect(() => {
     fetch("http://localhost:9292/reviews")
       .then((r) => r.json())
-      .then((initReviews) => setReviews(initReviews));
+      .then((info) => setReviews(info));
   }, []);
 
-  // gotta optimize the layout and where state lives
 
   return (
     <ChakraProvider>

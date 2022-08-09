@@ -7,13 +7,10 @@ function SongDisplay({ songs, setSongs, reviews, setReviews }) {
   // get GenreName and ArtistName methods, and Review class details from Song so I can map everything in one clean function
 
 
-
-  console.log("songs: ", songs);
-
   return (
     <div>
       {songs.map((song) => (
-        <Box maxW="sm" borderWidth="2px" borderRadius="lg" overflow="hidden">
+        <Box key = {song.id} maxW="sm" borderWidth="2px" borderRadius="lg" overflow="hidden">
           <Box p="5">
             <Box
               mt="1"
