@@ -16,7 +16,7 @@ function App() {
   useEffect(() => {
     fetch("http://localhost:9292/songs")
       .then((r) => r.json())
-      .then((initSongs) => setSongs(initSongs));
+      .then((data) => setSongs(data));
   }, []);
 
   // initializing our seeded Reviews
