@@ -44,8 +44,7 @@ function SongDisplay({ songs, setSongs, reviews, setReviews }) {
             >
               GENRE
             </Box>
-            {reviews.map((review) => (
-              <Box as="span" ml="2" color="gray.600" fontSize="sm">
+            <Box as="span" ml="2" color="gray.600" fontSize="sm">
               <Box display="flex" alignItems="baseline">
                 <Badge
                   borderRadius="full"
@@ -65,7 +64,6 @@ function SongDisplay({ songs, setSongs, reviews, setReviews }) {
                 </Badge>
               </Box>
             </Box>
-            ))};
           </Box>
         </Box>
       ))}
