@@ -11,11 +11,11 @@ function SongDisplay() {
         <SongCard />
       </Center>
     </Box>
-    <Box>
+    {/* <Box>
       <Center>
         <SongSearch />
       </Center>
-    </Box>
+    </Box> */}
     </div>
   )
 }

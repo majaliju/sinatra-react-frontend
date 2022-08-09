@@ -4,11 +4,10 @@ import { Box, Image, Badge } from '@chakra-ui/react'
 
 
 /* THE PROPERTY PROP SHOULD BE THE SONG PROP WITH PROPER VALUES INSTEAD */
-function SongCard() {
-  const property = {
-    title: 'ARTIST NAME',
-    reviewCount: 34,
-  }
+function SongCard({songs, setSongs, reviews, setReviews}) {
+
+  // create map functions for the reviews -- one card per review
+    
 
   return (
     <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden' bgColor = 'beige'>
@@ -31,7 +30,6 @@ function SongCard() {
           noOfLines={2}
           bgColor = 'gold'
         >
-          {property.title}
         </Box>
         <Box
           mt='1'
@@ -54,7 +52,7 @@ function SongCard() {
           GENRE
         </Box>
           <Box as='span' ml='2' color='gray.600' fontSize='sm'>
-            {property.reviewCount} reviews
+             {reviews}
           </Box>
       </Box>
     </Box>
