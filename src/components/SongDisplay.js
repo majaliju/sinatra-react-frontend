@@ -2,13 +2,11 @@ import { Box, Image, Badge, Center } from "@chakra-ui/react";
 
 /* NOT THE IDEAL BUT A LITTLE SKETCH OF HOW THE SONGS AND REVIEWS SHOULD THEMSELVES POP UP FOR DISPLAY */
 
-/* THE PROPERTY PROP SHOULD BE THE SONG PROP WITH PROPER VALUES INSTEAD */
 function SongDisplay({ songs, setSongs, reviews, setReviews }) {
   // create map functions for the individual songs and show reviews for each
+  // get GenreName and ArtistName methods, and Review class details from Song so I can map everything in one clean function
 
-  // const songList = songs.map((song) => {
-  //   console.log(song)
-  // })
+
 
   console.log("songs: ", songs);
 
