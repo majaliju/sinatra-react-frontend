@@ -1,4 +1,4 @@
-import { Box, Image, Badge, Center } from "@chakra-ui/react";
+import { Box, Image, Badge, Center, Flex } from "@chakra-ui/react";
 
 /* NOT THE IDEAL BUT A LITTLE SKETCH OF HOW THE SONGS AND REVIEWS SHOULD THEMSELVES POP UP FOR DISPLAY */
 
@@ -8,10 +8,10 @@ function SongDisplay({ songs, setSongs, reviews, setReviews }) {
 
 
   return (
-    <div>
+    <Flex>
       {songs.map((song) => (
-        <Box key = {song.id} maxW="sm" borderWidth="2px" borderRadius="lg" overflow="hidden">
-          <Box p="5">
+        <Box key = {song.id} maxW="lg" borderWidth="2px" borderRadius="lg" overflow="hidden">
+          <Box p="3">
             <Box
               mt="1"
               fontWeight="thin"
@@ -19,7 +19,7 @@ function SongDisplay({ songs, setSongs, reviews, setReviews }) {
               lineHeight="tight"
               noOfLines={2}
             >
-              {song.name}
+              {song.name.toUpperCase()}
             </Box>
             <Box
               mt="1"
@@ -28,7 +28,7 @@ function SongDisplay({ songs, setSongs, reviews, setReviews }) {
               lineHeight="tight"
               noOfLines={2}
             >
-              ARTIST NAME
+              {song.}
             </Box>
             <Box
               mt="1"
@@ -62,7 +62,7 @@ function SongDisplay({ songs, setSongs, reviews, setReviews }) {
           </Box>
         </Box>
       ))}
-    </div>
+    </Flex>
   );
 }
 
