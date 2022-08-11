@@ -71,7 +71,7 @@ function SongDisplay() {
                 lineHeight="tight"
                 noOfLines={2}
               > 
-                {(artists.find((artist) => artist.id == song.artist_id)).name}
+                {(artists.find((artist) => parseInt(artist.id) === parseInt(song.artist_id))).name}
               </Box>
 
               <Box
@@ -82,7 +82,7 @@ function SongDisplay() {
                 noOfLines={2}
               >
                 {/* {console.log("the genre.name should be: ", (genres.find((genre) => genre.id == song.genre_id)).name)} */}
-                {(genres.find((genre) => genre.id == song.genre_id)).name}
+                {(genres.find((genre) => parseInt(genre.id) === parseInt(song.genre_id))).name}
               </Box>
               <Box as="span" ml="2" color="gray.600" fontSize="sm">
                 <Box display="flex" alignItems="baseline">
