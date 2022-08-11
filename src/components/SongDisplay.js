@@ -39,10 +39,8 @@ function SongDisplay() {
       .then((reviewInfo) => setReviews(reviewInfo));
   }, []);
 
-  //  const matchArr = artists.find(() => artists.id === songs.artist_id)
-  //  // this version only renders Marvin Gaye (the first :name for each one)
-
-  // console.log("should be artist.name ", ((songs.map((song) => artists.find((artist) => artist.name ? song.artist_id === artist.id : "not found")))))
+  console.log("reviews info: ", reviews)
+  console.log("reviews.likes :", reviews.map((review) => review.likes))
   
     return (
     <div>
@@ -83,7 +81,7 @@ function SongDisplay() {
                 lineHeight="tight"
                 noOfLines={2}
               >
-                {console.log("the genre.name should be: ", (genres.find((genre) => genre.id == song.genre_id)).name)}
+                {/* {console.log("the genre.name should be: ", (genres.find((genre) => genre.id == song.genre_id)).name)} */}
                 {(genres.find((genre) => genre.id == song.genre_id)).name}
               </Box>
               <Box as="span" ml="2" color="gray.600" fontSize="sm">
@@ -93,8 +91,8 @@ function SongDisplay() {
                     fontWeight="normal"
                     px="5"
                     colorScheme="blue"
-                  >
-                    LIKE
+                  > LIKES
+                    {/* {(reviews.find((review) => review.song_id === song.id)).likes} */}
                   </Badge>
                   <Badge
                     borderRadius="full"
