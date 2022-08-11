@@ -2,14 +2,10 @@ import { Box, Image, Badge, Center, Flex } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import SongSearch from "./SongSearch";
 
-/* NOT THE IDEAL BUT A LITTLE SKETCH OF HOW THE SONGS AND REVIEWS SHOULD THEMSELVES POP UP FOR DISPLAY */
 
 function SongDisplay() {
-  // create map functions for the individual songs and show reviews for each
-  // get GenreName and ArtistName methods, and Review class details from Song so I can map everything in one clean function
-
-  // console.log("songs :", songs)
-  // console.log("artists :", artists)
+  
+  // my question here is: how to get the appropriate artists.name and genres.name for each song that has the matching songs.artist_id and songs.genre_id respectively?
 
   const [songs, setSongs] = useState([]);
   const [reviews, setReviews] = useState([]);
@@ -45,6 +41,18 @@ function SongDisplay() {
       .then((reviewInfo) => setReviews(reviewInfo));
   }, []);
 
+  // console.log("songs artist_id", songs.map(song => song.artist_id))
+  // console.log("artists IDs :", artists.map(artist => artist.id))
+
+
+   const matchArr = artists.find(() => artists.id === songs.artist_id) 
+   // this version only renders Marvin Gaye (the first :name for each one)
+
+   
+ 
+
+  console.log("matchArr.name :", matchArr.name)
+
   return (
     <div>
       <Box>
@@ -67,13 +75,9 @@ function SongDisplay() {
                 {song.name.toUpperCase()}
               </Box>
 
-              <Box
-                mt="1"
-                fontWeight="thin"
-                as="h4"
-                lineHeight="tight"
-                noOfLines={2}
-              > ARTIST NAME
+              <Box mt="1" fontWeight="thin" as="h4" lineHeight="tight" noOfLines={2}
+              > 
+              {matchArr.name}
               </Box>
 
               <Box
