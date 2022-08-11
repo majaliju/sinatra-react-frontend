@@ -1,15 +1,13 @@
-import {Box, Text, Center} from "@chakra-ui/react"
+import {Box, Text, Center, Input, Flex} from "@chakra-ui/react"
 
 function SongSearch() {
   return (
     <div>
-      <Box>
+      <Flex>
         <Center>
-        <Text>
-          THIS IS THE SEARCH FUNCTION HERE
-        </Text>
+        <Input variant='flushed' placeholder='search any song here' size='lg' />
         </Center>
-      </Box>
+      </Flex>
     </div>
   )
 }

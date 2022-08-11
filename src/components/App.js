@@ -25,14 +25,14 @@ function App() {
    useEffect(() => {
     fetch("http://localhost:9292/artists")
       .then((r) => r.json())
-      .then((artistsInfo) => setSongs(artistsInfo));
+      .then((artistsInfo) => setArtists(artistsInfo));
   }, []);
 
    // initializing our seeded Genres
    useEffect(() => {
     fetch("http://localhost:9292/genres")
       .then((r) => r.json())
-      .then((genreInfo) => setSongs(genreInfo));
+      .then((genreInfo) => setGenre(genreInfo));
   }, []);
 
   // initializing our seeded Reviews
@@ -43,15 +43,10 @@ function App() {
   }, []);
 
 
+
   return (
     <ChakraProvider>
       <Header />
-      <SongDisplay
-        songs={songs}
-        setSongs={setSongs}
-        reviews={reviews}
-        setReviews={setReviews}
-      />
       <SongSearch
         search={search}
         setSearch={setSearch}
@@ -60,6 +55,13 @@ function App() {
         reviews={reviews}
         setReviews={setReviews}
       />
+      <SongDisplay
+        songs={songs}
+        artists={artists}
+        genres={genres}
+        reviews={reviews}
+      />
+      
     </ChakraProvider>
   );
 }

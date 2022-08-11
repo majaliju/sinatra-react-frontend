@@ -2,15 +2,22 @@ import { Box, Image, Badge, Center, Flex } from "@chakra-ui/react";
 
 /* NOT THE IDEAL BUT A LITTLE SKETCH OF HOW THE SONGS AND REVIEWS SHOULD THEMSELVES POP UP FOR DISPLAY */
 
-function SongDisplay({ songs, setSongs, reviews, setReviews }) {
+function SongDisplay({ songs, artists, genres }) {
   // create map functions for the individual songs and show reviews for each
   // get GenreName and ArtistName methods, and Review class details from Song so I can map everything in one clean function
 
+  console.log("songs :", songs);
 
   return (
-    <Flex>
+    <Box>
       {songs.map((song) => (
-        <Box key = {song.id} maxW="lg" borderWidth="2px" borderRadius="lg" overflow="hidden">
+        <Box
+          key={song.id}
+          maxW="lg"
+          borderWidth="2px"
+          borderRadius="lg"
+          overflow="hidden"
+        >
           <Box p="3">
             <Box
               mt="1"
@@ -21,15 +28,34 @@ function SongDisplay({ songs, setSongs, reviews, setReviews }) {
             >
               {song.name.toUpperCase()}
             </Box>
-            <Box
+
+            {(() => {
+              if (song.artist_id === artists.id) {
+                return (
+                  <Box
+                    mt="1"
+                    fontWeight="thin"
+                    as="h4"
+                    lineHeight="tight"
+                    noOfLines={2}
+                  >
+                    {artists.name}
+                  </Box>
+                );
+              }
+
+              return "NOT FOUND";
+            })()}
+
+            {/* <Box
               mt="1"
               fontWeight="thin"
               as="h4"
               lineHeight="tight"
               noOfLines={2}
-            >
-              {song.}
-            </Box>
+            > {artists.id}
+            </Box> */}
+
             <Box
               mt="1"
               fontWeight="thin"
@@ -62,7 +88,7 @@ function SongDisplay({ songs, setSongs, reviews, setReviews }) {
           </Box>
         </Box>
       ))}
-    </Flex>
+    </Box>
   );
 }
 
