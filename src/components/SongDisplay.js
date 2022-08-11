@@ -2,9 +2,7 @@ import { Box, Image, Badge, Center, Flex } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import SongSearch from "./SongSearch";
 
-
 function SongDisplay() {
-  
   // my question here is: how to get the appropriate artists.name and genres.name for each song that has the matching songs.artist_id and songs.genre_id respectively?
 
   const [songs, setSongs] = useState([]);
@@ -41,19 +39,12 @@ function SongDisplay() {
       .then((reviewInfo) => setReviews(reviewInfo));
   }, []);
 
-  // console.log("songs artist_id", songs.map(song => song.artist_id))
-  // console.log("artists IDs :", artists.map(artist => artist.id))
+  //  const matchArr = artists.find(() => artists.id === songs.artist_id)
+  //  // this version only renders Marvin Gaye (the first :name for each one)
 
-
-   const matchArr = artists.find(() => artists.id === songs.artist_id) 
-   // this version only renders Marvin Gaye (the first :name for each one)
-
-   
- 
-
-  console.log("matchArr.name :", matchArr.name)
-
-  return (
+  // console.log("should be artist.name ", ((songs.map((song) => artists.find((artist) => artist.name ? song.artist_id === artist.id : "not found")))))
+  
+    return (
     <div>
       <Box>
         {songs.map((song) => (
@@ -75,9 +66,14 @@ function SongDisplay() {
                 {song.name.toUpperCase()}
               </Box>
 
-              <Box mt="1" fontWeight="thin" as="h4" lineHeight="tight" noOfLines={2}
+              <Box
+                mt="1"
+                fontWeight="thin"
+                as="h4"
+                lineHeight="tight"
+                noOfLines={2}
               > 
-              {matchArr.name}
+                {(artists.find((artist) => artist.id == song.artist_id)).name}
               </Box>
 
               <Box
@@ -87,7 +83,8 @@ function SongDisplay() {
                 lineHeight="tight"
                 noOfLines={2}
               >
-                GENRE
+                {console.log("the genre.name should be: ", (genres.find((genre) => genre.id == song.genre_id)).name)}
+                {(genres.find((genre) => genre.id == song.genre_id)).name}
               </Box>
               <Box as="span" ml="2" color="gray.600" fontSize="sm">
                 <Box display="flex" alignItems="baseline">
