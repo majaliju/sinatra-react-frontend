@@ -73,8 +73,7 @@ function SongDisplay() {
                 as="h4"
                 lineHeight="tight"
                 noOfLines={2}
-              >
-                {console.log("within that box, artist's name: ", artists.name)}
+              > ARTIST NAME
               </Box>
 
               <Box
