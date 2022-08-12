@@ -57,8 +57,12 @@ function SongDisplay() {
             borderWidth="2px"
             borderRadius="lg"
             overflow="hidden"
+      //       bg="#edf3f8"
+      // _dark={{
+      //   bg: "#3e3e3e",
+      // }}
           >
-            <Box p="3">
+            <Box p="2">
               <Box
                 mt="1"
                 fontWeight="thin"
@@ -96,7 +100,7 @@ function SongDisplay() {
       _dark={{
         bg: "#3e3e3e",
       }}
-      p={50}
+      p={1}
       alignItems="center"
       justifyContent="center"
     >
@@ -105,7 +109,7 @@ function SongDisplay() {
           base: "column",
         }}
         w="full"
-        shadow="lg"
+        shadow="2xl"
       >
         {(reviews.filter((review) => parseInt(review.song_id) === parseInt(song.id))).map((each) => 
           <Flex
@@ -154,7 +158,7 @@ function SongDisplay() {
                   </Button>
                 </Flex>
             </Flex>
-          )})
+          )}
       </Stack>
     </Flex>
     <Button variant="solid" colorScheme="green" size="sm">
