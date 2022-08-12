@@ -1,11 +1,9 @@
-import { Box, Image, Badge, Center, Flex } from "@chakra-ui/react";
+import { Box, Image, Badge, Center, Flex, Text } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import SongSearch from "./SongSearch";
-import SongReview from "./SongReviews";
 
 function SongDisplay() {
-  // my question here is: how to get the appropriate artists.name and genres.name for each song that has the matching songs.artist_id and songs.genre_id respectively?
-
+  
   const [songs, setSongs] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [artists, setArtists] = useState([]);
@@ -46,6 +44,8 @@ function SongDisplay() {
 
 
   // gotta create a button on each card that itself shows reviews, with their likes and dislikes
+
+  // gotta add room to write reviews on each card as well -- and a clean way to display the reviews as well
   
     return (
     <div>
@@ -88,6 +88,20 @@ function SongDisplay() {
               >
                 {/* {console.log("the genre.name should be: ", (genres.find((genre) => genre.id == song.genre_id)).name)} */}
                 {(genres.find((genre) => parseInt(genre.id) === parseInt(song.genre_id))).name}
+              </Box>
+              
+              <Box
+                mt="1"
+                fontWeight="thin"
+                as="h4"
+                lineHeight="tight"
+                noOfLines={2}
+              > 
+                {console.log("reviews filter: ", (reviews.filter((review) => parseInt(review.song_id) === parseInt(song.id))))}
+                {(reviews.filter((review) => parseInt(review.song_id) === parseInt(song.id))).map((each) => 
+                <Text>
+                  {each.comment}
+                </Text>)}
               </Box>
 
             </Box>
