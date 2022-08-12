@@ -1,9 +1,19 @@
-import { Box, Image, Badge, Center, Flex, Text, Button, SimpleGrid, Stack, span} from "@chakra-ui/react";
+import {
+  Box,
+  Image,
+  Badge,
+  Center,
+  Flex,
+  Text,
+  Button,
+  SimpleGrid,
+  Stack,
+  span,
+} from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import SongSearch from "./SongSearch";
 
 function SongDisplay() {
-  
   const [songs, setSongs] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [artists, setArtists] = useState([]);
@@ -38,154 +48,175 @@ function SongDisplay() {
       .then((reviewInfo) => setReviews(reviewInfo));
   }, []);
 
-  console.log("reviews info: ", reviews)
-  console.log("reviews.likes :", reviews.map((review) => review.likes))
-
-
+  console.log("reviews info: ", reviews);
+  console.log(
+    "reviews.likes :",
+    reviews.map((review) => review.likes)
+  );
 
   // (A) gotta create a button on each card that itself shows reviews, with their likes and dislikes
   // (B) gotta add room to write reviews on each card as well -- and a clean way to display the reviews as well
-  // (C) gotta also add an option to add a song 
-  
-    return (
+  // (C) gotta also add an option to add a song
+
+  return (
     <div>
       <Box>
-        {songs.map((song) => (
-          <Box
-            key={song.id}
-            maxW="lg"
-            borderWidth="2px"
-            borderRadius="lg"
-            overflow="hidden"
-      //       bg="#edf3f8"
-      // _dark={{
-      //   bg: "#3e3e3e",
-      // }}
-          >
-            <Box p="2">
-              <Box
-                mt="1"
-                fontWeight="thin"
-                as="h4"
-                lineHeight="tight"
-                noOfLines={2}
-              >
-                {song.name.toUpperCase()}
-              </Box>
-
-              <Box
-                mt="1"
-                fontWeight="thin"
-                as="h4"
-                lineHeight="tight"
-                noOfLines={2}
-              > 
-                {(artists.find((artist) => parseInt(artist.id) === parseInt(song.artist_id))).name}
-              </Box>
-
-              <Box
-                mt="1"
-                fontWeight="thin"
-                as="h4"
-                lineHeight="tight"
-                noOfLines={2}
-              >
-                {/* {console.log("the genre.name should be: ", (genres.find((genre) => genre.id == song.genre_id)).name)} */}
-                {(genres.find((genre) => parseInt(genre.id) === parseInt(song.genre_id))).name}
-              </Box>
-
-              <Flex
-      w="full"
-      bg="#edf3f8"
-      _dark={{
-        bg: "#3e3e3e",
-      }}
-      p={1}
-      alignItems="center"
-      justifyContent="center"
-    >
-      <Stack
-        direction={{
-          base: "column",
-        }}
-        w="full"
-        shadow="2xl"
-      >
-        {(reviews.filter((review) => parseInt(review.song_id) === parseInt(song.id))).map((each) => 
-          <Flex
-              direction={{
-                base: "row",
-                md: "column",
-              }}
-              bg="beige"
-              key={each.id}
+        <SongSearch
+          search={search}
+          setSearch={setSearch}
+          songs={songs}
+          setSongs={setSongs}
+          reviews={reviews}
+          setReviews={setReviews}
+        />
+        <Button variant="solid" colorScheme="yellow" size="lg">
+          ADD A NEW SONG
+        </Button>
+        <Box>
+          {" "}
+          {/* each card render */}
+          {songs.map((song) => (
+            <Box
+              key={song.id}
+              maxW="lg"
+              borderWidth="2px"
+              borderRadius="lg"
+              overflow="hidden"
+              //       bg="#edf3f8"
+              // _dark={{
+              //   bg: "#3e3e3e",
+              // }}
             >
-              <SimpleGrid
-                spacingY={3}
-                columns={{
-                  base: 1,
-                  md: 1,
-                }}
-                w={{
-                  base: 120,
-                  md: "full",
-                }}
-                bg="beige"
-                color="black"
-                py={{
-                  base: 1,
-                  md: 4,
-                }}
-                px={{
-                  base: 2,
-                  md: 2,
-                }}
-                fontSize="sm"
-                fontWeight="thin"
-              >
-                <span>{each.comment}</span>
-              </SimpleGrid>
-                <Flex
-                  justify={{
-                    md: "end",
-                  }}
+              <Box p="2">
+                <Box
+                  mt="1"
+                  fontWeight="thin"
+                  as="h4"
+                  lineHeight="tight"
+                  noOfLines={2}
                 >
-                  <Button variant="solid" colorScheme="blue" size="sm">
-                    {each.likes} LIKES
-                  </Button>
-                  <Button variant="solid" colorScheme="red" size="sm">
-                    {each.dislikes} DISLIKES
-                  </Button>
+                  {song.name.toUpperCase()}
+                </Box>
+
+                <Box
+                  mt="1"
+                  fontWeight="thin"
+                  as="h4"
+                  lineHeight="tight"
+                  noOfLines={2}
+                >
+                  {
+                    artists.find(
+                      (artist) =>
+                        parseInt(artist.id) === parseInt(song.artist_id)
+                    ).name
+                  }
+                </Box>
+
+                <Box
+                  mt="1"
+                  fontWeight="thin"
+                  as="h4"
+                  lineHeight="tight"
+                  noOfLines={2}
+                >
+                  {/* {console.log("the genre.name should be: ", (genres.find((genre) => genre.id == song.genre_id)).name)} */}
+                  {
+                    genres.find(
+                      (genre) => parseInt(genre.id) === parseInt(song.genre_id)
+                    ).name
+                  }
+                </Box>
+
+                <Flex
+                  w="full"
+                  bg="#edf3f8"
+                  _dark={{
+                    bg: "#3e3e3e",
+                  }}
+                  p={1}
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <Stack
+                    direction={{
+                      base: "column",
+                    }}
+                    w="full"
+                    shadow="2xl"
+                  >
+                    {reviews
+                      .filter(
+                        (review) =>
+                          parseInt(review.song_id) === parseInt(song.id)
+                      )
+                      .map((each) => (
+                        <Flex
+                          direction={{
+                            base: "row",
+                            md: "column",
+                          }}
+                          bg="beige"
+                          key={each.id}
+                        >
+                          <SimpleGrid
+                            spacingY={3}
+                            columns={{
+                              base: 1,
+                              md: 1,
+                            }}
+                            w={{
+                              base: 120,
+                              md: "full",
+                            }}
+                            bg="beige"
+                            color="black"
+                            py={{
+                              base: 1,
+                              md: 4,
+                            }}
+                            px={{
+                              base: 2,
+                              md: 2,
+                            }}
+                            fontSize="sm"
+                            fontWeight="thin"
+                          >
+                            <span>{each.comment}</span>
+                          </SimpleGrid>
+                          <Flex
+                            justify={{
+                              md: "end",
+                            }}
+                          >
+                            <Button
+                              variant="solid"
+                              colorScheme="blue"
+                              size="sm"
+                            >
+                              {each.likes} LIKES
+                            </Button>
+                            <Button variant="solid" colorScheme="red" size="sm">
+                              {each.dislikes} DISLIKES
+                            </Button>
+                          </Flex>
+                        </Flex>
+                      ))}
+                  </Stack>
                 </Flex>
-            </Flex>
-          )}
-      </Stack>
-    </Flex>
-    <Button variant="solid" colorScheme="green" size="sm">
-                    ADD REVIEW
-                  </Button>
-            
+                <Button variant="solid" colorScheme="green" size="sm">
+                  ADD REVIEW
+                </Button>
+              </Box>
             </Box>
-          </Box>
-        ))}
+          ))}
+        </Box>
       </Box>
-      <SongSearch
-        search={search}
-        setSearch={setSearch}
-        songs={songs}
-        setSongs={setSongs}
-        reviews={reviews}
-        setReviews={setReviews}
-      />
     </div>
   );
 }
 
 export default SongDisplay;
-
-
-
-
 
 // safe Review output -- each comment per line
 
@@ -204,8 +235,6 @@ export default SongDisplay;
                   </Text>
   
 */
-
-
 
 // this was the box that contains LIKES and DISLIKES counter
 /*
@@ -230,9 +259,6 @@ export default SongDisplay;
               </Box> 
 
               */
-
-
-
 
 //  https://choc-ui.com/docs/lists/tables
 // this is the table I'm going to use for the Reviews table

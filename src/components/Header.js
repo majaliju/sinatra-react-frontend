@@ -19,9 +19,10 @@ function Header() {
       <Box bg={useColorModeValue('white', 'dark-grey')} px={4}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <Box>BEST SONG REVIEWS</Box>
+          
 
           <Flex alignItems={'center'}>
-            <Stack direction={'row'} spacing={7}>
+            <Stack direction={'row'} spacing={4}>
               <Button onClick={toggleColorMode}>
                 {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
               </Button>
