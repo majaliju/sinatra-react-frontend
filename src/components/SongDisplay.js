@@ -11,7 +11,6 @@ import {
   span,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
-import SongSearch from "./SongSearch";
 
 function SongDisplay() {
   const [songs, setSongs] = useState([]);
@@ -61,14 +60,6 @@ function SongDisplay() {
   return (
     <div>
       <Box>
-        <SongSearch
-          search={search}
-          setSearch={setSearch}
-          songs={songs}
-          setSongs={setSongs}
-          reviews={reviews}
-          setReviews={setReviews}
-        />
         <Button variant="solid" colorScheme="yellow" size="lg">
           ADD A NEW SONG
         </Button>
