@@ -1,6 +1,7 @@
 import { Box, Image, Badge, Center, Flex } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import SongSearch from "./SongSearch";
+import SongReview from "./SongReviews";
 
 function SongDisplay() {
   // my question here is: how to get the appropriate artists.name and genres.name for each song that has the matching songs.artist_id and songs.genre_id respectively?
