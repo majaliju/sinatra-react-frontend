@@ -141,16 +141,6 @@ function SongDisplay() {
               >
                 <span>{each.comment}</span>
               </SimpleGrid>
-              <SimpleGrid
-                spacingY={1}
-                // columns={{
-                //   base: 0,
-                  // md: 2,
-                // }}
-                // w="full"
-                py={1}
-                fontWeight="hairline"
-              >
                 <Flex
                   justify={{
                     md: "end",
@@ -163,11 +153,13 @@ function SongDisplay() {
                     {each.dislikes} DISLIKES
                   </Button>
                 </Flex>
-              </SimpleGrid>
             </Flex>
           )})
       </Stack>
     </Flex>
+    <Button variant="solid" colorScheme="green" size="sm">
+                    ADD REVIEW
+                  </Button>
             
             </Box>
           </Box>
