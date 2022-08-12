@@ -41,6 +41,10 @@ function SongDisplay() {
 
   console.log("reviews info: ", reviews)
   console.log("reviews.likes :", reviews.map((review) => review.likes))
+
+
+
+  // gotta create a button on each card that itself shows reviews, with their likes and dislikes
   
     return (
     <div>
@@ -84,26 +88,7 @@ function SongDisplay() {
                 {/* {console.log("the genre.name should be: ", (genres.find((genre) => genre.id == song.genre_id)).name)} */}
                 {(genres.find((genre) => parseInt(genre.id) === parseInt(song.genre_id))).name}
               </Box>
-              <Box as="span" ml="2" color="gray.600" fontSize="sm">
-                <Box display="flex" alignItems="baseline">
-                  <Badge
-                    borderRadius="full"
-                    fontWeight="normal"
-                    px="5"
-                    colorScheme="blue"
-                  > LIKES
-                    {/* {(reviews.find((review) => review.song_id === song.id)).likes} */}
-                  </Badge>
-                  <Badge
-                    borderRadius="full"
-                    fontWeight="normal"
-                    px="5"
-                    colorScheme="red"
-                  >
-                    DISLIKE
-                  </Badge>
-                </Box>
-              </Box>
+
             </Box>
           </Box>
         ))}
@@ -121,3 +106,29 @@ function SongDisplay() {
 }
 
 export default SongDisplay;
+
+
+
+// this was the box that contains LIKES and DISLIKES counter
+/*
+              <Box as="span" ml="2" color="gray.600" fontSize="sm">
+                <Box display="flex" alignItems="baseline">
+                  <Badge
+                    borderRadius="full"
+                    fontWeight="normal"
+                    px="5"
+                    colorScheme="blue"
+                  > LIKES
+                  </Badge>
+                  <Badge
+                    borderRadius="full"
+                    fontWeight="normal"
+                    px="5"
+                    colorScheme="red"
+                  >
+                    DISLIKE
+                  </Badge>
+                </Box>
+              </Box> 
+
+              */
