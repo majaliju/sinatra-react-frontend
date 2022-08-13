@@ -41,38 +41,39 @@ function SongDisplay() {
       .then((reviewInfo) => setReviews(reviewInfo));
   }, []);
 
-  // handles button submissions
-  const handleReviewSubmit = (e) => {
-    e.preventDefault();
-    console.log("the review submit works!")
-    // updateReview()
-  }
-
-  // // updates the likes or dislikes
-  // // gotta fix the syntax here bc it's very sloppy
-  // function updateReview (){
-  //   fetch(`http://localhost:9292/reviews/:id`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "Access-Control-Allow-Origin" : "*"
-  //     },
-  //     body: JSON.stringify(),
-  //   })
-  //   .then((r) => r.json())
-  //   .then((reviewInfo) => setReviews(reviewInfo))
+  // // // handles button submissions
+  // const handleNewReviewSubmit = (e) => {
+  //   // e.preventDefault();
+  //   console.log("the review submit works!")
+  //   // console.log("song = ", song)
+  //   // console.log("updateReview() details: ", updateReview())
   // }
 
-  
-  const handleNewSongSubmit = (e) => {
-    e.preventDefault();
-    // should open a form that allows the user to input certain pieces of information
-    submitNewSong()
+  // updates the likes or dislikes
+  // gotta fix the syntax here bc it's very sloppy
+  function updateReview (id){
+    fetch(`http://localhost:9292/reviews/:${id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin" : "*"
+      },
+      body: JSON.stringify(id),
+    })
+    .then((r) => r.json())
+    .then((reviewInfo) => console.log("reviewInfo here in the fetch: ", reviewInfo))
   }
 
-  function submitNewSong(){
-    console.log("ok it works so that's good!")
-  }
+  
+  // const handleNewSongSubmit = (e) => {
+  //   e.preventDefault();
+  //   // should open a form that allows the user to input certain pieces of information
+  //   submitNewSong()
+  // }
+
+  // function submitNewSong(){
+  //   console.log("ok it works so that's good!")
+  // }
 
 
 
@@ -87,7 +88,7 @@ function SongDisplay() {
     <div>
       <Box>
         <Button variant="solid" colorScheme="yellow" size="lg" 
-        onClick={handleNewSongSubmit}
+        // onClick={handleNewSongSubmit}
         >
           ADD A NEW SONG
         </Button>
@@ -210,13 +211,25 @@ function SongDisplay() {
                               variant="solid"
                               colorScheme="blue"
                               size="sm"
-                              onClick={handleReviewSubmit}
-                            >
+                              onClick={() => {
+                                console.log("song = ", song.id)
+                                console.log("song_id= ", each.song_id)
+                                updateReview(each.song_id)
+                                console.log("updateReview(each.song_id) ", each.song_id)
+                
+                                }}>
+                            
                               {each.likes} LIKES
                             </Button>
                             <Button variant="solid" colorScheme="red" size="sm" 
-                            onClick={handleReviewSubmit}
-                            >
+                            onClick={() => {
+                              console.log("song = ", song.id)
+                              console.log("song_id= ", each.song_id)
+                              updateReview(each.song_id)
+                              console.log("updateReview(each.song_id) ", each.song_id)
+              
+                              }}>
+                            
                               {each.dislikes} DISLIKES
                             </Button>
                           </Flex>
@@ -225,7 +238,9 @@ function SongDisplay() {
                   </Stack>
                 </Flex>
                 <Button variant="solid" colorScheme="green" size="sm"
-                onClick={handleReviewSubmit}>
+                onClick={() => {
+                console.log("song.id = ", song.id)
+                }}>
                   ADD REVIEW
                 </Button>
               </Box>
