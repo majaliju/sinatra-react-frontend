@@ -9,7 +9,6 @@ import {
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 
 
-
 function Header() {
   
   const { colorMode, toggleColorMode } = useColorMode();

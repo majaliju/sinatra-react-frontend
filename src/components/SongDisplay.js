@@ -17,7 +17,6 @@ function SongDisplay() {
   const [reviews, setReviews] = useState([]);
   const [artists, setArtists] = useState([]);
   const [genres, setGenre] = useState([]);
-  const [search, setSearch] = useState("");
 
   // initializing our seeded Songs
   useEffect(() => {
@@ -47,11 +46,28 @@ function SongDisplay() {
       .then((reviewInfo) => setReviews(reviewInfo));
   }, []);
 
-  console.log("reviews info: ", reviews);
-  console.log(
-    "reviews.likes :",
-    reviews.map((review) => review.likes)
-  );
+  // handles button submissions
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // updateReview()
+  }
+
+  // // updates the likes or dislikes
+  // // gotta fix the syntax here bc it's very sloppy
+  // function updateReview (){
+  //   fetch(`http://localhost:9292/reviews/:id`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "Access-Control-Allow-Origin" : "*"
+  //     },
+  //     body: JSON.stringify(),
+  //   })
+  //   .then((r) => r.json())
+  //   .then((reviewInfo) => setReviews(reviewInfo))
+  // }
+
+
 
   // (A) gotta create a button on each card that itself shows reviews, with their likes and dislikes
   // (B) gotta add room to write reviews on each card as well -- and a clean way to display the reviews as well
@@ -64,8 +80,6 @@ function SongDisplay() {
           ADD A NEW SONG
         </Button>
         <Box>
-          {" "}
-          {/* each card render */}
           {songs.map((song) => (
             <Box
               key={song.id}
@@ -184,10 +198,11 @@ function SongDisplay() {
                               variant="solid"
                               colorScheme="blue"
                               size="sm"
+                              onClick={handleSubmit()}
                             >
                               {each.likes} LIKES
                             </Button>
-                            <Button variant="solid" colorScheme="red" size="sm">
+                            <Button variant="solid" colorScheme="red" size="sm" onClick={handleSubmit()}>
                               {each.dislikes} DISLIKES
                             </Button>
                           </Flex>
