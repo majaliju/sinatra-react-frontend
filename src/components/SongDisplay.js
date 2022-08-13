@@ -41,12 +41,12 @@ function SongDisplay() {
       .then((reviewInfo) => setReviews(reviewInfo));
   }, []);
 
-  // // handles button submissions
-  // const handleReviewSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log("e :", e.target.value)
-  //   updateReview()
-  // }
+  // handles button submissions
+  const handleReviewSubmit = (e) => {
+    e.preventDefault();
+    console.log("the review submit works!")
+    // updateReview()
+  }
 
   // // updates the likes or dislikes
   // // gotta fix the syntax here bc it's very sloppy
@@ -66,6 +66,7 @@ function SongDisplay() {
   
   const handleNewSongSubmit = (e) => {
     e.preventDefault();
+    // should open a form that allows the user to input certain pieces of information
     submitNewSong()
   }
 
@@ -75,9 +76,11 @@ function SongDisplay() {
 
 
 
-  // (A) gotta create a button on each card that itself shows reviews, with their likes and dislikes
-  // (B) gotta add room to write reviews on each card as well -- and a clean way to display the reviews as well
-  // (C) gotta also add an option to add a song
+
+ // (I) create a form that opens on ADD A SONG button
+ //     (Ia) create the function that POSTS that info to the backend
+  // (II) create a form that opens on ADD REVIEW button
+ //     (IIa) create the function that POSTS that info to the backend
 
 
   return (
@@ -207,12 +210,12 @@ function SongDisplay() {
                               variant="solid"
                               colorScheme="blue"
                               size="sm"
-                              // onClick={handleReviewSubmit}
+                              onClick={handleReviewSubmit}
                             >
                               {each.likes} LIKES
                             </Button>
                             <Button variant="solid" colorScheme="red" size="sm" 
-                            // onClick={handleReviewSubmit}
+                            onClick={handleReviewSubmit}
                             >
                               {each.dislikes} DISLIKES
                             </Button>
@@ -221,7 +224,8 @@ function SongDisplay() {
                       ))}
                   </Stack>
                 </Flex>
-                <Button variant="solid" colorScheme="green" size="sm">
+                <Button variant="solid" colorScheme="green" size="sm"
+                onClick={handleReviewSubmit}>
                   ADD REVIEW
                 </Button>
               </Box>
