@@ -1,14 +1,9 @@
 import {
   Box,
-  Image,
-  Badge,
-  Center,
   Flex,
-  Text,
   Button,
   SimpleGrid,
   Stack,
-  span,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 
@@ -46,11 +41,12 @@ function SongDisplay() {
       .then((reviewInfo) => setReviews(reviewInfo));
   }, []);
 
-  // handles button submissions
-  const handleReviewSubmit = (e) => {
-    e.preventDefault();
-    // updateReview()
-  }
+  // // handles button submissions
+  // const handleReviewSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log("e :", e.target.value)
+  //   updateReview()
+  // }
 
   // // updates the likes or dislikes
   // // gotta fix the syntax here bc it's very sloppy
@@ -67,9 +63,10 @@ function SongDisplay() {
   //   .then((reviewInfo) => setReviews(reviewInfo))
   // }
 
-  const handleNewSongSubmit = (e) => {
-    e.preventDefault();
-  }
+  // const handleNewSongSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log("e :", e)
+  // }
 
 
   // (A) gotta create a button on each card that itself shows reviews, with their likes and dislikes
@@ -79,7 +76,9 @@ function SongDisplay() {
   return (
     <div>
       <Box>
-        <Button variant="solid" colorScheme="yellow" size="lg" onClick={handleNewSongSubmit()}>
+        <Button variant="solid" colorScheme="yellow" size="lg" 
+        // onClick={handleNewSongSubmit()}
+        >
           ADD A NEW SONG
         </Button>
         <Box>
@@ -201,11 +200,13 @@ function SongDisplay() {
                               variant="solid"
                               colorScheme="blue"
                               size="sm"
-                              onClick={handleReviewSubmit()}
+                              // onClick={handleReviewSubmit()}
                             >
                               {each.likes} LIKES
                             </Button>
-                            <Button variant="solid" colorScheme="red" size="sm" onClick={handleReviewSubmit()}>
+                            <Button variant="solid" colorScheme="red" size="sm" 
+                            // onClick={handleReviewSubmit}
+                            >
                               {each.dislikes} DISLIKES
                             </Button>
                           </Flex>
