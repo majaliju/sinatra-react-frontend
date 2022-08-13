@@ -47,7 +47,7 @@ function SongDisplay() {
   }, []);
 
   // handles button submissions
-  const handleSubmit = (e) => {
+  const handleReviewSubmit = (e) => {
     e.preventDefault();
     // updateReview()
   }
@@ -67,6 +67,9 @@ function SongDisplay() {
   //   .then((reviewInfo) => setReviews(reviewInfo))
   // }
 
+  const handleNewSongSubmit = (e) => {
+    e.preventDefault();
+  }
 
 
   // (A) gotta create a button on each card that itself shows reviews, with their likes and dislikes
@@ -76,7 +79,7 @@ function SongDisplay() {
   return (
     <div>
       <Box>
-        <Button variant="solid" colorScheme="yellow" size="lg">
+        <Button variant="solid" colorScheme="yellow" size="lg" onClick={handleNewSongSubmit()}>
           ADD A NEW SONG
         </Button>
         <Box>
@@ -198,11 +201,11 @@ function SongDisplay() {
                               variant="solid"
                               colorScheme="blue"
                               size="sm"
-                              onClick={handleSubmit()}
+                              onClick={handleReviewSubmit()}
                             >
                               {each.likes} LIKES
                             </Button>
-                            <Button variant="solid" colorScheme="red" size="sm" onClick={handleSubmit()}>
+                            <Button variant="solid" colorScheme="red" size="sm" onClick={handleReviewSubmit()}>
                               {each.dislikes} DISLIKES
                             </Button>
                           </Flex>
