@@ -254,47 +254,86 @@ function SongDisplay() {
 
 export default SongDisplay;
 
-// safe Review output -- each comment per line
-
 /*
-<Box
-                mt="1"
-                fontWeight="thin"
-                as="h4"
-                lineHeight="tight"
-                noOfLines={2}
-              > 
-                {console.log("reviews filter: ", (reviews.filter((review) => parseInt(review.song_id) === parseInt(song.id))))}
-                {(reviews.filter((review) => parseInt(review.song_id) === parseInt(song.id))).map((each) => 
-                  <Text>
-                    {each.comment}
-                  </Text>
-  
+
+// THE FOCUS POPOVER I'M GOING TO USE FOR THE REVIEW BUTTON & THE SONG BUTTONS INDIVIDUALLY 
+// https://v0.chakra-ui.com/popover
+
+// import  FocusLock from "react-focus-lock"
+
+// 1. Create a text input component
+const TextInput = React.forwardRef((props, ref) => {
+  return (
+    <FormControl>
+      <FormLabel htmlFor={props.id}>{props.label}</FormLabel>
+      <Input ref={ref} id={props.id} {...props} />
+    </FormControl>
+  );
+});
+
+// 2. Create the form
+const Form = ({ firstFieldRef, onCancel }) => {
+  return (
+    <Stack spacing={4}>
+      <TextInput
+        label="First name"
+        id="first-name"
+        ref={firstFieldRef}
+        defaultValue="John"
+      />
+      <TextInput label="Last name" id="last-name" defaultValue="Smith" />
+      <ButtonGroup d="flex" justifyContent="flex-end">
+        <Button variant="outline" onClick={onCancel}>
+          Cancel
+        </Button>
+        <Button isDisabled variantColor="teal">
+          Save
+        </Button>
+      </ButtonGroup>
+    </Stack>
+  );
+};
+
+// 3. Create the Popover
+// Ensure you set `closeOnBlur` prop to false so it doesn't close on outside click
+const PopoverForm = () => {
+  const [isOpen, setIsOpen] = React.useState(false);
+  const firstFieldRef = React.useRef(null);
+  const open = () => setIsOpen(true);
+  const close = () => setIsOpen(false);
+  return (
+    <>
+      <Box d="inline-block" mr={3}>
+        John Smith
+      </Box>
+      <Popover
+        isOpen={isOpen}
+        initialFocusRef={firstFieldRef}
+        onOpen={open}
+        onClose={close}
+        placement="right"
+        closeOnBlur={false}
+      >
+        <PopoverTrigger>
+          <IconButton size="sm" icon="edit" />
+        </PopoverTrigger>
+        <PopoverContent zIndex={4} p={5}>
+          <FocusLock returnFocus persistentFocus={false}>
+            <PopoverArrow bg="white" />
+            <PopoverCloseButton />
+            <Form firstFieldRef={firstFieldRef} onCancel={close} />
+          </FocusLock>
+        </PopoverContent>
+      </Popover>
+    </>
+  );
+};
+
+render(<PopoverForm />);
+
+
 */
 
-// this was the box that contains LIKES and DISLIKES counter
-/*
-              <Box as="span" ml="2" color="gray.600" fontSize="sm">
-                <Box display="flex" alignItems="baseline">
-                  <Badge
-                    borderRadius="full"
-                    fontWeight="normal"
-                    px="5"
-                    colorScheme="blue"
-                  > LIKES
-                  </Badge>
-                  <Badge
-                    borderRadius="full"
-                    fontWeight="normal"
-                    px="5"
-                    colorScheme="red"
-                  >
-                    DISLIKE
-                  </Badge>
-                </Box>
-              </Box> 
-
-              */
 
 //  https://choc-ui.com/docs/lists/tables
 // this is the table I'm going to use for the Reviews table
