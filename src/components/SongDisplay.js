@@ -63,21 +63,28 @@ function SongDisplay() {
   //   .then((reviewInfo) => setReviews(reviewInfo))
   // }
 
-  // const handleNewSongSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log("e :", e)
-  // }
+  
+  const handleNewSongSubmit = (e) => {
+    e.preventDefault();
+    submitNewSong()
+  }
+
+  function submitNewSong(){
+    console.log("ok it works so that's good!")
+  }
+
 
 
   // (A) gotta create a button on each card that itself shows reviews, with their likes and dislikes
   // (B) gotta add room to write reviews on each card as well -- and a clean way to display the reviews as well
   // (C) gotta also add an option to add a song
 
+
   return (
     <div>
       <Box>
         <Button variant="solid" colorScheme="yellow" size="lg" 
-        // onClick={handleNewSongSubmit()}
+        onClick={handleNewSongSubmit}
         >
           ADD A NEW SONG
         </Button>
@@ -200,7 +207,7 @@ function SongDisplay() {
                               variant="solid"
                               colorScheme="blue"
                               size="sm"
-                              // onClick={handleReviewSubmit()}
+                              // onClick={handleReviewSubmit}
                             >
                               {each.likes} LIKES
                             </Button>
