@@ -1,6 +1,22 @@
 import { Box, Flex, Button, SimpleGrid, Stack } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 
+
+/* CURRENT OBJECTIVES */
+
+  // FIXING THE LIKES / DISLIKES BUTTONS
+  // (I) fix the PATCH fetch (onClick -> updateReview)
+  //    (Ia) separate them each for the likes & dislikes buttons
+  // CREATE THE TWO FORMS
+  // (II) create a form that opens on ADD A SONG button
+  //     (IIa) create the function that POSTS that info to the backend
+  // (III) create a form that opens on ADD REVIEW button
+  //     (IIIa) create the function that POSTS that info to the backend
+  // CLEANING UP THE MULTIPLE STATES
+  // (IV) using the promise.all method to clean up the setting of 4 states
+
+
+
 function SongDisplay() {
   const [songs, setSongs] = useState([]);
   const [reviews, setReviews] = useState([]);
@@ -54,10 +70,11 @@ function SongDisplay() {
 
       },
       body: JSON.stringify({
-        likes: {/* something here */}, 
-        dislikes: {/* something here */}
+        likes: (each.likes + 1),
+        dislikes: (each.dislikes + 1)
       }),
     })
+    .then(r => console.log("r: ", r))
       .then((r) => r.json())
       .then((reviewInfo) =>
         console.log("within updateReview:  ", reviewInfo)
@@ -74,10 +91,6 @@ function SongDisplay() {
   //   console.log("ok it works so that's good!")
   // }
 
-  // (I) create a form that opens on ADD A SONG button
-  //     (Ia) create the function that POSTS that info to the backend
-  // (II) create a form that opens on ADD REVIEW button
-  //     (IIa) create the function that POSTS that info to the backend
 
   return (
     <div>
@@ -210,17 +223,17 @@ function SongDisplay() {
                               colorScheme="blue"
                               size="sm"
                               onClick={() => {
-                                console.log("onClick - song's ID = ", song.id);
-                                console.log("onClick - song_id = ", each.song_id);
-                                console.log("onClick - review ID = ", each.id);
-                                console.log("onClick - each review = ", each);
+                                console.log("onClick - song.id = ", song.id);
+                                console.log("onClick - each.song_id = ", each.song_id);
+                                console.log("onClick - each.id = ", each.id);
+                                console.log("onClick - each =", each);
                                 updateReview(each.id);
                                 // console.log(
                                 //   "onClick - after pass to updateReview(each.id) review ID =",
                                 //   each.id
                                 // );
                                 console.log(
-                                  "onClick - after pass to updateReview(each)  =",
+                                  "onClick - after pass to updateReview(each); each =",
                                   each
                                 );
                               }}
@@ -232,13 +245,7 @@ function SongDisplay() {
                               colorScheme="red"
                               size="sm"
                               onClick={() => {
-                                console.log("song = ", song.id);
-                                console.log("song_id= ", each.song_id);
-                                updateReview(each.id);
-                                console.log(
-                                  "updateReview(each.id) ",
-                                  each.id
-                                );
+                                console.log("DISLIKES - each: ", each)
                               }}
                             >
                               {each.dislikes} DISLIKES
