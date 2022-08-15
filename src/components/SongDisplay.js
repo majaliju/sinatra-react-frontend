@@ -1,4 +1,4 @@
-import { Box, Flex, Button, SimpleGrid, Stack } from "@chakra-ui/react";
+import { Box, Flex, Button, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 
 
@@ -119,8 +119,8 @@ function SongDisplay() {
               <Box p="2">
                 <Box
                   mt="1"
-                  fontWeight="thin"
-                  as="h4"
+                  fontWeight="bold"
+                  as="h1"
                   lineHeight="tight"
                   noOfLines={2}
                 >
@@ -129,8 +129,8 @@ function SongDisplay() {
 
                 <Box
                   mt="1"
-                  fontWeight="thin"
-                  as="h4"
+                  fontWeight="normal"
+                  as="h1"
                   lineHeight="tight"
                   noOfLines={2}
                 >
@@ -138,14 +138,14 @@ function SongDisplay() {
                     artists.find(
                       (artist) =>
                         parseInt(artist.id) === parseInt(song.artist_id)
-                    ).name
+                    ).name.toUpperCase()
                   }
                 </Box>
 
                 <Box
                   mt="1"
                   fontWeight="thin"
-                  as="h4"
+                  as="h1"
                   lineHeight="tight"
                   noOfLines={2}
                 >
@@ -153,7 +153,7 @@ function SongDisplay() {
                   {
                     genres.find(
                       (genre) => parseInt(genre.id) === parseInt(song.genre_id)
-                    ).name
+                    ).name.toUpperCase()
                   }
                 </Box>
 
