@@ -59,8 +59,9 @@ function SongDisplay() {
   //   // console.log("updateReview() details: ", updateReview())
   // }
 
-  // updates the likes or dislikes
+  // updates the likes or dislikes on the review hash
   // gotta fix the syntax here bc it's very sloppy
+  // the endpoint itself works with diff IDs but the fetch itself doesn't
   function updateReview(each) {
     fetch(`http://localhost:9292/reviews/:${each.id}`, {
       method: "PATCH",
@@ -74,7 +75,7 @@ function SongDisplay() {
         dislikes: (each.dislikes + 1)
       }),
     })
-    .then(r => console.log("r: ", r))
+    .then(r => console.log("response: ", r))
       .then((r) => r.json())
       .then((reviewInfo) =>
         console.log("within updateReview:  ", reviewInfo)
