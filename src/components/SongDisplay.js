@@ -45,14 +45,18 @@ function SongDisplay() {
 
   // updates the likes or dislikes
   // gotta fix the syntax here bc it's very sloppy
-  function updateReview(id) {
-    fetch(`http://localhost:9292/reviews/:${id}`, {
+  function updateReview(each) {
+    fetch(`http://localhost:9292/reviews/:${each.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
+
       },
-      body: JSON.stringify(id),
+      body: JSON.stringify({
+        likes: {/* something here */}, 
+        dislikes: {/* something here */}
+      }),
     })
       .then((r) => r.json())
       .then((reviewInfo) =>
@@ -209,10 +213,15 @@ function SongDisplay() {
                                 console.log("onClick - song's ID = ", song.id);
                                 console.log("onClick - song_id = ", each.song_id);
                                 console.log("onClick - review ID = ", each.id);
+                                console.log("onClick - each review = ", each);
                                 updateReview(each.id);
+                                // console.log(
+                                //   "onClick - after pass to updateReview(each.id) review ID =",
+                                //   each.id
+                                // );
                                 console.log(
-                                  "onClick - after pass to updateReview(each.id) review ID =",
-                                  each.id
+                                  "onClick - after pass to updateReview(each)  =",
+                                  each
                                 );
                               }}
                             >
