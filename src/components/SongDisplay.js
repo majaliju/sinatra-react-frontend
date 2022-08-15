@@ -47,7 +47,7 @@ function SongDisplay() {
   // gotta fix the syntax here bc it's very sloppy
   function updateReview(id) {
     fetch(`http://localhost:9292/reviews/:${id}`, {
-      method: "POST",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
@@ -56,7 +56,7 @@ function SongDisplay() {
     })
       .then((r) => r.json())
       .then((reviewInfo) =>
-        console.log("reviewInfo here in the fetch: ", reviewInfo)
+        console.log("within updateReview:  ", reviewInfo)
       );
   }
 
@@ -206,12 +206,13 @@ function SongDisplay() {
                               colorScheme="blue"
                               size="sm"
                               onClick={() => {
-                                console.log("song = ", song.id);
-                                console.log("song_id= ", each.song_id);
-                                updateReview(each.song_id);
+                                console.log("onClick - song's ID = ", song.id);
+                                console.log("onClick - song_id = ", each.song_id);
+                                console.log("onClick - review ID = ", each.id);
+                                updateReview(each.id);
                                 console.log(
-                                  "updateReview(each.song_id) ",
-                                  each.song_id
+                                  "onClick - after pass to updateReview(each.id) review ID =",
+                                  each.id
                                 );
                               }}
                             >
@@ -224,10 +225,10 @@ function SongDisplay() {
                               onClick={() => {
                                 console.log("song = ", song.id);
                                 console.log("song_id= ", each.song_id);
-                                updateReview(each.song_id);
+                                updateReview(each.id);
                                 console.log(
-                                  "updateReview(each.song_id) ",
-                                  each.song_id
+                                  "updateReview(each.id) ",
+                                  each.id
                                 );
                               }}
                             >
