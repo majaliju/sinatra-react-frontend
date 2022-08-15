@@ -1,10 +1,4 @@
-import {
-  Box,
-  Flex,
-  Button,
-  SimpleGrid,
-  Stack,
-} from "@chakra-ui/react";
+import { Box, Flex, Button, SimpleGrid, Stack } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 
 function SongDisplay() {
@@ -51,20 +45,21 @@ function SongDisplay() {
 
   // updates the likes or dislikes
   // gotta fix the syntax here bc it's very sloppy
-  function updateReview (id){
+  function updateReview(id) {
     fetch(`http://localhost:9292/reviews/:${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin" : "*"
+        "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify(id),
     })
-    .then((r) => r.json())
-    .then((reviewInfo) => console.log("reviewInfo here in the fetch: ", reviewInfo))
+      .then((r) => r.json())
+      .then((reviewInfo) =>
+        console.log("reviewInfo here in the fetch: ", reviewInfo)
+      );
   }
 
-  
   // const handleNewSongSubmit = (e) => {
   //   e.preventDefault();
   //   // should open a form that allows the user to input certain pieces of information
@@ -75,20 +70,19 @@ function SongDisplay() {
   //   console.log("ok it works so that's good!")
   // }
 
-
-
-
- // (I) create a form that opens on ADD A SONG button
- //     (Ia) create the function that POSTS that info to the backend
+  // (I) create a form that opens on ADD A SONG button
+  //     (Ia) create the function that POSTS that info to the backend
   // (II) create a form that opens on ADD REVIEW button
- //     (IIa) create the function that POSTS that info to the backend
-
+  //     (IIa) create the function that POSTS that info to the backend
 
   return (
     <div>
       <Box>
-        <Button variant="solid" colorScheme="yellow" size="lg" 
-        // onClick={handleNewSongSubmit}
+        <Button
+          variant="solid"
+          colorScheme="red"
+          size="lg"
+          // onClick={handleNewSongSubmit}
         >
           ADD A NEW SONG
         </Button>
@@ -212,24 +206,31 @@ function SongDisplay() {
                               colorScheme="blue"
                               size="sm"
                               onClick={() => {
-                                console.log("song = ", song.id)
-                                console.log("song_id= ", each.song_id)
-                                updateReview(each.song_id)
-                                console.log("updateReview(each.song_id) ", each.song_id)
-                
-                                }}>
-                            
+                                console.log("song = ", song.id);
+                                console.log("song_id= ", each.song_id);
+                                updateReview(each.song_id);
+                                console.log(
+                                  "updateReview(each.song_id) ",
+                                  each.song_id
+                                );
+                              }}
+                            >
                               {each.likes} LIKES
                             </Button>
-                            <Button variant="solid" colorScheme="red" size="sm" 
-                            onClick={() => {
-                              console.log("song = ", song.id)
-                              console.log("song_id= ", each.song_id)
-                              updateReview(each.song_id)
-                              console.log("updateReview(each.song_id) ", each.song_id)
-              
-                              }}>
-                            
+                            <Button
+                              variant="solid"
+                              colorScheme="red"
+                              size="sm"
+                              onClick={() => {
+                                console.log("song = ", song.id);
+                                console.log("song_id= ", each.song_id);
+                                updateReview(each.song_id);
+                                console.log(
+                                  "updateReview(each.song_id) ",
+                                  each.song_id
+                                );
+                              }}
+                            >
                               {each.dislikes} DISLIKES
                             </Button>
                           </Flex>
@@ -237,10 +238,14 @@ function SongDisplay() {
                       ))}
                   </Stack>
                 </Flex>
-                <Button variant="solid" colorScheme="green" size="sm"
-                onClick={() => {
-                console.log("song.id = ", song.id)
-                }}>
+                <Button
+                  variant="solid"
+                  colorScheme="green"
+                  size="sm"
+                  onClick={() => {
+                    console.log("song.id = ", song.id);
+                  }}
+                >
                   ADD REVIEW
                 </Button>
               </Box>
@@ -333,7 +338,6 @@ render(<PopoverForm />);
 
 
 */
-
 
 //  https://choc-ui.com/docs/lists/tables
 // this is the table I'm going to use for the Reviews table
