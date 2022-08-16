@@ -22,10 +22,15 @@ function AddNewSong({submitNewSong}) {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors},
   } = useForm();
 
-  const onSubmit = data => submitNewSong(data)
+  const onSubmit = data => {
+    submitNewSong(data)
+    onClose()
+    reset()
+  }
 
 
   return (

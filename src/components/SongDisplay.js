@@ -10,10 +10,10 @@ import UpdateSong from "./UpdateSong";
 // (I) create a form that opens on ADD A SONG button
 //     (Ia) create the function that POSTS that info to the backend
 //      (Ib) create the backend workaround that handles this
-// (II) create a form that opens on ADD REVIEW button
-//     (IIa) create the function that POSTS that info to the backend
+// (III) create a form that opens on UPDATE SONG button
+//     (IIIa) create the function that PATCHES that info to the backend
 // CLEANING UP THE MULTIPLE STATES
-// (III) using the promise.all method (??) to clean up the setting of 4 states
+// (IV) using the promise.all method (??) to clean up the setting of 4 states
 
 function SongsDisplay() {
   const [songs, setSongs] = useState([]);
@@ -52,7 +52,56 @@ function SongsDisplay() {
   /* BOTH OF THE updateReview FUNCTIONS CAN BE OPTIMIZED INTO A SINGLE SOURCE
   THAT SEPARATES BASED OFF IF DISLIKE BUTTON OR LIKE BUTTON */
 
-  // updates the Likes per button click
+  // submits a new song via the ADD NEW SONG button
+  function submitNewSong(data) {
+    console.log("artistName: ", data.artistName);
+    console.log("songName: ", data.songName);
+    console.log("genreName: ", data.genreName);
+  }
+
+  // deletes our selected song via DELETE THIS SONG button
+  function deleteSong(song) {
+    fetch(`http://localhost:9292/songs/${song.id}`, {
+      method: "DELETE",
+    });
+    const remainingSongs = songs.filter(
+      (eachSong) => parseInt(eachSong.id) !== parseInt(song.id)
+    );
+    setSongs(remainingSongs);
+  }
+
+  // function updateSong(song) {
+  //   fetch(`http://localhost:9292/songs/${song.id}`, {
+  //     method: "PATCH",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "Access-Control-Allow-Origin": "*",
+  //     },
+  //     body: JSON.stringify({
+  //
+  //  }),
+  //   })
+  //     .then((r) => r.json())
+  //     .then((data) => console.log("data in updateSongYear: ", data));
+  // }
+
+  function submitNewReview(data, songID) {
+    fetch(`http://localhost:9292/reviews`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({
+        comment: data.comment,
+        song_id: songID,
+      }),
+    })
+      .then((r) => r.json())
+      .then((info) => setReviews([...reviews, info]));
+  }
+
+  // updates the likes per click on LIKE button
   function updateReviewLikes(each) {
     fetch(`http://localhost:9292/reviews/${each.id}`, {
       method: "PATCH",
@@ -77,7 +126,7 @@ function SongsDisplay() {
       .catch((err) => console.error(err));
   }
 
-  // updates the Dislikes per button click
+  // updates the dislikes per click on DISLIKE button
   function updateReviewDislikes(each) {
     fetch(`http://localhost:9292/reviews/${each.id}`, {
       method: "PATCH",
@@ -101,46 +150,6 @@ function SongsDisplay() {
       })
       .catch((err) => console.error(err));
   }
-
-  // deletes our selected song
-  function deleteSong(song) {
-    fetch(`http://localhost:9292/songs/${song.id}`, {
-      method: "DELETE",
-    });
-    const remainingSongs = songs.filter(
-      (eachSong) => parseInt(eachSong.id) !== parseInt(song.id)
-    );
-    setSongs(remainingSongs);
-  }
-
-  function submitNewSong(data){
-    console.log("artistName: ", data.artistName)
-    console.log("songName: ", data.songName)
-    console.log("genreName: ", data.genreName)
-  }
-
-  function submitNewReview(data, songID){
-    console.log(
-      "within AddReview component -- song.id: ",
-      songID)
-      console.log("within AddReview component -- the reviews for the song: ",
-      reviews.filter((review) => parseInt(review.song_id) === parseInt(songID)))   
-  console.log("data", data)
-  }
-
-
-  // function updateSong(song) {
-  //   fetch(`http://localhost:9292/songs/${song.id}`, {
-  //     method: "PATCH",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "Access-Control-Allow-Origin": "*",
-  //     },
-  //     body: JSON.stringify({}),
-  //   })
-  //     .then((r) => r.json())
-  //     .then((data) => console.log("data in updateSongYear: ", data));
-  // }
 
   // // need to create an optimal single function that separates
   // // the category based on if category = likes or = dislikes
@@ -170,12 +179,10 @@ function SongsDisplay() {
 
   return (
     <Flex>
-      <Flex>
+      <Flex id="songDisplayBody">
         {/* DISPLAYING THE SONG CARDS AND THEIR RESPECTIVE REVIEWS */}
         <Box>
-          <AddNewSong
-          submitNewSong={submitNewSong}
-          />
+          <AddNewSong submitNewSong={submitNewSong} />
           {songs.map((song) => (
             <Box
               key={song.id}
@@ -366,7 +373,7 @@ function SongsDisplay() {
           ))}
         </Box>
       </Flex>
-      <Box fontFamily="Helvetica" fontWeight="thin">
+      <Box id="songStats" fontFamily="Helvetica" fontWeight="thin">
         {/* DISPLAYING THE AGGREGATED LISTS OF ARTISTS, GENRES, AND SONGS*/}
         <Box maxW="lg" borderWidth="2px" borderRadius="lg" overflow="hidden">
           <Text fontWeight="normal" fontSize="3xl">
@@ -398,214 +405,3 @@ function SongsDisplay() {
 }
 
 export default SongsDisplay;
-
-/*
-
-// THE FOCUS POPOVER I'M GOING TO USE FOR THE REVIEW BUTTON & THE SONG BUTTONS INDIVIDUALLY 
-// https://v0.chakra-ui.com/popover
-
-// import  FocusLock from "react-focus-lock"
-
-// 1. Create a text input component
-const TextInput = React.forwardRef((props, ref) => {
-  return (
-    <FormControl>
-      <FormLabel htmlFor={props.id}>{props.label}</FormLabel>
-      <Input ref={ref} id={props.id} {...props} />
-    </FormControl>
-  );
-});
-
-// 2. Create the form
-const Form = ({ firstFieldRef, onCancel }) => {
-  return (
-    <Stack spacing={4}>
-      <TextInput
-        label="First name"
-        id="first-name"
-        ref={firstFieldRef}
-        defaultValue="John"
-      />
-      <TextInput label="Last name" id="last-name" defaultValue="Smith" />
-      <ButtonGroup d="flex" justifyContent="flex-end">
-        <Button variant="outline" onClick={onCancel}>
-          Cancel
-        </Button>
-        <Button isDisabled variantColor="teal">
-          Save
-        </Button>
-      </ButtonGroup>
-    </Stack>
-  );
-};
-
-// 3. Create the Popover
-// Ensure you set `closeOnBlur` prop to false so it doesn't close on outside click
-const PopoverForm = () => {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const firstFieldRef = React.useRef(null);
-  const open = () => setIsOpen(true);
-  const close = () => setIsOpen(false);
-  return (
-    <>
-      <Box d="inline-block" mr={3}>
-        John Smith
-      </Box>
-      <Popover
-        isOpen={isOpen}
-        initialFocusRef={firstFieldRef}
-        onOpen={open}
-        onClose={close}
-        placement="right"
-        closeOnBlur={false}
-      >
-        <PopoverTrigger>
-          <IconButton size="sm" icon="edit" />
-        </PopoverTrigger>
-        <PopoverContent zIndex={4} p={5}>
-          <FocusLock returnFocus persistentFocus={false}>
-            <PopoverArrow bg="white" />
-            <PopoverCloseButton />
-            <Form firstFieldRef={firstFieldRef} onCancel={close} />
-          </FocusLock>
-        </PopoverContent>
-      </Popover>
-    </>
-  );
-};
-
-render(<PopoverForm />);
-
-
-*/
-
-//  https://choc-ui.com/docs/lists/tables
-// this is the table I'm going to use for the Reviews table
-
-/*
-
-() => {
-  const data = [
-    {
-      name: "Segun Adebayo",
-      email: "sage@chakra.com",
-    },
-    {
-      name: "Josef Nikolas",
-      email: "Josef@mail.com",
-    },
-    {
-      name: "Lazar Nikolov",
-      email: "Lazar@mail.com",
-    },
-    {
-      name: "Abraham",
-      email: "abraham@anu.com",
-    },
-  ];
-  const dataColor = useColorModeValue("white", "gray.800");
-  const bg = useColorModeValue("white", "gray.800");
-  const bg2 = useColorModeValue("gray.100", "gray.700");
-  return (
-    <Flex
-      w="full"
-      bg="#edf3f8"
-      _dark={{
-        bg: "#3e3e3e",
-      }}
-      p={50}
-      alignItems="center"
-      justifyContent="center"
-    >
-      <Stack
-        direction={{
-          base: "column",
-        }}
-        w="full"
-        bg={{
-          md: bg,
-        }}
-        shadow="lg"
-      >
-        {data.map((person, pid) => {
-          return (
-            <Flex
-              direction={{
-                base: "row",
-                md: "column",
-              }}
-              bg={dataColor}
-              key={pid}
-            >
-              <SimpleGrid
-                spacingY={3}
-                columns={{
-                  base: 1,
-                  md: 3,
-                }}
-                w={{
-                  base: 120,
-                  md: "full",
-                }}
-                textTransform="uppercase"
-                bg={bg2}
-                color={"gray.500"}
-                py={{
-                  base: 1,
-                  md: 4,
-                }}
-                px={{
-                  base: 2,
-                  md: 10,
-                }}
-                fontSize="md"
-                fontWeight="hairline"
-              >
-                <span>Name</span>
-                <span>Email</span>
-                <chakra.span
-                  textAlign={{
-                    md: "right",
-                  }}
-                >
-                  Actions
-                </chakra.span>
-              </SimpleGrid>
-              <SimpleGrid
-                spacingY={3}
-                columns={{
-                  base: 1,
-                  md: 3,
-                }}
-                w="full"
-                py={2}
-                px={10}
-                fontWeight="hairline"
-              >
-                <span>{person.name}</span>
-                <chakra.span
-                  textOverflow="ellipsis"
-                  overflow="hidden"
-                  whiteSpace="nowrap"
-                >
-                  {person.email}
-                </chakra.span>
-                <Flex
-                  justify={{
-                    md: "end",
-                  }}
-                >
-                  <Button variant="solid" colorScheme="red" size="sm">
-                    Delete
-                  </Button>
-                </Flex>
-              </SimpleGrid>
-            </Flex>
-          );
-        })}
-      </Stack>
-    </Flex>
-  );
-};
-
-*/
