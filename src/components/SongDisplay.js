@@ -49,7 +49,7 @@ function SongDisplay() {
   }, []);
 
 
-  /* BOTH OF THE UPDATEREVIEW FUNCTIONS CAN BE OPTIMIZED INTO A SINGLE SOURCE
+  /* BOTH OF THE updateReview FUNCTIONS CAN BE OPTIMIZED INTO A SINGLE SOURCE
   THAT SEPARATES BASED OFF IF DISLIKE BUTTON OR LIKE BUTTON */
 
   // updates the Likes per button click
@@ -101,6 +101,34 @@ function SongDisplay() {
       })
       .catch((err) => console.error(err));
   }
+
+
+// // need to create an optimal single function that separates
+// // the category based on if category = likes or = dislikes
+//   function updateReview(each, category="likes") {
+//     fetch(`http://localhost:9292/reviews/${each.id}`, {
+//       method: "PATCH",
+//       headers: {
+//         "Content-Type": "application/json",
+//         "Access-Control-Allow-Origin": "*",
+//       },
+//       body: JSON.stringify({
+//         dislikes: each.category + 1,
+//       }),
+//     })
+//       .then((r) => r.json())
+//       .then((reviewInfo) => {
+//         const updatedReview = reviews.map((singleReview) => {
+//           if (parseInt(singleReview.id) === parseInt(reviewInfo.id)) {
+//             return { ...singleReview, category: reviewInfo.category };
+//           }
+//           return singleReview;
+//         });
+//         setReviews(updatedReview);
+//       })
+//       .catch((err) => console.error(err));
+//   }
+
 
   return (
     <div>
@@ -270,6 +298,7 @@ function SongDisplay() {
       </Box>
       <Box>
         {/* DISPLAYING THE AGGREGATED LISTS OF ARTISTS, GENRES, AND SONGS*/}
+        {/* DISPLAY A COUNT NEXT TO EACH NAME AS WELL */}
         <Box maxW="lg" borderWidth="2px" borderRadius="lg" overflow="hidden">
           <Text fontWeight="bold" fontSize="30px">
             SONGS LIST
