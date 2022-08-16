@@ -70,20 +70,27 @@ function SongsDisplay() {
     setSongs(remainingSongs);
   }
 
-  // function updateSong(song) {
-  //   fetch(`http://localhost:9292/songs/${song.id}`, {
-  //     method: "PATCH",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "Access-Control-Allow-Origin": "*",
-  //     },
-  //     body: JSON.stringify({
-  //
-  //  }),
-  //   })
-  //     .then((r) => r.json())
-  //     .then((data) => console.log("data in updateSongYear: ", data));
-  // }
+  function updateThisSong(song, data) {
+    fetch(`http://localhost:9292/songs/${song.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({
+        year: data.year,
+      }),
+    })
+      .then((r) => r.json())
+      .then((data) => { 
+        const correctedYear = songs.map((thisSong) => {
+          if (parseInt(thisSong.id) === parseInt(song.id)){
+            return {...thisSong, year: data.year}
+          }
+          return thisSong
+        })
+        setSongs(correctedYear)
+})}
 
   function submitNewReview(data, songID) {
     fetch(`http://localhost:9292/reviews`, {
@@ -344,12 +351,10 @@ function SongsDisplay() {
                   reviews={reviews}
                 />
                 <UpdateSong
-                  songs={songs}
-                  setSongs={setSongs}
+                  updateThisSong={updateThisSong}
+                  song={song}
                   artists={artists}
-                  setArtists={setArtists}
                   genres={genres}
-                  setGenre={setGenre}
                 />
 
                 {/* DELETE THIS SONG button */}
