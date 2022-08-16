@@ -48,11 +48,13 @@ function SongDisplay() {
       .then((reviewInfo) => setReviews(reviewInfo));
   }, []);
 
-  // updates the likes or dislikes on the review hash
-  // gotta fix the syntax here bc it's very sloppy
-  // the endpoint itself works with diff IDs but the fetch itself doesn't
-  function updateReview(each) {
-    fetch(`http://localhost:9292/reviews/:${each.id}`, {
+
+  /* BOTH OF THE UPDATEREVIEW FUNCTIONS CAN BE OPTIMIZED INTO A SINGLE SOURCE
+  THAT SEPARATES BASED OFF IF DISLIKE BUTTON OR LIKE BUTTON */
+
+  // updates the Likes per button click
+  function updateReviewLikes(each) {
+    fetch(`http://localhost:9292/reviews/${each.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -60,12 +62,43 @@ function SongDisplay() {
       },
       body: JSON.stringify({
         likes: each.likes + 1,
+      }),
+    })
+      .then((r) => r.json())
+      .then((reviewInfo) => {
+        const updatedReview = reviews.map((singleReview) => {
+          if (parseInt(singleReview.id) === parseInt(reviewInfo.id)) {
+            return { ...singleReview, likes: reviewInfo.likes };
+          }
+          return singleReview;
+        });
+        setReviews(updatedReview);
+      })
+      .catch((err) => console.error(err));
+  }
+
+  // updates the Dislikes per button click
+  function updateReviewDislikes(each) {
+    fetch(`http://localhost:9292/reviews/${each.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({
         dislikes: each.dislikes + 1,
       }),
     })
-      .then((r) => console.log("response: ", r))
       .then((r) => r.json())
-      .then((reviewInfo) => console.log("within updateReview:  ", reviewInfo))
+      .then((reviewInfo) => {
+        const updatedReview = reviews.map((singleReview) => {
+          if (parseInt(singleReview.id) === parseInt(reviewInfo.id)) {
+            return { ...singleReview, dislikes: reviewInfo.dislikes };
+          }
+          return singleReview;
+        });
+        setReviews(updatedReview);
+      })
       .catch((err) => console.error(err));
   }
 
@@ -197,18 +230,7 @@ function SongDisplay() {
                               colorScheme="blue"
                               size="sm"
                               onClick={() => {
-                                console.log("onClick - song.id = ", song.id);
-                                console.log(
-                                  "onClick - each.song_id = ",
-                                  each.song_id
-                                );
-                                console.log("onClick - each.id = ", each.id);
-                                console.log("onClick - each =", each);
-                                updateReview(each);
-                                console.log(
-                                  "onClick - after pass to updateReview(each); each =",
-                                  each
-                                );
+                                updateReviewLikes(each);
                               }}
                             >
                               {each.likes} LIKES
@@ -218,7 +240,7 @@ function SongDisplay() {
                               colorScheme="red"
                               size="sm"
                               onClick={() => {
-                                console.log("DISLIKES - each: ", each);
+                                updateReviewDislikes(each);
                               }}
                             >
                               {each.dislikes} DISLIKES
