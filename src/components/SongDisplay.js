@@ -1,5 +1,6 @@
 import { Box, Flex, Button, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
+import AddNewReview from "./AddNewReview";
 import AddNewSong from "./AddNewSong";
 
 /* CURRENT OBJECTIVES */
@@ -100,12 +101,14 @@ function SongDisplay() {
   }
 
   // deletes our selected song
-  function deleteSong(song){
+  function deleteSong(song) {
     fetch(`http://localhost:9292/songs/${song.id}`, {
-    method: "DELETE",
-    })
-    const remainingSongs = songs.filter((eachSong) => parseInt(eachSong.id) !== parseInt(song.id))
-    setSongs(remainingSongs)
+      method: "DELETE",
+    });
+    const remainingSongs = songs.filter(
+      (eachSong) => parseInt(eachSong.id) !== parseInt(song.id)
+    );
+    setSongs(remainingSongs);
   }
 
   // // need to create an optimal single function that separates
@@ -137,9 +140,16 @@ function SongDisplay() {
   return (
     <Flex>
       <Flex>
-        {/* DISPLAYING THE SONG CARDS AND THEIR RESPECTIVE REVIEW */}
+        {/* DISPLAYING THE SONG CARDS AND THEIR RESPECTIVE REVIEWS */}
         <Box>
-         <AddNewSong />
+          <AddNewSong
+            songs={songs}
+            setSongs={setSongs}
+            artists={artists}
+            setArtists={setArtists}
+            genres={genres}
+            setGenre={setGenre}
+          />
           {songs.map((song) => (
             <Box
               key={song.id}
@@ -150,6 +160,7 @@ function SongDisplay() {
               fontFamily="Helvetica"
             >
               <Box p="2">
+                {/* displays song's name */}
                 <Box
                   mt="1"
                   fontWeight="thin"
@@ -161,6 +172,7 @@ function SongDisplay() {
                   {song.name.toUpperCase()}
                 </Box>
 
+                {/* displays song's artist */}
                 <Box
                   mt="1"
                   fontWeight="thin"
@@ -177,6 +189,7 @@ function SongDisplay() {
                     .name.toUpperCase()}
                 </Box>
 
+                {/* displays song's genre */}
                 <Box
                   mt="1"
                   fontWeight="thin"
@@ -192,6 +205,7 @@ function SongDisplay() {
                     .name.toUpperCase()}
                 </Box>
 
+                {/* displays song's year */}
                 <Box
                   mt="1"
                   fontWeight="thin"
@@ -213,6 +227,7 @@ function SongDisplay() {
                   alignItems="center"
                   justifyContent="center"
                 >
+                  {/* displays the reviews for each song*/}
                   <Stack
                     direction={{
                       base: "column",
@@ -289,19 +304,9 @@ function SongDisplay() {
                       ))}
                   </Stack>
                 </Flex>
-                <Button
-                  variant="solid"
-                  colorScheme="green"
-                  size="sm"
-                  onClick={() => {
-                    console.log(
-                      "within AddReview button -- song.id: ",
-                      song.id
-                    );
-                  }}
-                >
-                  ADD REVIEW
-                </Button>
+                <AddNewReview songID={song.id} reviews={reviews} setReviews={setReviews}/>
+
+                {/* DELETE THIS SONG button */}
                 <Button
                   variant="solid"
                   colorScheme="orange"
@@ -311,7 +316,7 @@ function SongDisplay() {
                       "within DeleteSong button -- song.id: ",
                       song.id
                     );
-                    deleteSong(song)
+                    deleteSong(song);
                   }}
                 >
                   DELETE THIS SONG (WHY DID I CREATE THIS BUTTON??)

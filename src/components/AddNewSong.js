@@ -14,7 +14,7 @@ function AddNewSong() {
             colorScheme="red"
             size="lg"
             onClick={() => {
-              console.log("the add song button")
+              console.log("within AddNewSong!")
               
             }}
           >
