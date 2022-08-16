@@ -295,7 +295,6 @@ function SongDisplay() {
       </Box>
       <Box>
         {/* DISPLAYING THE AGGREGATED LISTS OF ARTISTS, GENRES, AND SONGS*/}
-        {/* DISPLAY A COUNT NEXT TO EACH NAME AS WELL */}
         <Box maxW="lg" borderWidth="2px" borderRadius="lg" overflow="hidden">
           <Text fontWeight="bold" fontSize="30px">
             SONGS LIST
