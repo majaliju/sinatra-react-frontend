@@ -215,6 +215,9 @@ function SongDisplay() {
                   noOfLines={2}
                 >
                   {song.year}
+                  <Button variant="outline" colorScheme="purple" size="xs" margin="2px">
+                    UPDATE YEAR
+                  </Button>
                 </Box>
 
                 <Flex
@@ -269,8 +272,9 @@ function SongDisplay() {
                               base: 2,
                               md: 2,
                             }}
-                            fontSize="sm"
-                            fontWeight="thin"
+                            fontSize="md"
+                            fontWeight="normal"
+                            fontFamily="Helvetica"
                           >
                             <span>{each.comment}</span>
                           </SimpleGrid>
@@ -304,7 +308,11 @@ function SongDisplay() {
                       ))}
                   </Stack>
                 </Flex>
-                <AddNewReview songID={song.id} reviews={reviews} setReviews={setReviews}/>
+                <AddNewReview
+                  songID={song.id}
+                  reviews={reviews}
+                  setReviews={setReviews}
+                />
 
                 {/* DELETE THIS SONG button */}
                 <Button

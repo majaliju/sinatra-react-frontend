@@ -2,7 +2,14 @@ import { Button } from '@chakra-ui/react';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
+
 function AddNewReview({songID, reviews, setReviews}){
+
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const onSubmit = data => console.log(data);
+  // console.log(errors);
+
+
   return (
     <div>
     <Button
@@ -20,6 +27,12 @@ function AddNewReview({songID, reviews, setReviews}){
   >
     ADD REVIEW
   </Button>
+  {/* <form onSubmit={handleSubmit(onSubmit)}>
+      <input type="text" placeholder="COMMENT" {...register("COMMENT", {required: true, max: 500, min: 10})} />
+
+      <input type="submit" />
+    </form> */}
+  
 
     </div>
   )

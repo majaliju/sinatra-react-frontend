@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 function AddNewSong() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = data => console.log(data);
-  console.log(errors);
+  // console.log(errors);
   
   return (
     <div>
@@ -15,7 +15,6 @@ function AddNewSong() {
             size="lg"
             onClick={() => {
               console.log("within AddNewSong!")
-              
             }}
           >
             ADD A NEW SONG
