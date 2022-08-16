@@ -131,7 +131,7 @@ function SongDisplay() {
 
 
   return (
-    <div>
+    <Flex>
       <Box>
         {/* DISPLAYING THE SONG CARDS AND THEIR RESPECTIVE REVIEW */}
         <Button
@@ -324,7 +324,7 @@ function SongDisplay() {
           ))}
         </Box>
       </Box>
-    </div>
+    </Flex>
   );
 }
 
