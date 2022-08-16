@@ -1,21 +1,18 @@
-import { Box, Flex, Button, SimpleGrid, Stack } from "@chakra-ui/react";
+import { Box, Flex, Button, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
-
 
 /* CURRENT OBJECTIVES */
 
-  // FIXING THE LIKES / DISLIKES BUTTONS
-  // (I) fix the PATCH fetch (onClick -> updateReview)
-  //    (Ia) separate them each for the likes & dislikes buttons
-  // CREATE THE TWO FORMS
-  // (II) create a form that opens on ADD A SONG button
-  //     (IIa) create the function that POSTS that info to the backend
-  // (III) create a form that opens on ADD REVIEW button
-  //     (IIIa) create the function that POSTS that info to the backend
-  // CLEANING UP THE MULTIPLE STATES
-  // (IV) using the promise.all method (??) to clean up the setting of 4 states
-
-
+// FIXING THE LIKES / DISLIKES BUTTONS
+// (I) fix the PATCH fetch (onClick -> updateReview)
+//    (Ia) separate them each for the likes & dislikes buttons
+// CREATE THE TWO FORMS
+// (II) create a form that opens on ADD A SONG button
+//     (IIa) create the function that POSTS that info to the backend
+// (III) create a form that opens on ADD REVIEW button
+//     (IIIa) create the function that POSTS that info to the backend
+// CLEANING UP THE MULTIPLE STATES
+// (IV) using the promise.all method (??) to clean up the setting of 4 states
 
 function SongDisplay() {
   const [songs, setSongs] = useState([]);
@@ -60,25 +57,22 @@ function SongDisplay() {
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
-
       },
       body: JSON.stringify({
-        likes: (each.likes + 1),
-        dislikes: (each.dislikes + 1)
+        likes: each.likes + 1,
+        dislikes: each.dislikes + 1,
       }),
     })
-    .then(r => console.log("response: ", r))
+      .then((r) => console.log("response: ", r))
       .then((r) => r.json())
-      .then((reviewInfo) =>
-        console.log("within updateReview:  ", reviewInfo)
-      )
-      .catch(err => console.error(err))
+      .then((reviewInfo) => console.log("within updateReview:  ", reviewInfo))
+      .catch((err) => console.error(err));
   }
-
 
   return (
     <div>
       <Box>
+        {/* DISPLAYING THE SONG CARDS AND THEIR RESPECTIVE REVIEW */}
         <Button
           variant="solid"
           colorScheme="red"
@@ -114,12 +108,12 @@ function SongDisplay() {
                   lineHeight="tight"
                   noOfLines={2}
                 >
-                  {
-                    artists.find(
+                  {artists
+                    .find(
                       (artist) =>
                         parseInt(artist.id) === parseInt(song.artist_id)
-                    ).name.toUpperCase()
-                  }
+                    )
+                    .name.toUpperCase()}
                 </Box>
 
                 <Box
@@ -130,11 +124,11 @@ function SongDisplay() {
                   noOfLines={2}
                 >
                   {/* {console.log("the genre.name should be: ", (genres.find((genre) => genre.id == song.genre_id)).name)} */}
-                  {
-                    genres.find(
+                  {genres
+                    .find(
                       (genre) => parseInt(genre.id) === parseInt(song.genre_id)
-                    ).name.toUpperCase()
-                  }
+                    )
+                    .name.toUpperCase()}
                 </Box>
 
                 <Flex
@@ -204,7 +198,10 @@ function SongDisplay() {
                               size="sm"
                               onClick={() => {
                                 console.log("onClick - song.id = ", song.id);
-                                console.log("onClick - each.song_id = ", each.song_id);
+                                console.log(
+                                  "onClick - each.song_id = ",
+                                  each.song_id
+                                );
                                 console.log("onClick - each.id = ", each.id);
                                 console.log("onClick - each =", each);
                                 updateReview(each);
@@ -221,7 +218,7 @@ function SongDisplay() {
                               colorScheme="red"
                               size="sm"
                               onClick={() => {
-                                console.log("DISLIKES - each: ", each)
+                                console.log("DISLIKES - each: ", each);
                               }}
                             >
                               {each.dislikes} DISLIKES
@@ -236,13 +233,43 @@ function SongDisplay() {
                   colorScheme="green"
                   size="sm"
                   onClick={() => {
-                    console.log("within AddReview button -- song.id: ", song.id);
+                    console.log(
+                      "within AddReview button -- song.id: ",
+                      song.id
+                    );
                   }}
                 >
                   ADD REVIEW
                 </Button>
               </Box>
             </Box>
+          ))}
+        </Box>
+      </Box>
+      <Box>
+        {/* DISPLAYING THE AGGREGATED LISTS OF ARTISTS, GENRES, AND SONGS*/}
+        <Box maxW="lg" borderWidth="2px" borderRadius="lg" overflow="hidden">
+          <Text fontWeight="bold" fontSize="30px">
+            SONGS LIST
+          </Text>
+          {songs.map((song) => (
+            <Text key={song.id}>{song.name}</Text>
+          ))}
+        </Box>
+        <Box maxW="lg" borderWidth="2px" borderRadius="lg" overflow="hidden">
+          <Text fontWeight="bold" fontSize="30px">
+            ARTISTS LIST
+          </Text>
+          {artists.map((artist) => (
+            <Text key={artist.id}>{artist.name}</Text>
+          ))}
+        </Box>
+        <Box maxW="lg" borderWidth="2px" borderRadius="lg" overflow="hidden">
+          <Text fontWeight="bold" fontSize="30px">
+            GENRES LIST
+          </Text>
+          {genres.map((genre) => (
+            <Text key={genre.id}>{genre.name}</Text>
           ))}
         </Box>
       </Box>
