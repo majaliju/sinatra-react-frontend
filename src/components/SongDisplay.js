@@ -112,6 +112,12 @@ function SongsDisplay() {
     setSongs(remainingSongs);
   }
 
+  function submitNewSong(data){
+    console.log("artistName: ", data.artistName)
+    console.log("songName: ", data.songName)
+    console.log("genreName: ", data.genreName)
+  }
+
 
   // function updateSong(song) {
   //   fetch(`http://localhost:9292/songs/${song.id}`, {
@@ -158,12 +164,7 @@ function SongsDisplay() {
         {/* DISPLAYING THE SONG CARDS AND THEIR RESPECTIVE REVIEWS */}
         <Box>
           <AddNewSong
-            songs={songs}
-            setSongs={setSongs}
-            artists={artists}
-            setArtists={setArtists}
-            genres={genres}
-            setGenre={setGenre}
+          submitNewSong={submitNewSong}
           />
           {songs.map((song) => (
             <Box

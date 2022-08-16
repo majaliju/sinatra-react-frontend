@@ -16,7 +16,7 @@ import {
 import React from "react";
 import { useForm } from "react-hook-form";
 
-function AddNewSong() {
+function AddNewSong({submitNewSong}) {
   const {isOpen, onClose, onOpen} = useDisclosure();
 
   const {
@@ -25,12 +25,8 @@ function AddNewSong() {
     formState: { errors},
   } = useForm();
 
-  const onSubmit = (e => {
-    console.log("it works!")
-    console.log("artist-name :", e.target.artistName.value)
-    console.log("artist-name :", e.target.songName.value)
-    console.log("artist-name :", e.target.genreName.value)
-  })
+  const onSubmit = data => submitNewSong(data)
+
 
   return (
     <div>
@@ -53,17 +49,18 @@ function AddNewSong() {
         <form id="AddNewSongForm" 
         onSubmit={handleSubmit(onSubmit)}>
           <FormControl>
+            <FormLabel fontSize="3xl">ADD YOUR FAVORITE SONG</FormLabel>
             <Input 
-            id="artistName" type="text" placeholder="ARTIST/BAND " {...register("ARTIST/BAND ", {required: true, max: 30, min: 1})}
+            id="artistName" type="text" placeholder="ARTIST" {...register("artistName", {required: true, max: 35, min: 1, maxLength: 80})}
             />
             <Input 
-            id="songName" type="text" placeholder="SONG NAME" {...register("SONG NAME", {required: true, max: 50, min: 1, maxLength: 100})}
+            id="songName" type="text" placeholder="SONG" {...register("songName", {required: true, max: 50, min: 1, maxLength: 100})}
             />
             <Input 
-            id="genreName" type="text" placeholder="GENRE" {...register("GENRE", {required: true, max: 30, min: 1})}
+            id="genreName" type="text" placeholder="GENRE" {...register("genreName", {required: true, max: 30, min: 1})}
             />
           </FormControl>
-          <Button mt={4} colorScheme='teal' w="100%" type='submit'>
+          <Button mt={4} colorScheme='pink' w="100%" type='submit'>
         SUBMIT
       </Button>
 
