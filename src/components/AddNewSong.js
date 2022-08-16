@@ -68,16 +68,6 @@ function AddNewSong({submitNewSong}) {
           </ModalBody>
         </ModalContent>
       </Modal>
-
-      {/* going to wrap this form within a modal */}
-              
-      {/* <form onSubmit={handleSubmit(onSubmit)}>
-      <input type="text" placeholder="ARTIST/BAND " {...register("ARTIST/BAND ", {required: true, max: 30, min: 1})} />
-      <input type="text" placeholder="SONG NAME" {...register("SONG NAME", {required: true, max: 50, min: 1, maxLength: 100})} />
-      <input type="text" placeholder="GENRE" {...register("GENRE", {required: true, max: 30, min: 1})} />
-
-      <input type="submit" />
-    </form> */}
     </div>
   );
 }

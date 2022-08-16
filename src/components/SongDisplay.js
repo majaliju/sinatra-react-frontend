@@ -9,6 +9,7 @@ import UpdateSong from "./UpdateSong";
 // CREATE THE TWO FORMS
 // (I) create a form that opens on ADD A SONG button
 //     (Ia) create the function that POSTS that info to the backend
+//      (Ib) create the backend workaround that handles this
 // (II) create a form that opens on ADD REVIEW button
 //     (IIa) create the function that POSTS that info to the backend
 // CLEANING UP THE MULTIPLE STATES
@@ -116,6 +117,15 @@ function SongsDisplay() {
     console.log("artistName: ", data.artistName)
     console.log("songName: ", data.songName)
     console.log("genreName: ", data.genreName)
+  }
+
+  function submitNewReview(data, songID){
+    console.log(
+      "within AddReview component -- song.id: ",
+      songID)
+      console.log("within AddReview component -- the reviews for the song: ",
+      reviews.filter((review) => parseInt(review.song_id) === parseInt(songID)))   
+  console.log("data", data)
   }
 
 
@@ -322,9 +332,9 @@ function SongsDisplay() {
                   </Stack>
                 </Flex>
                 <AddNewReview
+                  submitNewReview={submitNewReview}
                   songID={song.id}
                   reviews={reviews}
-                  setReviews={setReviews}
                 />
                 <UpdateSong
                   songs={songs}
