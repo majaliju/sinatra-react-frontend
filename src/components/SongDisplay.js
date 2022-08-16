@@ -142,15 +142,16 @@ function SongDisplay() {
           {songs.map((song) => (
             <Box
               key={song.id}
-              maxW="2xl"
+              maxW="xl"
               borderWidth="2px"
               borderRadius="lg"
               overflow="hidden"
+              fontFamily="Helvetica"
             >
               <Box p="2">
                 <Box
                   mt="1"
-                  fontWeight="normal"
+                  fontWeight="thin"
                   fontSize="3xl"
                   as="h1"
                   lineHeight="tight"
@@ -161,7 +162,7 @@ function SongDisplay() {
 
                 <Box
                   mt="1"
-                  fontWeight="normal"
+                  fontWeight="thin"
                   fontSize="2xl"
                   as="h1"
                   lineHeight="tight"
@@ -177,7 +178,7 @@ function SongDisplay() {
 
                 <Box
                   mt="1"
-                  fontWeight="normal"
+                  fontWeight="thin"
                   fontSize="xl"
                   as="h1"
                   lineHeight="tight"
@@ -192,7 +193,7 @@ function SongDisplay() {
 
                 <Box
                   mt="1"
-                  fontWeight="normal"
+                  fontWeight="thin"
                   fontSize="lg"
                   as="h1"
                   lineHeight="tight"
@@ -305,7 +306,7 @@ function SongDisplay() {
           ))}
         </Box>
       </Flex>
-      <Box>
+      <Box fontFamily="Helvetica">
         {/* DISPLAYING THE AGGREGATED LISTS OF ARTISTS, GENRES, AND SONGS*/}
         <Box maxW="lg" borderWidth="2px" borderRadius="lg" overflow="hidden">
           <Text fontWeight="bold" fontSize="30px">
