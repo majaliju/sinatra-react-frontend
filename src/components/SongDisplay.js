@@ -2,6 +2,7 @@ import { Box, Flex, Button, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import AddNewReview from "./AddNewReview";
 import AddNewSong from "./AddNewSong";
+import UpdateSong from "./UpdateSong";
 
 /* CURRENT OBJECTIVES */
 
@@ -13,7 +14,7 @@ import AddNewSong from "./AddNewSong";
 // CLEANING UP THE MULTIPLE STATES
 // (III) using the promise.all method (??) to clean up the setting of 4 states
 
-function SongDisplay() {
+function SongsDisplay() {
   const [songs, setSongs] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [artists, setArtists] = useState([]);
@@ -110,6 +111,20 @@ function SongDisplay() {
     );
     setSongs(remainingSongs);
   }
+
+
+  // function updateSong(song) {
+  //   fetch(`http://localhost:9292/songs/${song.id}`, {
+  //     method: "PATCH",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "Access-Control-Allow-Origin": "*",
+  //     },
+  //     body: JSON.stringify({}),
+  //   })
+  //     .then((r) => r.json())
+  //     .then((data) => console.log("data in updateSongYear: ", data));
+  // }
 
   // // need to create an optimal single function that separates
   // // the category based on if category = likes or = dislikes
@@ -215,9 +230,6 @@ function SongDisplay() {
                   noOfLines={2}
                 >
                   {song.year}
-                  <Button variant="outline" colorScheme="purple" size="xs" margin="2px">
-                    UPDATE YEAR
-                  </Button>
                 </Box>
 
                 <Flex
@@ -313,12 +325,21 @@ function SongDisplay() {
                   reviews={reviews}
                   setReviews={setReviews}
                 />
+                <UpdateSong
+                  songs={songs}
+                  setSongs={setSongs}
+                  artists={artists}
+                  setArtists={setArtists}
+                  genres={genres}
+                  setGenre={setGenre}
+                />
 
                 {/* DELETE THIS SONG button */}
                 <Button
                   variant="solid"
                   colorScheme="orange"
                   size="sm"
+                  w="100%"
                   onClick={() => {
                     console.log(
                       "within DeleteSong button -- song.id: ",
@@ -365,7 +386,7 @@ function SongDisplay() {
   );
 }
 
-export default SongDisplay;
+export default SongsDisplay;
 
 /*
 

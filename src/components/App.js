@@ -1,5 +1,5 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import SongDisplay from "./SongDisplay";
+import SongsDisplay from "./SongDisplay";
 import Header from "./Header";
 
 
@@ -11,7 +11,7 @@ function App() {
   return (
     <ChakraProvider>
       <Header />
-      <SongDisplay />
+      <SongsDisplay />
     </ChakraProvider>
   );
 }

@@ -13,8 +13,10 @@ function AddNewSong() {
             variant="solid"
             colorScheme="red"
             size="lg"
+            w="100%"
             onClick={() => {
               console.log("within AddNewSong!")
+
             }}
           >
             ADD A NEW SONG

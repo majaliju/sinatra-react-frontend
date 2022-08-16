@@ -16,12 +16,14 @@ function AddNewReview({songID, reviews, setReviews}){
     variant="solid"
     colorScheme="green"
     size="sm"
+    w="100%"
     onClick={() => {
       console.log(
         "within AddReview component -- song.id: ",
         songID,
         "within AddReview component -- the reviews for the song: ",
         reviews.filter((review) => parseInt(review.song_id) === parseInt(songID))
+
       );
     }}
   >
