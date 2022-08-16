@@ -1,4 +1,4 @@
-import { Box, Flex, Button, SimpleGrid, Stack, Text } from "@chakra-ui/react";
+import { Box, Flex, Button, SimpleGrid, Stack } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 
 
@@ -51,14 +51,6 @@ function SongDisplay() {
       .then((reviewInfo) => setReviews(reviewInfo));
   }, []);
 
-  // // // handles button submissions
-  // const handleNewReviewSubmit = (e) => {
-  //   // e.preventDefault();
-  //   console.log("the review submit works!")
-  //   // console.log("song = ", song)
-  //   // console.log("updateReview() details: ", updateReview())
-  // }
-
   // updates the likes or dislikes on the review hash
   // gotta fix the syntax here bc it's very sloppy
   // the endpoint itself works with diff IDs but the fetch itself doesn't
@@ -79,18 +71,9 @@ function SongDisplay() {
       .then((r) => r.json())
       .then((reviewInfo) =>
         console.log("within updateReview:  ", reviewInfo)
-      );
+      )
+      .catch(err => console.error(err))
   }
-
-  // const handleNewSongSubmit = (e) => {
-  //   e.preventDefault();
-  //   // should open a form that allows the user to input certain pieces of information
-  //   submitNewSong()
-  // }
-
-  // function submitNewSong(){
-  //   console.log("ok it works so that's good!")
-  // }
 
 
   return (
@@ -112,10 +95,6 @@ function SongDisplay() {
               borderWidth="2px"
               borderRadius="lg"
               overflow="hidden"
-              //       bg="#edf3f8"
-              // _dark={{
-              //   bg: "#3e3e3e",
-              // }}
             >
               <Box p="2">
                 <Box
@@ -228,11 +207,7 @@ function SongDisplay() {
                                 console.log("onClick - each.song_id = ", each.song_id);
                                 console.log("onClick - each.id = ", each.id);
                                 console.log("onClick - each =", each);
-                                updateReview(each.id);
-                                // console.log(
-                                //   "onClick - after pass to updateReview(each.id) review ID =",
-                                //   each.id
-                                // );
+                                updateReview(each);
                                 console.log(
                                   "onClick - after pass to updateReview(each); each =",
                                   each
@@ -261,7 +236,7 @@ function SongDisplay() {
                   colorScheme="green"
                   size="sm"
                   onClick={() => {
-                    console.log("song.id = ", song.id);
+                    console.log("within AddReview button -- song.id: ", song.id);
                   }}
                 >
                   ADD REVIEW
