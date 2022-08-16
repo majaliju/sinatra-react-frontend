@@ -45,7 +45,6 @@ function SongDisplay() {
       .then((reviewInfo) => setReviews(reviewInfo));
   }, []);
 
-
   /* BOTH OF THE updateReview FUNCTIONS CAN BE OPTIMIZED INTO A SINGLE SOURCE
   THAT SEPARATES BASED OFF IF DISLIKE BUTTON OR LIKE BUTTON */
 
@@ -99,53 +98,51 @@ function SongDisplay() {
       .catch((err) => console.error(err));
   }
 
-
-// // need to create an optimal single function that separates
-// // the category based on if category = likes or = dislikes
-//   function updateReview(each, category="likes") {
-//     fetch(`http://localhost:9292/reviews/${each.id}`, {
-//       method: "PATCH",
-//       headers: {
-//         "Content-Type": "application/json",
-//         "Access-Control-Allow-Origin": "*",
-//       },
-//       body: JSON.stringify({
-//         dislikes: each.category + 1,
-//       }),
-//     })
-//       .then((r) => r.json())
-//       .then((reviewInfo) => {
-//         const updatedReview = reviews.map((singleReview) => {
-//           if (parseInt(singleReview.id) === parseInt(reviewInfo.id)) {
-//             return { ...singleReview, category: reviewInfo.category };
-//           }
-//           return singleReview;
-//         });
-//         setReviews(updatedReview);
-//       })
-//       .catch((err) => console.error(err));
-//   }
-
+  // // need to create an optimal single function that separates
+  // // the category based on if category = likes or = dislikes
+  //   function updateReview(each, category="likes") {
+  //     fetch(`http://localhost:9292/reviews/${each.id}`, {
+  //       method: "PATCH",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         "Access-Control-Allow-Origin": "*",
+  //       },
+  //       body: JSON.stringify({
+  //         dislikes: each.category + 1,
+  //       }),
+  //     })
+  //       .then((r) => r.json())
+  //       .then((reviewInfo) => {
+  //         const updatedReview = reviews.map((singleReview) => {
+  //           if (parseInt(singleReview.id) === parseInt(reviewInfo.id)) {
+  //             return { ...singleReview, category: reviewInfo.category };
+  //           }
+  //           return singleReview;
+  //         });
+  //         setReviews(updatedReview);
+  //       })
+  //       .catch((err) => console.error(err));
+  //   }
 
   return (
     <Flex>
-      <Box>
+      <Flex>
         {/* DISPLAYING THE SONG CARDS AND THEIR RESPECTIVE REVIEW */}
-        <Button
-          variant="solid"
-          colorScheme="red"
-          size="lg"
-          onClick={() => {
-            console.log("the add song button" )
-          }}
-        >
-          ADD A NEW SONG
-        </Button>
         <Box>
+          <Button
+            variant="solid"
+            colorScheme="red"
+            size="lg"
+            onClick={() => {
+              console.log("the add song button");
+            }}
+          >
+            ADD A NEW SONG
+          </Button>
           {songs.map((song) => (
             <Box
               key={song.id}
-              maxW="lg"
+              maxW="2xl"
               borderWidth="2px"
               borderRadius="lg"
               overflow="hidden"
@@ -153,7 +150,8 @@ function SongDisplay() {
               <Box p="2">
                 <Box
                   mt="1"
-                  fontWeight="bold"
+                  fontWeight="normal"
+                  fontSize="3xl"
                   as="h1"
                   lineHeight="tight"
                   noOfLines={2}
@@ -164,6 +162,7 @@ function SongDisplay() {
                 <Box
                   mt="1"
                   fontWeight="normal"
+                  fontSize="2xl"
                   as="h1"
                   lineHeight="tight"
                   noOfLines={2}
@@ -178,17 +177,28 @@ function SongDisplay() {
 
                 <Box
                   mt="1"
-                  fontWeight="thin"
+                  fontWeight="normal"
+                  fontSize="xl"
                   as="h1"
                   lineHeight="tight"
                   noOfLines={2}
                 >
-                  {/* {console.log("the genre.name should be: ", (genres.find((genre) => genre.id == song.genre_id)).name)} */}
                   {genres
                     .find(
                       (genre) => parseInt(genre.id) === parseInt(song.genre_id)
                     )
                     .name.toUpperCase()}
+                </Box>
+
+                <Box
+                  mt="1"
+                  fontWeight="normal"
+                  fontSize="lg"
+                  as="h1"
+                  lineHeight="tight"
+                  noOfLines={2}
+                >
+                  {song.year}
                 </Box>
 
                 <Flex
@@ -294,7 +304,7 @@ function SongDisplay() {
             </Box>
           ))}
         </Box>
-      </Box>
+      </Flex>
       <Box>
         {/* DISPLAYING THE AGGREGATED LISTS OF ARTISTS, GENRES, AND SONGS*/}
         <Box maxW="lg" borderWidth="2px" borderRadius="lg" overflow="hidden">
