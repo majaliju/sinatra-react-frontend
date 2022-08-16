@@ -17,7 +17,7 @@ function Header() {
     <div>
       <Box bg={useColorModeValue('white', 'dark-grey')} px={4}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-          <Text fontWeight="bold" fontSize="42px" fontFamily="Helvetica">BEST SONG REVIEWS</Text>
+          <Text fontWeight="bold" fontSize="4xl" fontFamily="Helvetica">BEST SONG REVIEWS</Text>
           
 
           <Flex alignItems={'center'}>

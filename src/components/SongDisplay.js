@@ -135,7 +135,9 @@ function SongDisplay() {
           variant="solid"
           colorScheme="red"
           size="lg"
-          // onClick={handleNewSongSubmit}
+          onClick={() => {
+            console.log("the add song button" )
+          }}
         >
           ADD A NEW SONG
         </Button>
