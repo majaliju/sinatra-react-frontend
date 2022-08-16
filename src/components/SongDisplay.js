@@ -10,8 +10,6 @@ import UpdateSong from "./UpdateSong";
 // (I) create a form that opens on ADD A SONG button
 //     (Ia) create the function that POSTS that info to the backend
 //      (Ib) create the backend workaround that handles this
-// (III) create a form that opens on UPDATE SONG button
-//     (IIIa) create the function that PATCHES that info to the backend
 // CLEANING UP THE MULTIPLE STATES
 // (IV) using the promise.all method (??) to clean up the setting of 4 states
 
@@ -54,9 +52,22 @@ function SongsDisplay() {
 
   // submits a new song via the ADD NEW SONG button
   function submitNewSong(data) {
-    console.log("artistName: ", data.artistName);
-    console.log("songName: ", data.songName);
-    console.log("genreName: ", data.genreName);
+    fetch(`http://localhost:9292/songs`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({
+        name: data.songName,
+        year: data.year,
+        // bottom two aren't actually keys 
+        artist: data.artistName,
+        genre: data.genreName
+      }),
+    })
+      .then((r) => r.json())
+      .then((thisSong) => setSongs([...songs, thisSong]));
   }
 
   // deletes our selected song via DELETE THIS SONG button

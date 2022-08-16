@@ -21,7 +21,6 @@ function UpdateSong({updateThisSong, song, artists, genres}) {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
   const onSubmit = data => {
-    console.log("data from inside updateSong: ", data)
     updateThisSong(song, data)
     onClose()
     reset()
@@ -37,7 +36,7 @@ function UpdateSong({updateThisSong, song, artists, genres}) {
                     margin="2px"
                     onClick={onOpen}
                   >
-                    UPDATE THIS SONG'S INFO
+                    UPDATE THIS SONG WITH THE RIGHT YEAR
                   </Button>
                   <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -49,7 +48,7 @@ function UpdateSong({updateThisSong, song, artists, genres}) {
         <form id="AddNewSongForm" 
         onSubmit={handleSubmit(onSubmit)}>
           <FormControl>
-            <FormLabel fontSize="3xl">FIX WHAT YOU THINK IS WRONG</FormLabel>
+            <FormLabel fontSize="xl">WHAT YEAR IS IT SUPPOSED TO BE?</FormLabel>
             {/* <Input 
             id="genreName" type="text" placeholder="GENRE" {...register("genre", {required: true, max: 30, min: 1})}
             /> */}
@@ -57,6 +56,7 @@ function UpdateSong({updateThisSong, song, artists, genres}) {
             id="year" type="number" placeholder="YEAR" {...register("year", { max: 2023, min: 1000, maxLength: 4})}
             />
           </FormControl>
+        
           <Button mt={4} colorScheme='pink' w="100%" type='submit'>
         SUBMIT
       </Button>
