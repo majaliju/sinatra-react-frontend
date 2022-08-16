@@ -1,5 +1,6 @@
 import { Box, Flex, Button, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
+import AddNewSong from "./AddNewSong";
 
 /* CURRENT OBJECTIVES */
 
@@ -138,16 +139,7 @@ function SongDisplay() {
       <Flex>
         {/* DISPLAYING THE SONG CARDS AND THEIR RESPECTIVE REVIEW */}
         <Box>
-          <Button
-            variant="solid"
-            colorScheme="red"
-            size="lg"
-            onClick={() => {
-              console.log("the add song button");
-            }}
-          >
-            ADD A NEW SONG
-          </Button>
+         <AddNewSong />
           {songs.map((song) => (
             <Box
               key={song.id}
@@ -329,10 +321,10 @@ function SongDisplay() {
           ))}
         </Box>
       </Flex>
-      <Box fontFamily="Helvetica">
+      <Box fontFamily="Helvetica" fontWeight="thin">
         {/* DISPLAYING THE AGGREGATED LISTS OF ARTISTS, GENRES, AND SONGS*/}
         <Box maxW="lg" borderWidth="2px" borderRadius="lg" overflow="hidden">
-          <Text fontWeight="bold" fontSize="30px">
+          <Text fontWeight="normal" fontSize="3xl">
             SONGS LIST
           </Text>
           {songs.map((song) => (
@@ -340,7 +332,7 @@ function SongDisplay() {
           ))}
         </Box>
         <Box maxW="lg" borderWidth="2px" borderRadius="lg" overflow="hidden">
-          <Text fontWeight="bold" fontSize="30px">
+          <Text fontWeight="normal" fontSize="3xl">
             ARTISTS LIST
           </Text>
           {artists.map((artist) => (
@@ -348,7 +340,7 @@ function SongDisplay() {
           ))}
         </Box>
         <Box maxW="lg" borderWidth="2px" borderRadius="lg" overflow="hidden">
-          <Text fontWeight="bold" fontSize="30px">
+          <Text fontWeight="normal" fontSize="3xl">
             GENRES LIST
           </Text>
           {genres.map((genre) => (
