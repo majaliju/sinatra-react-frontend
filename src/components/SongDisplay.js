@@ -3,16 +3,13 @@ import { useState, useEffect } from "react";
 
 /* CURRENT OBJECTIVES */
 
-// FIXING THE LIKES / DISLIKES BUTTONS
-// (I) fix the PATCH fetch (onClick -> updateReview)
-//    (Ia) separate them each for the likes & dislikes buttons
 // CREATE THE TWO FORMS
-// (II) create a form that opens on ADD A SONG button
+// (I) create a form that opens on ADD A SONG button
+//     (Ia) create the function that POSTS that info to the backend
+// (II) create a form that opens on ADD REVIEW button
 //     (IIa) create the function that POSTS that info to the backend
-// (III) create a form that opens on ADD REVIEW button
-//     (IIIa) create the function that POSTS that info to the backend
 // CLEANING UP THE MULTIPLE STATES
-// (IV) using the promise.all method (??) to clean up the setting of 4 states
+// (III) using the promise.all method (??) to clean up the setting of 4 states
 
 function SongDisplay() {
   const [songs, setSongs] = useState([]);
