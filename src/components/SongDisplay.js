@@ -13,7 +13,7 @@ import { useState, useEffect } from "react";
   // (III) create a form that opens on ADD REVIEW button
   //     (IIIa) create the function that POSTS that info to the backend
   // CLEANING UP THE MULTIPLE STATES
-  // (IV) using the promise.all method to clean up the setting of 4 states
+  // (IV) using the promise.all method (??) to clean up the setting of 4 states
 
 
 
