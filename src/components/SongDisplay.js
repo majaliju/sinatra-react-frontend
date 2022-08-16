@@ -98,6 +98,15 @@ function SongDisplay() {
       .catch((err) => console.error(err));
   }
 
+  // deletes our selected song
+  function deleteSong(song){
+    fetch(`http://localhost:9292/songs/${song.id}`, {
+    method: "DELETE",
+    })
+    const remainingSongs = songs.filter((eachSong) => parseInt(eachSong.id) !== parseInt(song.id))
+    setSongs(remainingSongs)
+  }
+
   // // need to create an optimal single function that separates
   // // the category based on if category = likes or = dislikes
   //   function updateReview(each, category="likes") {
@@ -300,6 +309,20 @@ function SongDisplay() {
                   }}
                 >
                   ADD REVIEW
+                </Button>
+                <Button
+                  variant="solid"
+                  colorScheme="orange"
+                  size="sm"
+                  onClick={() => {
+                    console.log(
+                      "within DeleteSong button -- song.id: ",
+                      song.id
+                    );
+                    deleteSong(song)
+                  }}
+                >
+                  DELETE THIS SONG (WHY DID I CREATE THIS BUTTON??)
                 </Button>
               </Box>
             </Box>
