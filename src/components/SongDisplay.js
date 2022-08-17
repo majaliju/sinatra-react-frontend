@@ -26,6 +26,8 @@ function SongsDisplay() {
       .then((songsInfo) => setSongs(songsInfo));
   }, []);
 
+  console.log("songs", songs)
+
   // initializing our seeded Artists
   useEffect(() => {
     fetch("http://localhost:9292/artists")
@@ -51,7 +53,7 @@ function SongsDisplay() {
   THAT SEPARATES BASED OFF IF DISLIKE BUTTON OR LIKE BUTTON */
 
   // submits a new song via the ADD NEW SONG button
-  function submitNewSong(data) {
+  function submitNewSong(data, artists, genres) {
     fetch(`http://localhost:9292/songs`, {
       method: "POST",
       headers: {
@@ -62,12 +64,15 @@ function SongsDisplay() {
         name: data.songName,
         year: data.year,
         // bottom two aren't actually keys 
-        artist: data.artistName,
-        genre: data.genreName
+        // artistName: data.artistName,
+        // genreName: data.genreName
+        // artist_id: 
+        // genre_id:
       }),
     })
       .then((r) => r.json())
-      .then((thisSong) => setSongs([...songs, thisSong]));
+      .then((data) => console.log(data))
+      // .then((thisSong) => setSongs([...songs, thisSong]));
   }
 
   // deletes our selected song via DELETE THIS SONG button

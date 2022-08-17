@@ -64,6 +64,9 @@ function AddNewSong({submitNewSong}) {
             <Input 
             id="genreName" type="text" placeholder="GENRE" {...register("genreName", {required: true, max: 30, min: 1})}
             />
+             <Input 
+            id="year" type="number" placeholder="YEAR" {...register("year", { max: 2023, min: 1000, maxLength: 4})}
+            />
           </FormControl>
           <Button mt={4} colorScheme='pink' w="100%" type='submit'>
         SUBMIT
