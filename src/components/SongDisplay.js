@@ -26,7 +26,7 @@ function SongsDisplay() {
       .then((songsInfo) => setSongs(songsInfo));
   }, []);
 
-  console.log("songs", songs)
+  console.log("songs master list: ", songs)
 
   // initializing our seeded Artists
   useEffect(() => {
@@ -53,7 +53,7 @@ function SongsDisplay() {
   THAT SEPARATES BASED OFF IF DISLIKE BUTTON OR LIKE BUTTON */
 
   // submits a new song via the ADD NEW SONG button
-  function submitNewSong(data, artists, genres) {
+  function submitNewSong({songName, artistName, genreName, year}) {
     fetch(`http://localhost:9292/songs`, {
       method: "POST",
       headers: {
@@ -61,13 +61,8 @@ function SongsDisplay() {
         "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify({
-        name: data.songName,
-        year: data.year,
-        // bottom two aren't actually keys 
-        // artistName: data.artistName,
-        // genreName: data.genreName
-        // artist_id: 
-        // genre_id:
+        name: songName,
+        year: year,
       }),
     })
       .then((r) => r.json())

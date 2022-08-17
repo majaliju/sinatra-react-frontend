@@ -29,7 +29,7 @@ function AddNewSong({submitNewSong}) {
   const onSubmit = data => {
     submitNewSong(data)
     onClose()
-    reset()
+    // reset()
   }
 
 
