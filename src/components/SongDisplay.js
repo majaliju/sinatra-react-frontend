@@ -53,7 +53,7 @@ function SongsDisplay() {
   THAT SEPARATES BASED OFF IF DISLIKE BUTTON OR LIKE BUTTON */
 
   // submits a new song via the ADD NEW SONG button
-  function submitNewSong({songName, artistName, genreName, year}) {
+  function submitNewSong({songName, year, artistName, genreName}) {
     fetch(`http://localhost:9292/songs`, {
       method: "POST",
       headers: {
@@ -63,6 +63,12 @@ function SongsDisplay() {
       body: JSON.stringify({
         name: songName,
         year: year,
+        artist: {
+          name: artistName
+        },
+        genre: {
+          name: genreName
+        }
       }),
     })
       .then((r) => r.json())
@@ -179,7 +185,7 @@ function SongsDisplay() {
   //         "Access-Control-Allow-Origin": "*",
   //       },
   //       body: JSON.stringify({
-  //         dislikes: each.category + 1,
+  //         category: each.category + 1,
   //       }),
   //     })
   //       .then((r) => r.json())
