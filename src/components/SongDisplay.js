@@ -6,6 +6,7 @@ import UpdateSong from "./UpdateSong";
 
 /* CURRENT OBJECTIVES */
 
+// FIX README 
 // ISSUE OF PAGE NOT RELOADING PROPERLY WHEN NEW SONG IS INPUT
 //      issue is related to .find method and artist.find output 'undefined' 
 // CLEANING UP THE MULTIPLE STATES
@@ -23,8 +24,6 @@ function SongsDisplay() {
       .then((r) => r.json())
       .then((songsInfo) => setSongs(songsInfo));
   }, []);
-
-  console.log("songs master list: ", songs)
 
   // initializing our seeded Artists
   useEffect(() => {
@@ -71,7 +70,7 @@ function SongsDisplay() {
     })
       .then((r) => r.json())
       .then((data) => setSongs([...songs, data]))
-      // .then((thisSong) => setSongs([...songs, thisSong]));
+      .catch((error) => console.log(error))
   }
 
   // deletes our selected song via DELETE THIS SONG button
@@ -242,11 +241,6 @@ function SongsDisplay() {
                         parseInt(artist.id) === parseInt(song.artist_id)
                     )
                     .name.toUpperCase()}
-                    {console.log(artists
-                    .find(
-                      (artist) =>
-                        parseInt(artist.id) === parseInt(song.artist_id)
-                    ))}
                 </Box>
 
                 {/* displays song's genre */}
