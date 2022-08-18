@@ -16,7 +16,7 @@ import {
 import React from "react";
 import { useForm } from "react-hook-form";
 
-function UpdateSong({updateThisSong, song, artists, genres}) {
+function UpdateSong({updateThisSong, song}) {
   const {isOpen, onClose, onOpen} = useDisclosure();
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
 

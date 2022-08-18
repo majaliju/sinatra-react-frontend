@@ -33,21 +33,21 @@ function SongsDisplay() {
     fetch("http://localhost:9292/artists")
       .then((r) => r.json())
       .then((artistsInfo) => setArtists(artistsInfo));
-  }, []);
+  }, [songs]);
 
   // initializing our seeded Genres
   useEffect(() => {
     fetch("http://localhost:9292/genres")
       .then((r) => r.json())
       .then((genreInfo) => setGenre(genreInfo));
-  }, []);
+  }, [songs]);
 
   // initializing our seeded Reviews
   useEffect(() => {
     fetch("http://localhost:9292/reviews")
       .then((r) => r.json())
       .then((reviewInfo) => setReviews(reviewInfo));
-  }, []);
+  }, [songs]);
 
   /* BOTH OF THE updateReview FUNCTIONS CAN BE OPTIMIZED INTO A SINGLE SOURCE
   THAT SEPARATES BASED OFF IF DISLIKE BUTTON OR LIKE BUTTON */
@@ -72,7 +72,7 @@ function SongsDisplay() {
       }),
     })
       .then((r) => r.json())
-      .then((data) => console.log(data))
+      .then((data) => setSongs([...songs, data]))
       // .then((thisSong) => setSongs([...songs, thisSong]));
   }
 
@@ -177,7 +177,7 @@ function SongsDisplay() {
 
   // // need to create an optimal single function that separates
   // // the category based on if category = likes or = dislikes
-  //   function updateReview(each, category="likes") {
+  //   function updateReview(each) {
   //     fetch(`http://localhost:9292/reviews/${each.id}`, {
   //       method: "PATCH",
   //       headers: {
@@ -244,6 +244,11 @@ function SongsDisplay() {
                         parseInt(artist.id) === parseInt(song.artist_id)
                     )
                     .name.toUpperCase()}
+                    {console.log(artists
+                    .find(
+                      (artist) =>
+                        parseInt(artist.id) === parseInt(song.artist_id)
+                    ))}
                 </Box>
 
                 {/* displays song's genre */}
@@ -370,8 +375,6 @@ function SongsDisplay() {
                 <UpdateSong
                   updateThisSong={updateThisSong}
                   song={song}
-                  artists={artists}
-                  genres={genres}
                 />
 
                 {/* DELETE THIS SONG button */}
