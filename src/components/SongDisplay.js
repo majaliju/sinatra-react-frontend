@@ -6,12 +6,10 @@ import UpdateSong from "./UpdateSong";
 
 /* CURRENT OBJECTIVES */
 
-// CREATE THE TWO FORMS
-// (I) create a form that opens on ADD A SONG button
-//     (Ia) create the function that POSTS that info to the backend
-//      (Ib) create the backend workaround that handles this
+// ISSUE OF PAGE NOT RELOADING PROPERLY WHEN NEW SONG IS INPUT
+//      issue is related to .find method and artist.find output 'undefined' 
 // CLEANING UP THE MULTIPLE STATES
-// (IV) using the promise.all method (??) to clean up the setting of 4 states
+//      using the promise.all method (??) to clean up the setting of 4 states
 
 function SongsDisplay() {
   const [songs, setSongs] = useState([]);
@@ -33,21 +31,21 @@ function SongsDisplay() {
     fetch("http://localhost:9292/artists")
       .then((r) => r.json())
       .then((artistsInfo) => setArtists(artistsInfo));
-  }, [songs]);
+  }, []);
 
   // initializing our seeded Genres
   useEffect(() => {
     fetch("http://localhost:9292/genres")
       .then((r) => r.json())
       .then((genreInfo) => setGenre(genreInfo));
-  }, [songs]);
+  }, []);
 
   // initializing our seeded Reviews
   useEffect(() => {
     fetch("http://localhost:9292/reviews")
       .then((r) => r.json())
       .then((reviewInfo) => setReviews(reviewInfo));
-  }, [songs]);
+  }, []);
 
   /* BOTH OF THE updateReview FUNCTIONS CAN BE OPTIMIZED INTO A SINGLE SOURCE
   THAT SEPARATES BASED OFF IF DISLIKE BUTTON OR LIKE BUTTON */
