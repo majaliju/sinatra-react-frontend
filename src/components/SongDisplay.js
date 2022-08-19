@@ -25,7 +25,8 @@ function SongsDisplay() {
       .then((songsInfo) => setSongs(songsInfo));
   }, []);
 
-  console.log("songs: ", songs)
+  console.log("full songs map: ", songs)
+
   // initializing our seeded Artists
   useEffect(() => {
     fetch("http://localhost:9292/artists")
@@ -85,7 +86,7 @@ function SongsDisplay() {
     setSongs(remainingSongs);
   }
 
-  function updateThisSong(song, data) {
+  function updateThisSong(song, {genreName}) {
     fetch(`http://localhost:9292/songs/${song.id}`, {
       method: "PATCH",
       headers: {
@@ -93,7 +94,9 @@ function SongsDisplay() {
         "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify({
-        year: data.year,
+        genre: {
+          name: genreName
+        }
       }),
     })
       .then((r) => r.json())

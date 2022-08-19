@@ -48,12 +48,9 @@ function UpdateSong({updateThisSong, song}) {
         <form id="AddNewSongForm" 
         onSubmit={handleSubmit(onSubmit)}>
           <FormControl>
-            <FormLabel fontSize="xl">WHAT YEAR IS IT SUPPOSED TO BE?</FormLabel>
-            {/* <Input 
+            <FormLabel fontSize="xl">WHAT'S THE RIGHT GENRE THEN?</FormLabel>
+            <Input 
             id="genreName" type="text" placeholder="GENRE" {...register("genre", {required: true, max: 30, min: 1})}
-            /> */}
-             <Input 
-            id="year" type="number" placeholder="YEAR" {...register("year", { max: 2023, min: 1000, maxLength: 4})}
             />
           </FormControl>
         
