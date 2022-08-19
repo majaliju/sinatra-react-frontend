@@ -1,4 +1,4 @@
-# BACKEND of BEST SONG REVIEWS
+# FRONTEND of BEST SONG REVIEWS
 
 <!-- <img src="https://img.shields.io/badge/phase3-project-blue?style=flat-square&logo=react"> -->
 <img src="https://img.shields.io/badge/phase3-project-blue?style=flat-square&logo=react">
@@ -8,7 +8,7 @@
 
 ## INTRODUCTION
 
-- Since the beginning of recorded history, humans have expressed an interest in music. The spectrum of musical appreciation can range from anthropologically significant to mere background noise while doing dishes. Nonetheless, all lovers of music have a preference towards certain types. These are often call, at least in the Western World, our "favorite songs."
+- Since the beginning of recorded history, humans have expressed an interest in music. The spectrum of musical appreciation can range from anthropological significance all the way to mere background noise while doing dishes. Nonetheless, all lovers of music have a preference towards certain types. These are often call, at least in the Western World, our "favorite songs."
 
 
 
@@ -24,9 +24,13 @@
 [The backend repo is here on GitHub.](https://majaliju.com/)
 
 ## TOOLS
-Some of the tools I used on the frontend specifically were:
+On the frontend, I used:
 [React]
 [ChakraUI]
+On the backend, I used:
+[Ruby]
+[Sinatra]
+[ActiveRecord]
 
 ## BLOG
 [A link to my blog about phase3 can be found here, where I discuss]
