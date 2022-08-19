@@ -25,6 +25,7 @@ function SongsDisplay() {
       .then((songsInfo) => setSongs(songsInfo));
   }, []);
 
+  console.log("songs: ", songs)
   // initializing our seeded Artists
   useEffect(() => {
     fetch("http://localhost:9292/artists")
@@ -70,7 +71,7 @@ function SongsDisplay() {
     })
       .then((r) => r.json())
       .then((data) => setSongs([...songs, data]))
-      .catch((error) => console.log(error))
+      // .catch((error) => console.log(error))
   }
 
   // deletes our selected song via DELETE THIS SONG button
