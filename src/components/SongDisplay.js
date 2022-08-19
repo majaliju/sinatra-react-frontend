@@ -373,7 +373,7 @@ function SongsDisplay() {
           ))}
         </Box>
       </Flex>
-      <Box id="songStats" fontFamily="Helvetica" fontWeight="thin">
+      <Box as='i' id="songStats" fontFamily="Helvetica" fontWeight="thin">
         {/* DISPLAYING THE AGGREGATED LISTS OF ARTISTS, GENRES, AND SONGS*/}
         <Box maxW="lg" borderWidth="2px" borderRadius="lg" overflow="hidden">
           <Text fontWeight="normal" fontSize="3xl">
