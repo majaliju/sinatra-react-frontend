@@ -377,7 +377,7 @@ function SongsDisplay() {
         {/* DISPLAYING THE AGGREGATED LISTS OF ARTISTS, GENRES, AND SONGS*/}
         <Box maxW="lg" borderWidth="2px" borderRadius="lg" overflow="hidden">
           <Text fontWeight="normal" fontSize="3xl">
-            SONGS LIST
+            SONG LIST
           </Text>
           {songs.map((song) => (
             <Text key={song.id}>{song.name.toUpperCase()}</Text>
@@ -385,7 +385,7 @@ function SongsDisplay() {
         </Box>
         <Box maxW="lg" borderWidth="2px" borderRadius="lg" overflow="hidden">
           <Text fontWeight="normal" fontSize="3xl">
-            ARTISTS LIST
+            ARTIST LIST
           </Text>
           {artists.map((artist) => (
             <Text key={artist.id}>{artist.name.toUpperCase()}</Text>
@@ -393,7 +393,7 @@ function SongsDisplay() {
         </Box>
         <Box maxW="lg" borderWidth="2px" borderRadius="lg" overflow="hidden">
           <Text fontWeight="normal" fontSize="3xl">
-            GENRES LIST
+            GENRE LIST
           </Text>
           {genres.map((genre) => (
             <Text key={genre.id}>{genre.name.toUpperCase()}</Text>
