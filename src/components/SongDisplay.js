@@ -380,7 +380,7 @@ function SongsDisplay() {
             SONGS LIST
           </Text>
           {songs.map((song) => (
-            <Text key={song.id}>{song.name}</Text>
+            <Text key={song.id}>{song.name.toUpperCase()}</Text>
           ))}
         </Box>
         <Box maxW="lg" borderWidth="2px" borderRadius="lg" overflow="hidden">
@@ -388,7 +388,7 @@ function SongsDisplay() {
             ARTISTS LIST
           </Text>
           {artists.map((artist) => (
-            <Text key={artist.id}>{artist.name}</Text>
+            <Text key={artist.id}>{artist.name.toUpperCase()}</Text>
           ))}
         </Box>
         <Box maxW="lg" borderWidth="2px" borderRadius="lg" overflow="hidden">
@@ -396,7 +396,7 @@ function SongsDisplay() {
             GENRES LIST
           </Text>
           {genres.map((genre) => (
-            <Text key={genre.id}>{genre.name}</Text>
+            <Text key={genre.id}>{genre.name.toUpperCase()}</Text>
           ))}
         </Box>
       </Box>
