@@ -6,17 +6,22 @@ import UpdateSong from "./UpdateSong";
 
 /* CURRENT OBJECTIVES */
 
-// FIX README 
-// ISSUE OF PAGE NOT RELOADING PROPERLY WHEN NEW SONG IS INPUT
-//      issue is related to .find method and artist.find output 'undefined' 
+// FIX README for front & back
+// check for duplicates on the backend (artist, genre)
+// some extra styling
+// ISSUE OF PAGE NOT RELOADING WHEN NEW SONG OR WHEN GENRE IS UPDATED
 // CLEANING UP THE MULTIPLE STATES
 //      using the promise.all method (??) to clean up the setting of 4 states
+
+// deploy to netlify and heroku
+// record a video and all that
 
 function SongsDisplay() {
   const [songs, setSongs] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [artists, setArtists] = useState([]);
   const [genres, setGenre] = useState([]);
+  const [reload, setReload] = useState({})
 
   // initializing our seeded Songs
   useEffect(() => {
@@ -25,7 +30,7 @@ function SongsDisplay() {
       .then((songsInfo) => setSongs(songsInfo));
   }, []);
 
-  console.log("full songs map: ", songs)
+  console.log("full songs map: ", songs);
 
   // initializing our seeded Artists
   useEffect(() => {
@@ -48,11 +53,8 @@ function SongsDisplay() {
       .then((reviewInfo) => setReviews(reviewInfo));
   }, []);
 
-  /* BOTH OF THE updateReview FUNCTIONS CAN BE OPTIMIZED INTO A SINGLE SOURCE
-  THAT SEPARATES BASED OFF IF DISLIKE BUTTON OR LIKE BUTTON */
-
   // submits a new song via the ADD NEW SONG button
-  function submitNewSong({songName, year, artistName, genreName}) {
+  function submitNewSong({ songName, year, artistName, genreName }) {
     fetch(`http://localhost:9292/songs`, {
       method: "POST",
       headers: {
@@ -63,16 +65,15 @@ function SongsDisplay() {
         name: songName,
         year: year,
         artist: {
-          name: artistName
+          name: artistName,
         },
         genre: {
-          name: genreName
-        }
+          name: genreName,
+        },
       }),
     })
       .then((r) => r.json())
-      .then((data) => setSongs([...songs, data]))
-      // .catch((error) => console.log(error))
+      .then((newSong) => setSongs([...songs, newSong]))
   }
 
   // deletes our selected song via DELETE THIS SONG button
@@ -86,7 +87,7 @@ function SongsDisplay() {
     setSongs(remainingSongs);
   }
 
-  function updateThisSong(song, {genreName}) {
+  function updateThisSong(song, {genre}) {
     fetch(`http://localhost:9292/songs/${song.id}`, {
       method: "PATCH",
       headers: {
@@ -95,20 +96,21 @@ function SongsDisplay() {
       },
       body: JSON.stringify({
         genre: {
-          name: genreName
-        }
+          name: genre,
+        },
       }),
     })
       .then((r) => r.json())
-      .then((data) => { 
-        const correctedYear = songs.map((thisSong) => {
-          if (parseInt(thisSong.id) === parseInt(song.id)){
-            return {...thisSong, year: data.year}
+      .then((fixedSong) => {
+        const correctedSongs = songs.map((thisSong)=> {
+          if (parseInt(thisSong.id) === parseInt(song.id)) {
+            return {...thisSong, fixedSong}
           }
           return thisSong
-        })
-        setSongs(correctedYear)
-})}
+        });
+        setSongs(correctedSongs)
+      })}
+
 
   function submitNewReview(data, songID) {
     fetch(`http://localhost:9292/reviews`, {
@@ -125,6 +127,10 @@ function SongsDisplay() {
       .then((r) => r.json())
       .then((info) => setReviews([...reviews, info]));
   }
+
+   /* BOTH OF THE updateReview FUNCTIONS CAN BE OPTIMIZED INTO A SINGLE SOURCE
+  THAT SEPARATES BASED OFF IF DISLIKE BUTTON OR LIKE BUTTON */
+  // ask about this ^
 
   // updates the likes per click on LIKE button
   function updateReviewLikes(each) {
@@ -205,7 +211,6 @@ function SongsDisplay() {
   return (
     <Flex>
       <Flex id="songDisplayBody">
-        {/* DISPLAYING THE SONG CARDS AND THEIR RESPECTIVE REVIEWS */}
         <Box>
           <AddNewSong submitNewSong={submitNewSong} />
           {songs.map((song) => (
@@ -218,7 +223,6 @@ function SongsDisplay() {
               fontFamily="Helvetica"
             >
               <Box p="2">
-                {/* displays song's name */}
                 <Box
                   mt="1"
                   fontWeight="thin"
@@ -229,8 +233,6 @@ function SongsDisplay() {
                 >
                   {song.name.toUpperCase()}
                 </Box>
-
-                {/* displays song's artist */}
                 <Box
                   mt="1"
                   fontWeight="thin"
@@ -241,8 +243,6 @@ function SongsDisplay() {
                 >
                   {song.artist.name.toUpperCase()}
                 </Box>
-
-                {/* displays song's genre */}
                 <Box
                   mt="1"
                   fontWeight="thin"
@@ -253,8 +253,6 @@ function SongsDisplay() {
                 >
                   {song.genre.name.toUpperCase()}
                 </Box>
-
-                {/* displays song's year */}
                 <Box
                   mt="1"
                   fontWeight="thin"
@@ -276,7 +274,6 @@ function SongsDisplay() {
                   alignItems="center"
                   justifyContent="center"
                 >
-                  {/* displays the reviews for each song*/}
                   <Stack
                     direction={{
                       base: "column",
@@ -284,7 +281,12 @@ function SongsDisplay() {
                     w="full"
                     shadow="2xl"
                   >
-                    {song.reviews.map((each) => (
+                    {reviews
+                      .filter(
+                        (review) =>
+                          parseInt(review.song_id) === parseInt(song.id)
+                      )
+                      .map((each) => (
                         <Flex
                           direction={{
                             base: "row",
@@ -354,10 +356,7 @@ function SongsDisplay() {
                   songID={song.id}
                   reviews={reviews}
                 />
-                <UpdateSong
-                  updateThisSong={updateThisSong}
-                  song={song}
-                />
+                <UpdateSong updateThisSong={updateThisSong} song={song} />
 
                 {/* DELETE THIS SONG button */}
                 <Button
@@ -365,13 +364,7 @@ function SongsDisplay() {
                   colorScheme="orange"
                   size="sm"
                   w="100%"
-                  onClick={() => {
-                    console.log(
-                      "within DeleteSong button -- song.id: ",
-                      song.id
-                    );
-                    deleteSong(song);
-                  }}
+                  onClick={() => {deleteSong(song)}}
                 >
                   DELETE THIS SONG (WHY DID I CREATE THIS BUTTON??)
                 </Button>

@@ -4,14 +4,13 @@ import { ColorModeScript } from "@chakra-ui/react";
 import theme from "./components/theme";
 import App from "../src/components/App";
 import reportWebVitals from "../src/reportWebVitals";
-import { BrowserRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter>
+  <div>
     <ColorModeScript initialColorMode={theme.config.initialColorMode} />
     <App />
-  </BrowserRouter>
+  </div>
 );
 
 // If you want to start measuring performance in your app, pass a function

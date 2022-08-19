@@ -4,19 +4,15 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   FormControl,
   FormLabel,
-  FormErrorMessage,
   Input,
   useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
 import { useForm } from "react-hook-form";
-
-// wipe the data whenever it's submitted
 
 function AddNewReview({ songID, reviews, submitNewReview }) {
   const { isOpen, onClose, onOpen } = useDisclosure();
@@ -31,7 +27,7 @@ function AddNewReview({ songID, reviews, submitNewReview }) {
   const onSubmit = (data) => {
     submitNewReview(data, songID, reviews);
     onClose();
-    reset();
+    reset(); // wipe the data whenever it's submitted
   };
 
   return (

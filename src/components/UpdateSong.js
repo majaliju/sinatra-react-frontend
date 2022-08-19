@@ -4,12 +4,10 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   FormControl,
   FormLabel,
-  FormErrorMessage,
   Input,
   useDisclosure
 } from "@chakra-ui/react";
@@ -23,7 +21,7 @@ function UpdateSong({updateThisSong, song}) {
   const onSubmit = data => {
     updateThisSong(song, data)
     onClose()
-    reset()
+    reset() // wipe the data whenever it's submitted
   }
   
   return (
@@ -36,7 +34,7 @@ function UpdateSong({updateThisSong, song}) {
                     margin="2px"
                     onClick={onOpen}
                   >
-                    UPDATE THIS SONG WITH THE RIGHT YEAR
+                    UPDATE THIS SONG WITH THE RIGHT GENRE
                   </Button>
                   <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
