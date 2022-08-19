@@ -239,12 +239,7 @@ function SongsDisplay() {
                   lineHeight="tight"
                   noOfLines={2}
                 >
-                  {artists
-                    .find(
-                      (artist) =>
-                        parseInt(artist.id) === parseInt(song.artist_id)
-                    )
-                    .name.toUpperCase()}
+                  {song.artist.name.toUpperCase()}
                 </Box>
 
                 {/* displays song's genre */}
@@ -256,11 +251,7 @@ function SongsDisplay() {
                   lineHeight="tight"
                   noOfLines={2}
                 >
-                  {genres
-                    .find(
-                      (genre) => parseInt(genre.id) === parseInt(song.genre_id)
-                    )
-                    .name.toUpperCase()}
+                  {song.genre.name.toUpperCase()}
                 </Box>
 
                 {/* displays song's year */}
@@ -293,12 +284,7 @@ function SongsDisplay() {
                     w="full"
                     shadow="2xl"
                   >
-                    {reviews
-                      .filter(
-                        (review) =>
-                          parseInt(review.song_id) === parseInt(song.id)
-                      )
-                      .map((each) => (
+                    {song.reviews.map((each) => (
                         <Flex
                           direction={{
                             base: "row",
