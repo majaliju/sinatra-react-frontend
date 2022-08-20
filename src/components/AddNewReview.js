@@ -20,8 +20,7 @@ function AddNewReview({ songID, reviews, submitNewReview }) {
   const {
     register,
     handleSubmit,
-    reset,
-    formState: { errors },
+    reset
   } = useForm();
 
   const onSubmit = (data) => {
@@ -48,7 +47,7 @@ function AddNewReview({ songID, reviews, submitNewReview }) {
             <ModalCloseButton />
           </ModalHeader>
           <ModalBody>
-            <form id="AddNewSongForm" onSubmit={handleSubmit(onSubmit)}>
+            <form id="newReviewForm" onSubmit={handleSubmit(onSubmit)}>
               <FormControl>
                 <FormLabel fontSize="xl">
                   LEAVE A COMMENT ABOUT THE SONG

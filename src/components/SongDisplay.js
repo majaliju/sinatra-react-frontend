@@ -1,4 +1,4 @@
-import { Box, Flex, Button, SimpleGrid, Stack, Text } from "@chakra-ui/react";
+import { Box, Flex, Button, SimpleGrid, Stack, Text, Container, Grid } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import AddNewReview from "./AddNewReview";
 import AddNewSong from "./AddNewSong";
@@ -21,7 +21,6 @@ function SongsDisplay() {
   const [reviews, setReviews] = useState([]);
   const [artists, setArtists] = useState([]);
   const [genres, setGenre] = useState([]);
-  const [reload, setReload] = useState({})
 
   // initializing our seeded Songs
   useEffect(() => {
@@ -210,9 +209,9 @@ function SongsDisplay() {
 
   return (
     <Flex>
-      <Flex id="songDisplayBody">
-        <Box>
-          <AddNewSong submitNewSong={submitNewSong} />
+      <Box id="songDisplayBody">
+        <Box >
+        <AddNewSong submitNewSong={submitNewSong} />
           {songs.map((song) => (
             <Box
               key={song.id}
@@ -227,7 +226,7 @@ function SongsDisplay() {
                   mt="1"
                   fontWeight="thin"
                   fontSize="3xl"
-                  as="h1"
+                  as="h2"
                   lineHeight="tight"
                   noOfLines={2}
                 >
@@ -372,7 +371,7 @@ function SongsDisplay() {
             </Box>
           ))}
         </Box>
-      </Flex>
+      </Box>
       <Box as='i' id="songStats" fontFamily="Helvetica" fontWeight="thin">
         {/* DISPLAYING THE AGGREGATED LISTS OF ARTISTS, GENRES, AND SONGS*/}
         <Box maxW="lg" borderWidth="2px" borderRadius="lg" overflow="hidden">

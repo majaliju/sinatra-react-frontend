@@ -4,12 +4,10 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   FormControl,
   FormLabel,
-  FormErrorMessage,
   Input,
   useDisclosure
 } from "@chakra-ui/react";
@@ -22,8 +20,7 @@ function AddNewSong({submitNewSong}) {
   const {
     register,
     handleSubmit,
-    reset,
-    formState: { errors},
+    reset
   } = useForm();
 
   const onSubmit = data => {
@@ -51,7 +48,7 @@ function AddNewSong({submitNewSong}) {
             <ModalCloseButton />
           </ModalHeader>
           <ModalBody>
-        <form id="AddNewSongForm" 
+        <form id="newSongForm" 
         onSubmit={handleSubmit(onSubmit)}>
           <FormControl>
             <FormLabel fontSize="3xl">ADD YOUR FAVORITE SONG</FormLabel>
@@ -64,7 +61,7 @@ function AddNewSong({submitNewSong}) {
             <Input 
             id="genreName" type="text" placeholder="GENRE" {...register("genreName", {required: true, max: 30, min: 1})}
             />
-             <Input 
+             <Input
             id="year" type="number" placeholder="YEAR" {...register("year", { max: 2023, min: 1000, maxLength: 4})}
             />
           </FormControl>

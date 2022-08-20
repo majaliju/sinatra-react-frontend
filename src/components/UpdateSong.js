@@ -16,7 +16,7 @@ import { useForm } from "react-hook-form";
 
 function UpdateSong({updateThisSong, song}) {
   const {isOpen, onClose, onOpen} = useDisclosure();
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const { register, handleSubmit, reset} = useForm();
 
   const onSubmit = data => {
     updateThisSong(song, data)
@@ -43,11 +43,11 @@ function UpdateSong({updateThisSong, song}) {
             <ModalCloseButton />
           </ModalHeader>
           <ModalBody>
-        <form id="AddNewSongForm" 
+        <form id="updateSongForm" 
         onSubmit={handleSubmit(onSubmit)}>
           <FormControl>
             <FormLabel fontSize="xl">WHAT'S THE RIGHT GENRE THEN?</FormLabel>
-            <Input 
+            <Input focusBorderColor='lime'
             id="genreName" type="text" placeholder="GENRE" {...register("genre", {required: true, max: 30, min: 1})}
             />
           </FormControl>
