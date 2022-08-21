@@ -17,20 +17,21 @@
 
 
 ## WHERE?
-[You can use the BEST SONG REVIEWS website right here!](https://majaliju.com/)
+[You can use the BEST SONG REVIEWS website right here!](https://majaliju.com/)<br />
 
-[The frontend is hosted here.](https://majaliju.com/)
+[The backend is hosted here.](https://github.com/majaliju/sinatra-react-backend)<br />
 
-[The backend repo is here on GitHub.](https://majaliju.com/)
+
+
 
 ## TOOLS
-On the frontend, I used:
-[React]
-[ChakraUI]
-On the backend, I used:
-[Ruby]
-[Sinatra]
-[ActiveRecord]
+On the frontend, I used:<br />
+[React](https://reactjs.org/)<br />
+[ChakraUI](https://chakra-ui.com/)<br />
+On the backend, I used:<br />
+[Ruby](https://www.ruby-lang.org/en/) <br />
+[Sinatra](https://sinatrarb.com/)<br />
+[ActiveRecord](https://guides.rubyonrails.org/active_record_basics.html)<br />
 
 ## BLOG
 [A link to my blog about phase3 can be found here, where I discuss](https://medium.com/@majalijunyc/the-fun-of-activerecord-associations-and-the-journey-that-lead-me-to-includes-c15cabf0957)
