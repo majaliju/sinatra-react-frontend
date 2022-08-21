@@ -33,5 +33,5 @@ On the backend, I used:
 [ActiveRecord]
 
 ## BLOG
-[A link to my blog about phase3 can be found here, where I discuss]
+[A link to my blog about phase3 can be found here, where I discuss](https://medium.com/@majalijunyc/the-fun-of-activerecord-associations-and-the-journey-that-lead-me-to-includes-c15cabf0957)
 
