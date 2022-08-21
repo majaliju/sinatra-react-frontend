@@ -34,5 +34,5 @@ On the backend, I used:<br />
 [ActiveRecord](https://guides.rubyonrails.org/active_record_basics.html)<br />
 
 ## BLOG
-[A link to my blog about phase3 can be found here, where I discuss](https://medium.com/@majalijunyc/the-fun-of-activerecord-associations-and-the-journey-that-lead-me-to-includes-c15cabf0957)
+[A link to my blog about phase3 can be found here, where I discuss some of the workings of the backend!](https://medium.com/@majalijunyc/the-fun-of-activerecord-associations-and-the-journey-that-lead-me-to-includes-c15cabf0957)
 
