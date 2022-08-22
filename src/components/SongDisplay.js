@@ -4,6 +4,7 @@ import AddNewReview from "./AddNewReview";
 import AddNewSong from "./AddNewSong";
 import UpdateSong from "./UpdateSong";
 
+
 function SongsDisplay() {
   const [songs, setSongs] = useState([]);
   const [reviews, setReviews] = useState([]);
@@ -65,7 +66,7 @@ function SongsDisplay() {
 
   // deletes our selected song via DELETE THIS SONG button
   function deleteSong(song) {
-    fetch(`https://best-music-reviews-backend.herokuapp.com/${song.id}`, {
+    fetch(`https://best-music-reviews-backend.herokuapp.com/songs/${song.id}`, {
       method: "DELETE",
     });
     const remainingSongs = songs.filter(
@@ -75,7 +76,7 @@ function SongsDisplay() {
   }
 
   function updateThisSong(song, {genre}) {
-    fetch(`https://best-music-reviews-backend.herokuapp.com/${song.id}`, {
+    fetch(`https://best-music-reviews-backend.herokuapp.com/songs/${song.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -121,7 +122,7 @@ function SongsDisplay() {
 
   // updates the likes per click on LIKE button
   function updateReviewLikes(each) {
-    fetch(`https://best-music-reviews-backend.herokuapp.com/${each.id}`, {
+    fetch(`https://best-music-reviews-backend.herokuapp.com/reviews/${each.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -172,7 +173,7 @@ function SongsDisplay() {
   // // need to create an optimal single function that separates
   // // the category based on if category = likes or = dislikes
   //   function updateReview(each) {
-  //     fetch(`http://localhost:9292/reviews/${each.id}`, {
+  //     fetch(`https://best-music-reviews-backend.herokuapp.com/reviews/${each.id}`, {
   //       method: "PATCH",
   //       headers: {
   //         "Content-Type": "application/json",
