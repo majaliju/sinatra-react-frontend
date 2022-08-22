@@ -2,7 +2,7 @@
 
 <!-- <img src="https://img.shields.io/badge/phase3-project-blue?style=flat-square&logo=react"> -->
 <img src="https://img.shields.io/badge/phase3-project-blue?style=flat-square&logo=react">
-[![Netlify Status](https://api.netlify.com/api/v1/badges/7c2f2699-96ab-4888-8287-7a672eeed280/deploy-status)](https://app.netlify.com/sites/fanciful-paletas-868b83/deploys)
+<img src = "https://api.netlify.com/api/v1/badges/7c2f2699-96ab-4888-8287-7a672eeed280/deploy-status")
 
 ## WHAT IS THIS?
 - This is the frontend repo of the BEST SONG REVIEWS website.
