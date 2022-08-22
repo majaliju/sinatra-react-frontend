@@ -4,18 +4,6 @@ import AddNewReview from "./AddNewReview";
 import AddNewSong from "./AddNewSong";
 import UpdateSong from "./UpdateSong";
 
-/* CURRENT OBJECTIVES */
-
-// FIX README for front & back
-// check for duplicates on the backend (artist, genre)
-// some extra styling
-// ISSUE OF PAGE NOT RELOADING WHEN NEW SONG OR WHEN GENRE IS UPDATED
-// CLEANING UP THE MULTIPLE STATES
-//      using the promise.all method (??) to clean up the setting of 4 states
-
-// deploy to netlify and heroku
-// record a video and all that
-
 function SongsDisplay() {
   const [songs, setSongs] = useState([]);
   const [reviews, setReviews] = useState([]);
@@ -24,7 +12,7 @@ function SongsDisplay() {
 
   // initializing our seeded Songs
   useEffect(() => {
-    fetch("http://localhost:9292/songs")
+    fetch("https://best-music-reviews-backend.herokuapp.com/songs")
       .then((r) => r.json())
       .then((songsInfo) => setSongs(songsInfo));
   }, []);
@@ -33,28 +21,28 @@ function SongsDisplay() {
 
   // initializing our seeded Artists
   useEffect(() => {
-    fetch("http://localhost:9292/artists")
+    fetch("https://best-music-reviews-backend.herokuapp.com/artists")
       .then((r) => r.json())
       .then((artistsInfo) => setArtists(artistsInfo));
   }, []);
 
   // initializing our seeded Genres
   useEffect(() => {
-    fetch("http://localhost:9292/genres")
+    fetch("https://best-music-reviews-backend.herokuapp.com/genres")
       .then((r) => r.json())
       .then((genreInfo) => setGenre(genreInfo));
   }, []);
 
   // initializing our seeded Reviews
   useEffect(() => {
-    fetch("http://localhost:9292/reviews")
+    fetch("https://best-music-reviews-backend.herokuapp.com/reviews")
       .then((r) => r.json())
       .then((reviewInfo) => setReviews(reviewInfo));
   }, []);
 
   // submits a new song via the ADD NEW SONG button
   function submitNewSong({ songName, year, artistName, genreName }) {
-    fetch(`http://localhost:9292/songs`, {
+    fetch(`https://best-music-reviews-backend.herokuapp.com/songs`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -77,7 +65,7 @@ function SongsDisplay() {
 
   // deletes our selected song via DELETE THIS SONG button
   function deleteSong(song) {
-    fetch(`http://localhost:9292/songs/${song.id}`, {
+    fetch(`https://best-music-reviews-backend.herokuapp.com/${song.id}`, {
       method: "DELETE",
     });
     const remainingSongs = songs.filter(
@@ -87,7 +75,7 @@ function SongsDisplay() {
   }
 
   function updateThisSong(song, {genre}) {
-    fetch(`http://localhost:9292/songs/${song.id}`, {
+    fetch(`https://best-music-reviews-backend.herokuapp.com/${song.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -112,7 +100,7 @@ function SongsDisplay() {
 
 
   function submitNewReview(data, songID) {
-    fetch(`http://localhost:9292/reviews`, {
+    fetch(`https://best-music-reviews-backend.herokuapp.com/reviews`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -133,7 +121,7 @@ function SongsDisplay() {
 
   // updates the likes per click on LIKE button
   function updateReviewLikes(each) {
-    fetch(`http://localhost:9292/reviews/${each.id}`, {
+    fetch(`https://best-music-reviews-backend.herokuapp.com/${each.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -158,7 +146,7 @@ function SongsDisplay() {
 
   // updates the dislikes per click on DISLIKE button
   function updateReviewDislikes(each) {
-    fetch(`http://localhost:9292/reviews/${each.id}`, {
+    fetch(`https://best-music-reviews-backend.herokuapp.com/reviews/${each.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
