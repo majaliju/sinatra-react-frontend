@@ -4,7 +4,8 @@
 <img src="https://img.shields.io/badge/phase3-project-blue?style=flat-square&logo=react"> <img src = "https://api.netlify.com/api/v1/badges/7c2f2699-96ab-4888-8287-7a672eeed280/deploy-status?style=flat-square")
 
 ## WHAT IS THIS?
-- This is the frontend repo of the BEST SONG REVIEWS website.
+- This is the frontend repo of the [BEST SONG REVIEWS website](http://reviews.majaliju.com/).
+- You can also visit directly at [reviews.majaliju.com](http://reviews.majaliju.com/).
 
 ## INTRODUCTION
 
