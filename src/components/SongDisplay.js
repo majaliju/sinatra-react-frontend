@@ -1,9 +1,17 @@
-import { Box, Flex, Button, SimpleGrid, Stack, Text, Container, Grid } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
-import AddNewReview from "./AddNewReview";
-import AddNewSong from "./AddNewSong";
-import UpdateSong from "./UpdateSong";
-
+import {
+  Box,
+  Flex,
+  Button,
+  SimpleGrid,
+  Stack,
+  Text,
+  Container,
+  Grid,
+} from '@chakra-ui/react';
+import { useState, useEffect } from 'react';
+import AddNewReview from './AddNewReview';
+import AddNewSong from './AddNewSong';
+import UpdateSong from './UpdateSong';
 
 function SongsDisplay() {
   const [songs, setSongs] = useState([]);
@@ -13,30 +21,30 @@ function SongsDisplay() {
 
   // initializing our seeded Songs
   useEffect(() => {
-    fetch("https://best-music-reviews-backend.herokuapp.com/songs")
+    fetch('https://best-music-reviews-backend.herokuapp.com/songs')
       .then((r) => r.json())
       .then((songsInfo) => setSongs(songsInfo));
   }, []);
 
-  console.log("full songs map: ", songs);
+  console.log('full songs map: ', songs);
 
   // initializing our seeded Artists
   useEffect(() => {
-    fetch("https://best-music-reviews-backend.herokuapp.com/artists")
+    fetch('https://best-music-reviews-backend.herokuapp.com/artists')
       .then((r) => r.json())
       .then((artistsInfo) => setArtists(artistsInfo));
   }, []);
 
   // initializing our seeded Genres
   useEffect(() => {
-    fetch("https://best-music-reviews-backend.herokuapp.com/genres")
+    fetch('https://best-music-reviews-backend.herokuapp.com/genres')
       .then((r) => r.json())
       .then((genreInfo) => setGenre(genreInfo));
   }, []);
 
   // initializing our seeded Reviews
   useEffect(() => {
-    fetch("https://best-music-reviews-backend.herokuapp.com/reviews")
+    fetch('https://best-music-reviews-backend.herokuapp.com/reviews')
       .then((r) => r.json())
       .then((reviewInfo) => setReviews(reviewInfo));
   }, []);
@@ -44,10 +52,10 @@ function SongsDisplay() {
   // submits a new song via the ADD NEW SONG button
   function submitNewSong({ songName, year, artistName, genreName }) {
     fetch(`https://best-music-reviews-backend.herokuapp.com/songs`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
       },
       body: JSON.stringify({
         name: songName,
@@ -61,13 +69,13 @@ function SongsDisplay() {
       }),
     })
       .then((r) => r.json())
-      .then((newSong) => setSongs([...songs, newSong]))
+      .then((newSong) => setSongs([...songs, newSong]));
   }
 
   // deletes our selected song via DELETE THIS SONG button
   function deleteSong(song) {
     fetch(`https://best-music-reviews-backend.herokuapp.com/songs/${song.id}`, {
-      method: "DELETE",
+      method: 'DELETE',
     });
     const remainingSongs = songs.filter(
       (eachSong) => parseInt(eachSong.id) !== parseInt(song.id)
@@ -75,12 +83,12 @@ function SongsDisplay() {
     setSongs(remainingSongs);
   }
 
-  function updateThisSong(song, {genre}) {
+  function updateThisSong(song, { genre }) {
     fetch(`https://best-music-reviews-backend.herokuapp.com/songs/${song.id}`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
       },
       body: JSON.stringify({
         genre: {
@@ -90,22 +98,24 @@ function SongsDisplay() {
     })
       .then((r) => r.json())
       .then((fixedSong) => {
-        const correctedSongs = songs.map((thisSong)=> {
+        const correctedSongs = songs.map((thisSong) => {
           if (parseInt(thisSong.id) === parseInt(song.id)) {
-            return {...thisSong, fixedSong}
+            return { ...thisSong, fixedSong };
           }
-          return thisSong
+          return thisSong;
         });
-        setSongs(correctedSongs)
-      })}
+        setSongs(correctedSongs);
+      });
+  }
 
+  // the issue is in the above on the 2nd .then statement -- need to clean that up to make sure state is being saved and re-rendered
 
   function submitNewReview(data, songID) {
     fetch(`https://best-music-reviews-backend.herokuapp.com/reviews`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
       },
       body: JSON.stringify({
         comment: data.comment,
@@ -116,22 +126,25 @@ function SongsDisplay() {
       .then((info) => setReviews([...reviews, info]));
   }
 
-   /* BOTH OF THE updateReview FUNCTIONS CAN BE OPTIMIZED INTO A SINGLE SOURCE
+  /* BOTH OF THE updateReview FUNCTIONS CAN BE OPTIMIZED INTO A SINGLE SOURCE
   THAT SEPARATES BASED OFF IF DISLIKE BUTTON OR LIKE BUTTON */
   // ask about this ^
 
   // updates the likes per click on LIKE button
   function updateReviewLikes(each) {
-    fetch(`https://best-music-reviews-backend.herokuapp.com/reviews/${each.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-      body: JSON.stringify({
-        likes: each.likes + 1,
-      }),
-    })
+    fetch(
+      `https://best-music-reviews-backend.herokuapp.com/reviews/${each.id}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+        body: JSON.stringify({
+          likes: each.likes + 1,
+        }),
+      }
+    )
       .then((r) => r.json())
       .then((reviewInfo) => {
         const updatedReview = reviews.map((singleReview) => {
@@ -147,16 +160,19 @@ function SongsDisplay() {
 
   // updates the dislikes per click on DISLIKE button
   function updateReviewDislikes(each) {
-    fetch(`https://best-music-reviews-backend.herokuapp.com/reviews/${each.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-      body: JSON.stringify({
-        dislikes: each.dislikes + 1,
-      }),
-    })
+    fetch(
+      `https://best-music-reviews-backend.herokuapp.com/reviews/${each.id}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+        body: JSON.stringify({
+          dislikes: each.dislikes + 1,
+        }),
+      }
+    )
       .then((r) => r.json())
       .then((reviewInfo) => {
         const updatedReview = reviews.map((singleReview) => {
@@ -170,105 +186,72 @@ function SongsDisplay() {
       .catch((err) => console.error(err));
   }
 
-  // // need to create an optimal single function that separates
-  // // the category based on if category = likes or = dislikes
-  //   function updateReview(each) {
-  //     fetch(`https://best-music-reviews-backend.herokuapp.com/reviews/${each.id}`, {
-  //       method: "PATCH",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         "Access-Control-Allow-Origin": "*",
-  //       },
-  //       body: JSON.stringify({
-  //         category: each.category + 1,
-  //       }),
-  //     })
-  //       .then((r) => r.json())
-  //       .then((reviewInfo) => {
-  //         const updatedReview = reviews.map((singleReview) => {
-  //           if (parseInt(singleReview.id) === parseInt(reviewInfo.id)) {
-  //             return { ...singleReview, category: reviewInfo.category };
-  //           }
-  //           return singleReview;
-  //         });
-  //         setReviews(updatedReview);
-  //       })
-  //       .catch((err) => console.error(err));
-  //   }
-
   return (
     <Flex>
-      <Box id="songDisplayBody">
-        <Box >
-        <AddNewSong submitNewSong={submitNewSong} />
+      <Box id='songDisplayBody'>
+        <Box>
+          <AddNewSong submitNewSong={submitNewSong} />
           {songs.map((song) => (
             <Box
               key={song.id}
-              maxW="xl"
-              borderWidth="2px"
-              borderRadius="lg"
-              overflow="hidden"
-              fontFamily="Helvetica"
-            >
-              <Box p="2">
+              maxW='xl'
+              borderWidth='2px'
+              borderRadius='lg'
+              overflow='hidden'
+              fontFamily='Helvetica'>
+              <Box p='2'>
                 <Box
-                  mt="1"
-                  fontWeight="thin"
-                  fontSize="3xl"
-                  as="h2"
-                  lineHeight="tight"
-                  noOfLines={2}
-                >
+                  mt='1'
+                  fontWeight='thin'
+                  fontSize='3xl'
+                  as='h2'
+                  lineHeight='tight'
+                  noOfLines={2}>
                   {song.name.toUpperCase()}
                 </Box>
                 <Box
-                  mt="1"
-                  fontWeight="thin"
-                  fontSize="2xl"
-                  as="h1"
-                  lineHeight="tight"
-                  noOfLines={2}
-                >
+                  mt='1'
+                  fontWeight='thin'
+                  fontSize='2xl'
+                  as='h1'
+                  lineHeight='tight'
+                  noOfLines={2}>
                   {song.artist.name.toUpperCase()}
                 </Box>
                 <Box
-                  mt="1"
-                  fontWeight="thin"
-                  fontSize="xl"
-                  as="h1"
-                  lineHeight="tight"
-                  noOfLines={2}
-                >
+                  mt='1'
+                  fontWeight='thin'
+                  fontSize='xl'
+                  as='h1'
+                  lineHeight='tight'
+                  noOfLines={2}>
                   {song.genre.name.toUpperCase()}
                 </Box>
                 <Box
-                  mt="1"
-                  fontWeight="thin"
-                  fontSize="lg"
-                  as="h1"
-                  lineHeight="tight"
-                  noOfLines={2}
-                >
+                  mt='1'
+                  fontWeight='thin'
+                  fontSize='lg'
+                  as='h1'
+                  lineHeight='tight'
+                  noOfLines={2}>
                   {song.year}
                 </Box>
 
                 <Flex
-                  w="full"
-                  bg="#edf3f8"
+                  w='full'
+                  bg='#edf3f8'
                   _dark={{
-                    bg: "#3e3e3e",
+                    bg: '#3e3e3e',
                   }}
                   p={1}
-                  alignItems="center"
-                  justifyContent="center"
-                >
+                  alignItems='center'
+                  justifyContent='center'>
                   <Stack
                     direction={{
-                      base: "column",
+                      base: 'column',
                     }}
-                    w="full"
-                    shadow="2xl"
-                  >
+                    w='full'
+                    shadow='2xl'>
                     {reviews
                       .filter(
                         (review) =>
@@ -277,12 +260,11 @@ function SongsDisplay() {
                       .map((each) => (
                         <Flex
                           direction={{
-                            base: "row",
-                            md: "column",
+                            base: 'row',
+                            md: 'column',
                           }}
-                          bg="beige"
-                          key={each.id}
-                        >
+                          bg='beige'
+                          key={each.id}>
                           <SimpleGrid
                             spacingY={3}
                             columns={{
@@ -291,10 +273,10 @@ function SongsDisplay() {
                             }}
                             w={{
                               base: 120,
-                              md: "full",
+                              md: 'full',
                             }}
-                            bg="beige"
-                            color="black"
+                            bg='beige'
+                            color='black'
                             py={{
                               base: 1,
                               md: 4,
@@ -303,35 +285,31 @@ function SongsDisplay() {
                               base: 2,
                               md: 2,
                             }}
-                            fontSize="md"
-                            fontWeight="normal"
-                            fontFamily="Helvetica"
-                          >
+                            fontSize='md'
+                            fontWeight='normal'
+                            fontFamily='Helvetica'>
                             <span>{each.comment}</span>
                           </SimpleGrid>
                           <Flex
                             justify={{
-                              md: "end",
-                            }}
-                          >
+                              md: 'end',
+                            }}>
                             <Button
-                              variant="solid"
-                              colorScheme="blue"
-                              size="sm"
+                              variant='solid'
+                              colorScheme='blue'
+                              size='sm'
                               onClick={() => {
                                 updateReviewLikes(each);
-                              }}
-                            >
+                              }}>
                               {each.likes} LIKES
                             </Button>
                             <Button
-                              variant="solid"
-                              colorScheme="red"
-                              size="sm"
+                              variant='solid'
+                              colorScheme='red'
+                              size='sm'
                               onClick={() => {
                                 updateReviewDislikes(each);
-                              }}
-                            >
+                              }}>
                               {each.dislikes} DISLIKES
                             </Button>
                           </Flex>
@@ -348,12 +326,13 @@ function SongsDisplay() {
 
                 {/* DELETE THIS SONG button */}
                 <Button
-                  variant="solid"
-                  colorScheme="orange"
-                  size="sm"
-                  w="100%"
-                  onClick={() => {deleteSong(song)}}
-                >
+                  variant='solid'
+                  colorScheme='orange'
+                  size='sm'
+                  w='100%'
+                  onClick={() => {
+                    deleteSong(song);
+                  }}>
                   DELETE THIS SONG (WHY DID I CREATE THIS BUTTON??)
                 </Button>
               </Box>
@@ -361,26 +340,26 @@ function SongsDisplay() {
           ))}
         </Box>
       </Box>
-      <Box as='i' id="songStats" fontFamily="Helvetica" fontWeight="thin">
+      <Box as='i' id='songStats' fontFamily='Helvetica' fontWeight='thin'>
         {/* DISPLAYING THE AGGREGATED LISTS OF ARTISTS, GENRES, AND SONGS*/}
-        <Box maxW="lg" borderWidth="2px" borderRadius="lg" overflow="hidden">
-          <Text fontWeight="normal" fontSize="3xl">
+        <Box maxW='lg' borderWidth='2px' borderRadius='lg' overflow='hidden'>
+          <Text fontWeight='normal' fontSize='3xl'>
             SONG LIST
           </Text>
           {songs.map((song) => (
             <Text key={song.id}>{song.name.toUpperCase()}</Text>
           ))}
         </Box>
-        <Box maxW="lg" borderWidth="2px" borderRadius="lg" overflow="hidden">
-          <Text fontWeight="normal" fontSize="3xl">
+        <Box maxW='lg' borderWidth='2px' borderRadius='lg' overflow='hidden'>
+          <Text fontWeight='normal' fontSize='3xl'>
             ARTIST LIST
           </Text>
           {artists.map((artist) => (
             <Text key={artist.id}>{artist.name.toUpperCase()}</Text>
           ))}
         </Box>
-        <Box maxW="lg" borderWidth="2px" borderRadius="lg" overflow="hidden">
-          <Text fontWeight="normal" fontSize="3xl">
+        <Box maxW='lg' borderWidth='2px' borderRadius='lg' overflow='hidden'>
+          <Text fontWeight='normal' fontSize='3xl'>
             GENRE LIST
           </Text>
           {genres.map((genre) => (
