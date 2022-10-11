@@ -126,9 +126,9 @@ function SongsDisplay() {
       .then((info) => setReviews([...reviews, info]));
   }
 
-  /* BOTH OF THE updateReview FUNCTIONS CAN BE OPTIMIZED INTO A SINGLE SOURCE
-  THAT SEPARATES BASED OFF IF DISLIKE BUTTON OR LIKE BUTTON */
-  // ask about this ^
+  //^ TODO
+  //^ need to optimize both lower function into a single functions for D.R.Y. principles
+  //^ a single updateLikes with a state variable that sets itself based on which button is clicked
 
   // updates the likes per click on LIKE button
   function updateReviewLikes(each) {
