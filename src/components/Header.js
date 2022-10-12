@@ -4,35 +4,33 @@ import {
   Button,
   useColorModeValue,
   Stack,
-  useColorMode, Box
+  useColorMode,
+  Box,
 } from '@chakra-ui/react';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 
-
 function Header() {
-  
   const { colorMode, toggleColorMode } = useColorMode();
-  
+
   return (
     <div>
       <Box bg={useColorModeValue('white', 'dark-grey')} px={4}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-          <Text fontWeight="thin" fontSize="2xl" fontFamily="Helvetica">BEST SONG REVIEWS</Text>
-          
+          <Text fontWeight='thin' fontSize='3xl' fontFamily='Helvetica'>
+            BEST SONG REVIEWS
+          </Text>
 
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={4}>
               <Button onClick={toggleColorMode}>
                 {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
               </Button>
-
             </Stack>
           </Flex>
         </Flex>
       </Box>
     </div>
-  )
+  );
 }
 
 export default Header;
-

@@ -1,13 +1,8 @@
-import { ChakraProvider } from "@chakra-ui/react";
-import SongsDisplay from "./SongDisplay";
-import Header from "./Header";
-
-
-/* people post their favorite songs 
-and people leave reviews */
+import { ChakraProvider } from '@chakra-ui/react';
+import SongsDisplay from './SongDisplay';
+import Header from './Header';
 
 function App() {
-
   return (
     <ChakraProvider>
       <Header />

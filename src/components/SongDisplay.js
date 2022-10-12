@@ -13,6 +13,9 @@ import AddNewReview from './AddNewReview';
 import AddNewSong from './AddNewSong';
 import UpdateSong from './UpdateSong';
 
+//* POSSIBLE ADD A CATEGORIZER (DROP-DOWN MENU, RADIO BUTTON, ETC) THAT
+//* SHOWS EACH SONG BY GENRE
+
 function SongsDisplay() {
   const [songs, setSongs] = useState([]);
   const [reviews, setReviews] = useState([]);
