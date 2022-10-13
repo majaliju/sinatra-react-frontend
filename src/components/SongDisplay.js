@@ -101,8 +101,11 @@ function SongsDisplay() {
     })
       .then((r) => r.json())
       .then((fixedSong) => {
+        console.log('fixedSong within UpdateSong: ', fixedSong);
         const correctedSongs = songs.map((thisSong) => {
           if (parseInt(thisSong.id) === parseInt(song.id)) {
+            console.log('within if statement, thisSong: ', thisSong);
+            console.log('within if statement, song: ', song);
             return { ...thisSong, fixedSong };
           }
           return thisSong;
@@ -110,6 +113,8 @@ function SongsDisplay() {
         setSongs(correctedSongs);
       });
   }
+
+  //& for the above ^ make it so that fixedSong is being set to some state then there's an independent filtering after the promise resolutions, that then cross-checks the fixedSong and replaces it -- triggering a re-render on the fly
 
   // the issue is in the above on the 2nd .then statement -- need to clean that up to make sure state is being saved and re-rendered
 
