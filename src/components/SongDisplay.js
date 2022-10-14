@@ -13,8 +13,9 @@ import AddNewReview from './AddNewReview';
 import AddNewSong from './AddNewSong';
 import UpdateSong from './UpdateSong';
 
-//* POSSIBLE ADD A CATEGORIZER (DROP-DOWN MENU, RADIO BUTTON, ETC) THAT
-//* SHOWS EACH SONG BY GENRE
+//& TODO
+//& change the plaintext within SongList, ArtistList, GenreList into buttons that display only those options once clicked
+//& also have a an ALL button that shows all naturally
 
 function SongsDisplay() {
   const [songs, setSongs] = useState([]);
