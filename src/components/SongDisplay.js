@@ -30,8 +30,6 @@ function SongsDisplay() {
       .then((songsInfo) => setSongs(songsInfo));
   }, []);
 
-  console.log('full songs map: ', songs);
-
   // initializing our seeded Artists
   useEffect(() => {
     fetch('https://best-music-reviews-backend.herokuapp.com/artists')
@@ -355,25 +353,31 @@ function SongsDisplay() {
           <Text fontWeight='normal' fontSize='3xl'>
             SONG LIST
           </Text>
-          {songs.map((song) => (
-            <Text key={song.id}>{song.name.toUpperCase()}</Text>
-          ))}
+          <Stack>
+            {songs.map((song) => (
+              <Text key={song.id}>{song.name.toUpperCase()}</Text>
+            ))}
+          </Stack>
         </Box>
         <Box maxW='lg' borderWidth='2px' borderRadius='lg' overflow='hidden'>
           <Text fontWeight='normal' fontSize='3xl'>
             ARTIST LIST
           </Text>
-          {artists.map((artist) => (
-            <Text key={artist.id}>{artist.name.toUpperCase()}</Text>
-          ))}
+          <Stack>
+            {artists.map((artist) => (
+              <Button key={artist.id}>{artist.name.toUpperCase()}</Button>
+            ))}
+          </Stack>
         </Box>
         <Box maxW='lg' borderWidth='2px' borderRadius='lg' overflow='hidden'>
           <Text fontWeight='normal' fontSize='3xl'>
             GENRE LIST
           </Text>
-          {genres.map((genre) => (
-            <Text key={genre.id}>{genre.name.toUpperCase()}</Text>
-          ))}
+          <Stack>
+            {genres.map((genre) => (
+              <Button key={genre.id}>{genre.name.toUpperCase()}</Button>
+            ))}
+          </Stack>
         </Box>
       </Box>
     </Flex>
