@@ -193,6 +193,10 @@ function SongsDisplay() {
       .catch((err) => console.error(err));
   }
 
+  //^ use a songs.filter.map, then set a state value that is being passed from the onClick "__List" buttons
+  //^ then filter over that state value, be it for artist or genre
+  //^ if song.artist_name || song.genre_name == theStateValuePassedInByOnClick, then map these elements
+
   return (
     <Flex>
       <Box id='songDisplayBody'>
