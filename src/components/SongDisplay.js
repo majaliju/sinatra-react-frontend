@@ -76,6 +76,7 @@ function SongsDisplay() {
     setSongs(remainingSongs);
   }
 
+  // updates the genre for the song
   function updateThisSong(song, { genre }) {
     fetch(`https://best-music-reviews-backend.herokuapp.com/songs/${song.id}`, {
       method: 'PATCH',
@@ -91,12 +92,8 @@ function SongsDisplay() {
     })
       .then((r) => r.json())
       .then((fixedSong) => {
-        console.log('fixedSong within UpdateSong: ', fixedSong);
         const correctedSongs = songs.map((thisSong) => {
           if (parseInt(thisSong.id) === parseInt(fixedSong.id)) {
-            console.log('within if statement, thisSong: ', thisSong);
-            console.log('within if statement, song: ', song);
-            console.log('within if statement, fixedSong: ', fixedSong);
             return fixedSong;
           }
           return thisSong;
@@ -105,10 +102,7 @@ function SongsDisplay() {
       });
   }
 
-  //& for the above ^ make it so that fixedSong is being set to some state then there's an independent filtering after the promise resolutions, that then cross-checks the fixedSong and replaces it -- triggering a re-render on the fly
-
-  // the issue is in the above on the 2nd .then statement -- need to clean that up to make sure state is being saved and re-rendered
-
+  // submits a new comment/review for a given song
   function submitNewReview(data, songID) {
     fetch(`https://best-music-reviews-backend.herokuapp.com/reviews`, {
       method: 'POST',
@@ -128,6 +122,39 @@ function SongsDisplay() {
   //^ TODO
   //^ need to optimize both lower function into a single functions for D.R.Y. principles
   //^ a single updateLikes with a state variable that sets itself based on which button is clicked
+
+  // each references which review
+  // type will have either {likes} or {dislikes} as the value
+  // question is: should type be in state?
+  // will cause a re-render everytime if so; on other hand, will be very up to date
+
+  const [likesType, setType] = useState('likes');
+  function updateReviewEngagement(each, likesType) {
+    fetch(
+      `https://best-music-reviews-backend.herokuapp.com/reviews/${each.id}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+        body: JSON.stringify({
+          likesType: each.likesType + 1,
+        }),
+      }
+    )
+      .then((r) => r.json())
+      .then((reviewInfo) => {
+        const updatedReview = reviews.map((singleReview) => {
+          if (parseInt(singleReview.id) === parseInt(reviewInfo.id)) {
+            return { ...singleReview, likesType: reviewInfo.likesType };
+          }
+          return singleReview;
+        });
+        setReviews(updatedReview);
+      })
+      .catch((err) => console.error(err));
+  }
 
   // updates the likes per click on LIKE button
   function updateReviewLikes(each) {
