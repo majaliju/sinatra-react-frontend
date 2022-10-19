@@ -1,13 +1,4 @@
-import {
-  Box,
-  Flex,
-  Button,
-  SimpleGrid,
-  Stack,
-  Text,
-  Container,
-  Grid,
-} from '@chakra-ui/react';
+import { Box, Flex, Button, SimpleGrid, Stack, Text } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import AddNewReview from './AddNewReview';
 import AddNewSong from './AddNewSong';
@@ -102,10 +93,11 @@ function SongsDisplay() {
       .then((fixedSong) => {
         console.log('fixedSong within UpdateSong: ', fixedSong);
         const correctedSongs = songs.map((thisSong) => {
-          if (parseInt(thisSong.id) === parseInt(song.id)) {
+          if (parseInt(thisSong.id) === parseInt(fixedSong.id)) {
             console.log('within if statement, thisSong: ', thisSong);
             console.log('within if statement, song: ', song);
-            return { ...thisSong, fixedSong };
+            console.log('within if statement, fixedSong: ', fixedSong);
+            return fixedSong;
           }
           return thisSong;
         });
