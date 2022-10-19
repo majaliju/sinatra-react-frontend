@@ -128,34 +128,6 @@ function SongsDisplay() {
   // question is: should type be in state?
   // will cause a re-render everytime if so; on other hand, will be very up to date
 
-  const [likesType, setType] = useState('likes');
-  function updateReviewEngagement(each, likesType) {
-    fetch(
-      `https://best-music-reviews-backend.herokuapp.com/reviews/${each.id}`,
-      {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        },
-        body: JSON.stringify({
-          likesType: each.likesType + 1,
-        }),
-      }
-    )
-      .then((r) => r.json())
-      .then((reviewInfo) => {
-        const updatedReview = reviews.map((singleReview) => {
-          if (parseInt(singleReview.id) === parseInt(reviewInfo.id)) {
-            return { ...singleReview, likesType: reviewInfo.likesType };
-          }
-          return singleReview;
-        });
-        setReviews(updatedReview);
-      })
-      .catch((err) => console.error(err));
-  }
-
   // updates the likes per click on LIKE button
   function updateReviewLikes(each) {
     fetch(
