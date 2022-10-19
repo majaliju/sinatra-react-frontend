@@ -185,6 +185,7 @@ function SongsDisplay() {
   }
 
   //^ use a songs.filter.map, then set a state value that is being passed from the onClick "__List" buttons
+  //^ need to identify best way to set state value for the onClick list
   //^ then filter over that state value, be it for artist or genre
   //^ if song.artist_name || song.genre_name == theStateValuePassedInByOnClick, then map these elements
 
