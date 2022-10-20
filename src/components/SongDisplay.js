@@ -209,15 +209,16 @@ function SongsDisplay() {
             value={search}
             onChange={handleSearchChange}
             placeholder='Type in any artist name or genre name!'
-            size='sm'
+            size='lg'
           />
           {songs
             .filter((song) => {
               if (search === '') {
                 return song;
               } else if (
-                song.name.includes(search.toLowerCase()) ||
-                song.genre.includes(search.toLowerCase())
+                song.artist.name.toLowerCase().includes(search.toLowerCase()) ||
+                song.genre.name.toLowerCase().includes(search.toLowerCase()) ||
+                song.name.toLowerCase().includes(search.toLowerCase())
               ) {
                 return song;
               }
@@ -373,6 +374,11 @@ function SongsDisplay() {
       </Box>
       <Box as='i' id='songStats' fontFamily='Helvetica' fontWeight='thin'>
         {/* DISPLAYING THE AGGREGATED LISTS OF ARTISTS, GENRES, AND SONGS*/}
+        <Button onClick={() => setSearch('')}>
+          <Text fontWeight='normal' fontSize='3xl'>
+            SHOW ALL
+          </Text>
+        </Button>
         <Box maxW='lg' borderWidth='2px' borderRadius='lg' overflow='hidden'>
           <Text fontWeight='normal' fontSize='3xl'>
             SONG LIST
@@ -389,7 +395,9 @@ function SongsDisplay() {
           </Text>
           <Stack>
             {artists.map((artist) => (
-              <Button key={artist.id}>{artist.name.toUpperCase()}</Button>
+              <Button onClick={() => setSearch(artist.name)} key={artist.id}>
+                {artist.name.toUpperCase()}
+              </Button>
             ))}
           </Stack>
         </Box>
@@ -399,7 +407,9 @@ function SongsDisplay() {
           </Text>
           <Stack>
             {genres.map((genre) => (
-              <Button key={genre.id}>{genre.name.toUpperCase()}</Button>
+              <Button onClick={() => setSearch(genre.name)} key={genre.id}>
+                {genre.name.toUpperCase()}
+              </Button>
             ))}
           </Stack>
         </Box>
