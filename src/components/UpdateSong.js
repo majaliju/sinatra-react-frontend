@@ -24,11 +24,6 @@ function UpdateSong({ updateThisSong, song }) {
     reset(); // wipe the data whenever it's submitted
   };
 
-  //^ TODO: potentially change form to controlled form
-  //^ set state outside of the fetch; need the state to trigger a re-render like it does when review is updated/added/deleted
-  // something here involving the modal is what's disabling that set-state re-rendering
-  // update does update but it doesn't do it until a page reload happens; which isn't what we want
-
   return (
     <div>
       <Button

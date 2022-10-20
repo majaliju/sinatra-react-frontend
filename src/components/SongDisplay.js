@@ -14,6 +14,8 @@ function SongsDisplay() {
   const [artists, setArtists] = useState([]);
   const [genres, setGenre] = useState([]);
 
+  const [search, setSearch] = useState('');
+
   // initializing our seeded Songs
   useEffect(() => {
     fetch('https://best-music-reviews-backend.herokuapp.com/songs')
@@ -188,6 +190,9 @@ function SongsDisplay() {
   //^ need to identify best way to set state value for the onClick list
   //^ then filter over that state value, be it for artist or genre
   //^ if song.artist_name || song.genre_name == theStateValuePassedInByOnClick, then map these elements
+
+  //* for the side buttons, state gets set where the value of the text gets set to that
+  //* then the page re-renders to that state value
 
   return (
     <Flex>
