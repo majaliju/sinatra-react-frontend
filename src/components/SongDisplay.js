@@ -1,4 +1,12 @@
-import { Box, Flex, Button, SimpleGrid, Stack, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  Button,
+  SimpleGrid,
+  Stack,
+  Text,
+  Input,
+} from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import AddNewReview from './AddNewReview';
 import AddNewSong from './AddNewSong';
@@ -121,11 +129,6 @@ function SongsDisplay() {
       .then((info) => setReviews([...reviews, info]));
   }
 
-  // wipes search term clean; to reset the slate on each reload
-  useEffect(() => {
-    setSearch('');
-  }, []);
-
   // updates the likes per click on LIKE button
   function updateReviewLikes(each) {
     fetch(
@@ -182,6 +185,13 @@ function SongsDisplay() {
       .catch((err) => console.error(err));
   }
 
+  // wipes search term clean; to reset the slate on each reload
+  useEffect(() => {
+    setSearch('');
+  }, []);
+
+  const handleSearchChange = (e) => setSearch(e.target.value);
+
   //^ use a songs.filter.map, then set a state value that is being passed from the onClick "__List" buttons
   //^ need to identify best way to set state value for the onClick list
   //^ then filter over that state value, be it for artist or genre
@@ -195,13 +205,19 @@ function SongsDisplay() {
       <Box id='songDisplayBody'>
         <Box>
           <AddNewSong submitNewSong={submitNewSong} />
+          <Input
+            value={search}
+            onChange={handleSearchChange}
+            placeholder='Type in any artist name or genre name!'
+            size='sm'
+          />
           {songs
             .filter((song) => {
               if (search === '') {
                 return song;
               } else if (
-                song.name.toLowerCase().includes(search.toLowerCase()) ||
-                song.genre.toLowerCase().includes(search.toLowerCase())
+                song.name.includes(search.toLowerCase()) ||
+                song.genre.includes(search.toLowerCase())
               ) {
                 return song;
               }
