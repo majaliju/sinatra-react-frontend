@@ -192,8 +192,6 @@ function SongsDisplay() {
     setSearch('');
   }, []);
 
-  const handleSearchChange = (e) => setSearch(e.target.value);
-
   return (
     <Flex>
       <Box id='songDisplayBody'>
@@ -209,7 +207,7 @@ function SongsDisplay() {
           </Button>
           <Input
             value={search}
-            onChange={handleSearchChange}
+            onChange={(e) => setSearch(e.target.value)}
             placeholder='Type in any artist name or genre name!'
             size='lg'
           />
@@ -401,7 +399,7 @@ function SongsDisplay() {
             ))}
           </Stack>
         </Box>
-        <Box maxW='lg' borderWidth='2px' borderRadius='lg' overflow='hidden'>
+        {/* <Box maxW='lg' borderWidth='2px' borderRadius='lg' overflow='hidden'>
           <Text fontWeight='normal' fontSize='3xl'>
             GENRE LIST
           </Text>
@@ -412,7 +410,7 @@ function SongsDisplay() {
               </Button>
             ))}
           </Stack>
-        </Box>
+        </Box> */}
       </Flex>
     </Flex>
   );
