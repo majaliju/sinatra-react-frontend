@@ -6,6 +6,8 @@ import {
   Stack,
   Text,
   Input,
+  Grid,
+  Container,
 } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import AddNewReview from './AddNewReview';
@@ -205,6 +207,14 @@ function SongsDisplay() {
       <Box id='songDisplayBody'>
         <Box>
           <AddNewSong submitNewSong={submitNewSong} />
+          <Button
+            variant='solid'
+            colorScheme='blue'
+            size='lg'
+            w='100%'
+            onClick={() => setSearch('')}>
+            SHOW ALL
+          </Button>
           <Input
             value={search}
             onChange={handleSearchChange}
@@ -372,20 +382,18 @@ function SongsDisplay() {
             ))}
         </Box>
       </Box>
-      <Box as='i' id='songStats' fontFamily='Helvetica' fontWeight='thin'>
+      <Flex id='songStats' fontFamily='Helvetica' fontWeight='thin'>
         {/* DISPLAYING THE AGGREGATED LISTS OF ARTISTS, GENRES, AND SONGS*/}
-        <Button onClick={() => setSearch('')}>
-          <Text fontWeight='normal' fontSize='3xl'>
-            SHOW ALL
-          </Text>
-        </Button>
+
         <Box maxW='lg' borderWidth='2px' borderRadius='lg' overflow='hidden'>
           <Text fontWeight='normal' fontSize='3xl'>
             SONG LIST
           </Text>
           <Stack>
             {songs.map((song) => (
-              <Text key={song.id}>{song.name.toUpperCase()}</Text>
+              <Button onClick={() => setSearch(song.name)} key={song.id}>
+                {song.name.toUpperCase()}
+              </Button>
             ))}
           </Stack>
         </Box>
@@ -413,7 +421,7 @@ function SongsDisplay() {
             ))}
           </Stack>
         </Box>
-      </Box>
+      </Flex>
     </Flex>
   );
 }
