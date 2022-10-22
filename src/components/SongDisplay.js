@@ -21,10 +21,12 @@ import UpdateSong from './UpdateSong';
 function SongsDisplay() {
   const [songs, setSongs] = useState([]);
   const [reviews, setReviews] = useState([]);
-  const [artists, setArtists] = useState([]);
-  const [genres, setGenre] = useState([]);
+  // const [artists, setArtists] = useState([]);
+  // const [genres, setGenre] = useState([]);
 
   const [search, setSearch] = useState('');
+
+  console.log('songs: ', songs);
 
   // initializing our seeded Songs
   useEffect(() => {
@@ -33,19 +35,19 @@ function SongsDisplay() {
       .then((songsInfo) => setSongs(songsInfo));
   }, []);
 
-  // initializing our seeded Artists
-  useEffect(() => {
-    fetch('https://best-music-reviews-backend.herokuapp.com/artists')
-      .then((r) => r.json())
-      .then((artistsInfo) => setArtists(artistsInfo));
-  }, []);
+  // // initializing our seeded Artists
+  // useEffect(() => {
+  //   fetch('https://best-music-reviews-backend.herokuapp.com/artists')
+  //     .then((r) => r.json())
+  //     .then((artistsInfo) => setArtists(artistsInfo));
+  // }, []);
 
-  // initializing our seeded Genres
-  useEffect(() => {
-    fetch('https://best-music-reviews-backend.herokuapp.com/genres')
-      .then((r) => r.json())
-      .then((genreInfo) => setGenre(genreInfo));
-  }, []);
+  // // initializing our seeded Genres
+  // useEffect(() => {
+  //   fetch('https://best-music-reviews-backend.herokuapp.com/genres')
+  //     .then((r) => r.json())
+  //     .then((genreInfo) => setGenre(genreInfo));
+  // }, []);
 
   // initializing our seeded Reviews
   useEffect(() => {
@@ -391,8 +393,11 @@ function SongsDisplay() {
           <Text fontWeight='normal' fontSize='3xl'>
             ARTIST LIST
           </Text>
+          {/* {MAKE THE ARTIST LIST & GENRE LIST MAP FROM SONGS, NOT FROM ARTISTS} */}
+          {/* HERE YOU HAVE TO MAP THE NESTED ASSOCIATION BUT HANDLE IT INITIALLY BC THE SONGS STATE IS EMPTY ON LOAD
+          THEREFORE, SONG.ARTISTS.MAP OR SONGS.GENRES.MAP WILL RENDER UNDEFINED, AS IT'S MAPPING OVER SOMETHING EMPTY: 'UNDEFINED'*/}
           <Stack>
-            {artists.map((artist) => (
+            {songs.map((artist) => (
               <Button onClick={() => setSearch(artist.name)} key={artist.id}>
                 {artist.name.toUpperCase()}
               </Button>
