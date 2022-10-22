@@ -21,8 +21,8 @@ import UpdateSong from './UpdateSong';
 function SongsDisplay() {
   const [songs, setSongs] = useState([]);
   const [reviews, setReviews] = useState([]);
-  // const [artists, setArtists] = useState([]);
-  // const [genres, setGenre] = useState([]);
+  const [artists, setArtists] = useState([]);
+  const [genres, setGenre] = useState([]);
 
   const [search, setSearch] = useState('');
 
@@ -35,19 +35,19 @@ function SongsDisplay() {
       .then((songsInfo) => setSongs(songsInfo));
   }, []);
 
-  // // initializing our seeded Artists
-  // useEffect(() => {
-  //   fetch('https://best-music-reviews-backend.herokuapp.com/artists')
-  //     .then((r) => r.json())
-  //     .then((artistsInfo) => setArtists(artistsInfo));
-  // }, []);
+  // initializing our seeded Artists, dependent upon change in songs
+  useEffect(() => {
+    fetch('https://best-music-reviews-backend.herokuapp.com/artists')
+      .then((r) => r.json())
+      .then((artistsInfo) => setArtists(artistsInfo));
+  }, [songs]);
 
-  // // initializing our seeded Genres
-  // useEffect(() => {
-  //   fetch('https://best-music-reviews-backend.herokuapp.com/genres')
-  //     .then((r) => r.json())
-  //     .then((genreInfo) => setGenre(genreInfo));
-  // }, []);
+  // initializing our seeded Genres, dependent upon change in songs
+  useEffect(() => {
+    fetch('https://best-music-reviews-backend.herokuapp.com/genres')
+      .then((r) => r.json())
+      .then((genreInfo) => setGenre(genreInfo));
+  }, [songs]);
 
   // initializing our seeded Reviews
   useEffect(() => {
@@ -395,16 +395,16 @@ function SongsDisplay() {
           </Text>
           {/* {MAKE THE ARTIST LIST & GENRE LIST MAP FROM SONGS, NOT FROM ARTISTS} */}
           {/* HERE YOU HAVE TO MAP THE NESTED ASSOCIATION BUT HANDLE IT INITIALLY BC THE SONGS STATE IS EMPTY ON LOAD
-          THEREFORE, SONG.ARTISTS.MAP OR SONGS.GENRES.MAP WILL RENDER UNDEFINED, AS IT'S MAPPING OVER SOMETHING EMPTY: 'UNDEFINED'*/}
+          THEREFORE, SONG.ARTISTS.MAP OR SONGS.GENRES.MAP WILL RENDER UNDEFINED, AS IT'S MAPPING OVER SOMETHING*/}
           <Stack>
-            {songs.map((artist) => (
+            {artists.map((artist) => (
               <Button onClick={() => setSearch(artist.name)} key={artist.id}>
                 {artist.name.toUpperCase()}
               </Button>
             ))}
           </Stack>
         </Box>
-        {/* <Box maxW='lg' borderWidth='2px' borderRadius='lg' overflow='hidden'>
+        <Box maxW='lg' borderWidth='2px' borderRadius='lg' overflow='hidden'>
           <Text fontWeight='normal' fontSize='3xl'>
             GENRE LIST
           </Text>
@@ -415,7 +415,7 @@ function SongsDisplay() {
               </Button>
             ))}
           </Stack>
-        </Box> */}
+        </Box>
       </Flex>
     </Flex>
   );
