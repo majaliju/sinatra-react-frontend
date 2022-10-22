@@ -177,8 +177,8 @@ function SongsDisplay() {
     )
       .then((r) => r.json())
       .then((reviewInfo) => {
+        console.log('reviewInfo: ', reviewInfo);
         const updatedReview = reviews.map((singleReview) => {
-          console.log('reviewInfo: ', reviewInfo);
           if (parseInt(singleReview.id) === parseInt(reviewInfo.id)) {
             return { ...singleReview, dislikes: reviewInfo.dislikes };
           }
@@ -422,3 +422,64 @@ function SongsDisplay() {
 }
 
 export default SongsDisplay;
+
+// //* the original dual-reviewLike update functions
+// //* these update state in Review but perform separately; here for in-case down the line
+
+//   // updates the likes per click on LIKE button
+//   function updateReviewLikes(each) {
+//     fetch(
+//       `https://best-music-reviews-backend.herokuapp.com/reviews/${each.id}`,
+//       {
+//         method: 'PATCH',
+//         headers: {
+//           'Content-Type': 'application/json',
+//           'Access-Control-Allow-Origin': '*',
+//         },
+//         body: JSON.stringify({
+//           likes: each.likes + 1,
+//         }),
+//       }
+//     )
+//       .then((r) => r.json())
+//       .then((reviewInfo) => {
+//         console.log('reviewInfo: ', reviewInfo);
+//         const updatedReview = reviews.map((singleReview) => {
+//           if (parseInt(singleReview.id) === parseInt(reviewInfo.id)) {
+//             return { ...singleReview, likes: reviewInfo.likes };
+//           }
+//           return singleReview;
+//         });
+//         setReviews(updatedReview);
+//       })
+//       .catch((err) => console.error(err));
+//   }
+
+//   // updates the dislikes per click on DISLIKE button
+//   function updateReviewDislikes(each) {
+//     fetch(
+//       `https://best-music-reviews-backend.herokuapp.com/reviews/${each.id}`,
+//       {
+//         method: 'PATCH',
+//         headers: {
+//           'Content-Type': 'application/json',
+//           'Access-Control-Allow-Origin': '*',
+//         },
+//         body: JSON.stringify({
+//           dislikes: each.dislikes + 1,
+//         }),
+//       }
+//     )
+//       .then((r) => r.json())
+//       .then((reviewInfo) => {
+//         console.log('reviewInfo: ', reviewInfo);
+//         const updatedReview = reviews.map((singleReview) => {
+//           if (parseInt(singleReview.id) === parseInt(reviewInfo.id)) {
+//             return { ...singleReview, dislikes: reviewInfo.dislikes };
+//           }
+//           return singleReview;
+//         });
+//         setReviews(updatedReview);
+//       })
+//       .catch((err) => console.error(err));
+//   }
