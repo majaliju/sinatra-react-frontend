@@ -26,8 +26,6 @@ function SongsDisplay() {
 
   const [search, setSearch] = useState('');
 
-  console.log('songs: ', songs);
-
   // initializing our seeded Songs
   useEffect(() => {
     fetch('https://best-music-reviews-backend.herokuapp.com/songs')
@@ -54,7 +52,7 @@ function SongsDisplay() {
     fetch('https://best-music-reviews-backend.herokuapp.com/reviews')
       .then((r) => r.json())
       .then((reviewInfo) => setReviews(reviewInfo));
-  }, []);
+  }, [songs]);
 
   // submits a new song via the ADD NEW SONG button
   function submitNewSong({ songName, year, artistName, genreName }) {
@@ -150,6 +148,7 @@ function SongsDisplay() {
     )
       .then((r) => r.json())
       .then((reviewInfo) => {
+        console.log('reviewInfo: ', reviewInfo);
         const updatedReview = reviews.map((singleReview) => {
           if (parseInt(singleReview.id) === parseInt(reviewInfo.id)) {
             return { ...singleReview, likes: reviewInfo.likes };
@@ -179,6 +178,7 @@ function SongsDisplay() {
       .then((r) => r.json())
       .then((reviewInfo) => {
         const updatedReview = reviews.map((singleReview) => {
+          console.log('reviewInfo: ', reviewInfo);
           if (parseInt(singleReview.id) === parseInt(reviewInfo.id)) {
             return { ...singleReview, dislikes: reviewInfo.dislikes };
           }
