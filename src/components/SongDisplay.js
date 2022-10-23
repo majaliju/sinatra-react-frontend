@@ -145,13 +145,14 @@ function SongsDisplay() {
       .then((r) => r.json())
       .then((reviewInfo) => {
         console.log('reviewInfo: ', reviewInfo);
-        const updatedReview = reviews.map((singleReview) => {
+        const updatedReviews = reviews.map((singleReview) => {
           if (parseInt(singleReview.id) === parseInt(reviewInfo.id)) {
+            console.log('singleReview: ', singleReview);
             return { ...singleReview, likes: reviewInfo.likes };
           }
           return singleReview;
         });
-        setReviews(updatedReview);
+        setReviews(updatedReviews);
       })
       .catch((err) => console.error(err));
   }
@@ -174,13 +175,13 @@ function SongsDisplay() {
       .then((r) => r.json())
       .then((reviewInfo) => {
         console.log('reviewInfo: ', reviewInfo);
-        const updatedReview = reviews.map((singleReview) => {
+        const updatedReviews = reviews.map((singleReview) => {
           if (parseInt(singleReview.id) === parseInt(reviewInfo.id)) {
             return { ...singleReview, dislikes: reviewInfo.dislikes };
           }
           return singleReview;
         });
-        setReviews(updatedReview);
+        setReviews(updatedReviews);
       })
       .catch((err) => console.error(err));
   }
