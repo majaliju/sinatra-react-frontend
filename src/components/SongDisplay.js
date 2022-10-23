@@ -14,10 +14,6 @@ import AddNewReview from './AddNewReview';
 import AddNewSong from './AddNewSong';
 import UpdateSong from './UpdateSong';
 
-//& TODO
-//& change the plaintext within SongList, ArtistList, GenreList into buttons that display only those options once clicked
-//& also have a an ALL button that shows all naturally
-
 function SongsDisplay() {
   const [songs, setSongs] = useState([]);
   const [reviews, setReviews] = useState([]);
@@ -132,9 +128,9 @@ function SongsDisplay() {
   }
 
   // updates the likes per click on LIKE button
-  function updateReviewLikes(each) {
+  function updateReviewLikes(eachReview) {
     fetch(
-      `https://best-music-reviews-backend.herokuapp.com/reviews/${each.id}`,
+      `https://best-music-reviews-backend.herokuapp.com/reviews/${eachReview.id}`,
       {
         method: 'PATCH',
         headers: {
@@ -142,7 +138,7 @@ function SongsDisplay() {
           'Access-Control-Allow-Origin': '*',
         },
         body: JSON.stringify({
-          likes: each.likes + 1,
+          likes: eachReview.likes + 1,
         }),
       }
     )
@@ -161,9 +157,9 @@ function SongsDisplay() {
   }
 
   // updates the dislikes per click on DISLIKE button
-  function updateReviewDislikes(each) {
+  function updateReviewDislikes(eachReview) {
     fetch(
-      `https://best-music-reviews-backend.herokuapp.com/reviews/${each.id}`,
+      `https://best-music-reviews-backend.herokuapp.com/reviews/${eachReview.id}`,
       {
         method: 'PATCH',
         headers: {
@@ -171,7 +167,7 @@ function SongsDisplay() {
           'Access-Control-Allow-Origin': '*',
         },
         body: JSON.stringify({
-          dislikes: each.dislikes + 1,
+          dislikes: eachReview.dislikes + 1,
         }),
       }
     )
@@ -291,14 +287,14 @@ function SongsDisplay() {
                           (review) =>
                             parseInt(review.song_id) === parseInt(song.id)
                         )
-                        .map((each) => (
+                        .map((eachReview) => (
                           <Flex
                             direction={{
                               base: 'row',
                               md: 'column',
                             }}
                             bg='beige'
-                            key={each.id}>
+                            key={eachReview.id}>
                             <SimpleGrid
                               spacingY={3}
                               columns={{
@@ -322,7 +318,7 @@ function SongsDisplay() {
                               fontSize='md'
                               fontWeight='normal'
                               fontFamily='Helvetica'>
-                              <span>{each.comment}</span>
+                              <span>{eachReview.comment}</span>
                             </SimpleGrid>
                             <Flex
                               justify={{
@@ -333,18 +329,18 @@ function SongsDisplay() {
                                 colorScheme='blue'
                                 size='sm'
                                 onClick={() => {
-                                  updateReviewLikes(each);
+                                  updateReviewLikes(eachReview);
                                 }}>
-                                {each.likes} LIKES
+                                {eachReview.likes} LIKES
                               </Button>
                               <Button
                                 variant='solid'
                                 colorScheme='red'
                                 size='sm'
                                 onClick={() => {
-                                  updateReviewDislikes(each);
+                                  updateReviewDislikes(eachReview);
                                 }}>
-                                {each.dislikes} DISLIKES
+                                {eachReview.dislikes} DISLIKES
                               </Button>
                             </Flex>
                           </Flex>
@@ -423,13 +419,46 @@ function SongsDisplay() {
 
 export default SongsDisplay;
 
-// //* the original dual-reviewLike update functions
-// //* these update state in Review but perform separately; here for in-case down the line
+// //* my conceptual attempt at DRYing the function
+// //* on each button click, likeType either = 'likes' or = 'dislikes'
+// let likeType = 'none';
+// function updateReview(eachReview, likeType) {
+//   console.log('likeType: ', likeType);
+//   fetch(
+//     `https://best-music-reviews-backend.herokuapp.com/reviews/${eachReview.id}`,
+//     {
+//       method: 'PATCH',
+//       headers: {
+//         'Content-Type': 'application/json',
+//         'Access-Control-Allow-Origin': '*',
+//       },
+//       body: JSON.stringify({
+//         likeType: eachReview.likeType + 1,
+//       }),
+//     }
+//   )
+//     .then((r) => r.json())
+//     .then((reviewInfo) => {
+//       console.log('reviewInfo: ', reviewInfo);
+//       const updatedReview = reviews.map((singleReview) => {
+//         if (parseInt(singleReview.id) === parseInt(reviewInfo.id)) {
+//           return { ...singleReview, likeType: reviewInfo.likeType };
+//         }
+//         return singleReview;
+//       });
+//       setReviews(updatedReview);
+//     })
+//     .catch((err) => console.error(err));
+// }
 
-//   // updates the likes per click on LIKE button
-//   function updateReviewLikes(each) {
+// //^ my other attempt at this but was bulkier + didn't work as required
+
+// let likeType = 'none';
+// function updateReview(eachReview, likeType = 'none') {
+//   console.log('likeType: ', likeType);
+//   if ((likeType = 'likes')) {
 //     fetch(
-//       `https://best-music-reviews-backend.herokuapp.com/reviews/${each.id}`,
+//       `https://best-music-reviews-backend.herokuapp.com/reviews/${eachReview.id}`,
 //       {
 //         method: 'PATCH',
 //         headers: {
@@ -437,7 +466,69 @@ export default SongsDisplay;
 //           'Access-Control-Allow-Origin': '*',
 //         },
 //         body: JSON.stringify({
-//           likes: each.likes + 1,
+//           likes: eachReview.likes + 1,
+//         }),
+//       }
+//     )
+//       .then((r) => r.json())
+//       .then((reviewInfo) => {
+//         console.log('reviewInfo: ', reviewInfo);
+//         const updatedReview = reviews.map((singleReview) => {
+//           if (parseInt(singleReview.id) === parseInt(reviewInfo.id)) {
+//             return { ...singleReview, likes: reviewInfo.likes };
+//           }
+//           return singleReview;
+//         });
+//         setReviews(updatedReview);
+//       })
+//       .catch((err) => console.error(err));
+//   }
+//   if ((likeType = 'dislikes')) {
+//     fetch(
+//       `https://best-music-reviews-backend.herokuapp.com/reviews/${eachReview.id}`,
+//       {
+//         method: 'PATCH',
+//         headers: {
+//           'Content-Type': 'application/json',
+//           'Access-Control-Allow-Origin': '*',
+//         },
+//         body: JSON.stringify({
+//           dislikes: eachReview.dislikes + 1,
+//         }),
+//       }
+//     )
+//       .then((r) => r.json())
+//       .then((reviewInfo) => {
+//         console.log('reviewInfo: ', reviewInfo);
+//         const updatedReview = reviews.map((singleReview) => {
+//           if (parseInt(singleReview.id) === parseInt(reviewInfo.id)) {
+//             return { ...singleReview, dislikes: reviewInfo.dislikes };
+//           }
+//           return singleReview;
+//         });
+//         setReviews(updatedReview);
+//       })
+//       .catch((err) => console.error(err));
+//   } else {
+//     console.log("there's a strange error here!");
+//   }
+// }
+
+// //* the original dual-reviewLike update functions
+// //* these update state in Review but perform separately; here for in-case down the line
+
+//   // updates the likes per click on LIKE button
+//   function updateReviewLikes(eachReview) {
+//     fetch(
+//       `https://best-music-reviews-backend.herokuapp.com/reviews/${eachReview.id}`,
+//       {
+//         method: 'PATCH',
+//         headers: {
+//           'Content-Type': 'application/json',
+//           'Access-Control-Allow-Origin': '*',
+//         },
+//         body: JSON.stringify({
+//           likes: eachReview.likes + 1,
 //         }),
 //       }
 //     )
@@ -456,9 +547,9 @@ export default SongsDisplay;
 //   }
 
 //   // updates the dislikes per click on DISLIKE button
-//   function updateReviewDislikes(each) {
+//   function updateReviewDislikes(eachReview) {
 //     fetch(
-//       `https://best-music-reviews-backend.herokuapp.com/reviews/${each.id}`,
+//       `https://best-music-reviews-backend.herokuapp.com/reviews/${eachReview.id}`,
 //       {
 //         method: 'PATCH',
 //         headers: {
@@ -466,7 +557,7 @@ export default SongsDisplay;
 //           'Access-Control-Allow-Origin': '*',
 //         },
 //         body: JSON.stringify({
-//           dislikes: each.dislikes + 1,
+//           dislikes: eachReview.dislikes + 1,
 //         }),
 //       }
 //     )
