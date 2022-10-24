@@ -127,6 +127,7 @@ function SongsDisplay() {
       .then((info) => setReviews([...reviews, info]));
   }
 
+  let likeType = 'none';
   // updates the likes per click on LIKE button
   function updateReviewLikes(eachReview) {
     fetch(
@@ -330,7 +331,10 @@ function SongsDisplay() {
                                 colorScheme='blue'
                                 size='sm'
                                 onClick={() => {
-                                  updateReviewLikes(eachReview);
+                                  updateReviewLikes(
+                                    eachReview,
+                                    (likeType = 'likes')
+                                  );
                                 }}>
                                 {eachReview.likes} LIKES
                               </Button>
@@ -453,6 +457,8 @@ export default SongsDisplay;
 // }
 
 // //^ my other attempt at this but was bulkier + didn't work as required
+//*    `${likeType}`:
+//* give the above a shot in terms of passing this within the JSON.STRINGIFY body
 
 // let likeType = 'none';
 // function updateReview(eachReview, likeType = 'none') {
