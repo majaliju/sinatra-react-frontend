@@ -394,9 +394,7 @@ function SongsDisplay() {
           <Text fontWeight='normal' fontSize='3xl'>
             ARTIST LIST
           </Text>
-          {/* {MAKE THE ARTIST LIST & GENRE LIST MAP FROM SONGS, NOT FROM ARTISTS} */}
-          {/* HERE YOU HAVE TO MAP THE NESTED ASSOCIATION BUT HANDLE IT INITIALLY BC THE SONGS STATE IS EMPTY ON LOAD
-          THEREFORE, SONG.ARTISTS.MAP OR SONGS.GENRES.MAP WILL RENDER UNDEFINED, AS IT'S MAPPING OVER SOMETHING*/}
+
           <Stack>
             {artists.map((artist) => (
               <Button onClick={() => setSearch(artist.name)} key={artist.id}>
