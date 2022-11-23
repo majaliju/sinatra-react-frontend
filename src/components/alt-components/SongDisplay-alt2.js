@@ -10,9 +10,9 @@ import {
   Container,
 } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
-import AddNewReview from './AddNewReview';
-import AddNewSong from './AddNewSong';
-import UpdateSong from './UpdateSong';
+import AddNewReview from '../AddNewReview';
+import AddNewSong from '../AddNewSong';
+import UpdateSong from '../UpdateSong';
 
 function SongsDisplay() {
   const [songs, setSongs] = useState([]);
@@ -127,9 +127,8 @@ function SongsDisplay() {
       .then((info) => setReviews([...reviews, info]));
   }
 
-  console.log('songs: ', songs);
+  useEffect(() => {}, [updateReviewDislikes || updateReviewLikes]);
 
-  let likeType = 'none';
   // updates the likes per click on LIKE button
   function updateReviewLikes(eachReview) {
     fetch(
@@ -147,18 +146,57 @@ function SongsDisplay() {
     )
       .then((r) => r.json())
       .then((reviewInfo) => {
-        console.log('reviewInfo: ', reviewInfo);
-        const updatedReviews = reviews.map((singleReview) => {
-          if (parseInt(singleReview.id) === parseInt(reviewInfo.id)) {
-            console.log('singleReview: ', singleReview);
-            return { ...singleReview, likes: reviewInfo.likes };
+        const updatedSongs = songs.map((eachSong) => {
+          if (parseInt(eachSong.id) === parseInt(reviewInfo.song_id)) {
+            eachSong.reviews.map((eachReview) => {
+              if (parseInt(eachReview.id) === parseInt(reviewInfo.id)) {
+                console.log('whats being returned: ', {
+                  ...eachReview,
+                  likes: reviewInfo.likes,
+                });
+                return { ...eachReview, likes: reviewInfo.likes };
+              }
+              return eachReview;
+            });
           }
-          return singleReview;
+          return eachSong;
         });
-        setReviews(updatedReviews);
+        setSongs(updatedSongs);
       })
       .catch((err) => console.error(err));
   }
+
+  // console.log(
+  //   'songs.reviews',
+  //   songs.map((eachSong) =>
+  //     eachSong.reviews.map((eachReview) =>
+  //       console.log('eachReview: ', eachReview)
+  //     )
+  //   )
+  // );
+
+  // .then((r) => r.json())
+  // .then((reviewInfo) => {
+  //   const fixedSong = songs.find(
+  //     (element) => element.id === reviewInfo.song_id
+  //   );
+  //   const fixedReview = fixedSong.reviews.find(
+  //     (element) => element.id === reviewInfo.id
+  //   );
+
+  //   const updatedSongs = songs.map((eachSong) => {
+  //     if (parseInt(eachSong.id) === parseInt(fixedSong.id)) {
+  //       eachSong.reviews.map((eachReview) => {
+  //         if (parseInt(eachReview.id === reviewInfo.id)) {
+  //           return { ...eachReview, likes: reviewInfo.likes };
+  //         }
+  //       });
+  //     }
+  //     return eachSong;
+  //   });
+  //   setSongs(updatedSongs);
+  // })
+  // .catch((err) => console.error(err));
 
   // updates the dislikes per click on DISLIKE button
   function updateReviewDislikes(eachReview) {
@@ -177,14 +215,15 @@ function SongsDisplay() {
     )
       .then((r) => r.json())
       .then((reviewInfo) => {
-        console.log('reviewInfo: ', reviewInfo);
-        const updatedReviews = reviews.map((singleReview) => {
-          if (parseInt(singleReview.id) === parseInt(reviewInfo.id)) {
-            return { ...singleReview, dislikes: reviewInfo.dislikes };
-          }
-          return singleReview;
-        });
-        setReviews(updatedReviews);
+        console.log('reviewInfo for dislike: ', reviewInfo);
+        // console.log('reviewInfo: ', reviewInfo);
+        // const updatedReviews = reviews.map((singleReview) => {
+        //   if (parseInt(singleReview.id) === parseInt(reviewInfo.id)) {
+        //     return { ...singleReview, dislikes: reviewInfo.dislikes };
+        //   }
+        //   return singleReview;
+        // });
+        // setReviews(updatedReviews);
       })
       .catch((err) => console.error(err));
   }
@@ -328,10 +367,7 @@ function SongsDisplay() {
                               colorScheme='blue'
                               size='sm'
                               onClick={() => {
-                                updateReviewLikes(
-                                  eachReview,
-                                  (likeType = 'likes')
-                                );
+                                updateReviewLikes(eachReview);
                               }}>
                               {eachReview.likes} LIKES
                             </Button>
@@ -365,7 +401,7 @@ function SongsDisplay() {
                     onClick={() => {
                       deleteSong(song);
                     }}>
-                    DELETE THIS SONG (WHY DID I CREATE THIS BUTTON??)
+                    DELETE THIS SONG
                   </Button>
                 </Box>
               </Box>

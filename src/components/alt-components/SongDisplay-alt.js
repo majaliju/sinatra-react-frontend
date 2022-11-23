@@ -50,6 +50,22 @@ function SongsDisplay() {
       .then((reviewInfo) => setReviews(reviewInfo));
   }, [songs]);
 
+  console.log('reviews: ', reviews);
+
+  // quick fix for updating reviews within songs
+  useEffect(() => {
+    const updatedSongs = songs.map((eachSong) =>
+      eachSong.reviews.map((eachReview) => {
+        reviews.map((newestReview) => {
+          if (eachReview.id === newestReview.id) {
+            return newestReview;
+          }
+        });
+      })
+    );
+    setSongs(updatedSongs);
+  });
+
   // submits a new song via the ADD NEW SONG button
   function submitNewSong({ songName, year, artistName, genreName }) {
     fetch(`https://best-music-reviews-backend.herokuapp.com/songs`, {
@@ -127,9 +143,9 @@ function SongsDisplay() {
       .then((info) => setReviews([...reviews, info]));
   }
 
-  console.log('songs: ', songs);
+  // .then((r) => r.json())
+  // .then((info) => setReviews([...reviews, info]));
 
-  let likeType = 'none';
   // updates the likes per click on LIKE button
   function updateReviewLikes(eachReview) {
     fetch(
@@ -328,10 +344,7 @@ function SongsDisplay() {
                               colorScheme='blue'
                               size='sm'
                               onClick={() => {
-                                updateReviewLikes(
-                                  eachReview,
-                                  (likeType = 'likes')
-                                );
+                                updateReviewLikes(eachReview);
                               }}>
                               {eachReview.likes} LIKES
                             </Button>

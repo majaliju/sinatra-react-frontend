@@ -18,6 +18,26 @@
 ![add-demo](https://github.com/majaliju/sinatra-react-frontend/blob/main/project3_demo.gif)
 
 
+## INSTALLATION
+
+Getting started is quick and easy! [**Fork this front-end repo **][fork link] to get started, then clone it to your local machine via the HTTPS or SSH methods by clicking on green button labelled 'Code' on the upper right.
+
+To make sure everything is up to date and ready, run:
+```console
+$ npm install
+```
+
+Then you can start up the local frontend server by typing in:
+```console
+$ npm start
+```
+
+This will run your frontend on:
+[http://localhost:3000](http://localhost:3000).
+
+[fork link]: https://github.com/majaliju/sinatra-react-frontend/fork
+
+
 ## WHERE?
 [You can use the BEST SONG REVIEWS website right here!](https://majaliju.com/)<br />
 
